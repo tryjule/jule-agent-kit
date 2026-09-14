@@ -15,7 +15,16 @@ The kit packages three things for every major assistant from one repository:
 | **Skills** | `skills/jule-builder` (build or change a project), `skills/figma-to-jule` (from a Figma design), `skills/jule-analytics` (read the numbers, recommend one change). Each carries the catalogs the server serves as `references/`. |
 | **Rules and commands** | Always-on rule: in this workspace those things are built as Jule projects through the `jule` MCP, never as files unless you ask for a standalone site. Commands `/jule:popup`, `/jule:preference-center`, `/jule:landing`, `/jule:report`. |
 
-Full per-client instructions, including Claude web and ChatGPT: https://docs.jule.ai/developers/mcp
+Full per-client instructions, including Claude web and ChatGPT:
+[docs.jule.ai/developers/mcp](https://docs.jule.ai/developers/mcp).
+
+## Before you start
+
+You need a [Jule](https://jule.ai) account with permission to connect AI tools in your
+organization — the kit authors projects in *your* Jule workspace, it does not create one. Every
+install below opens a browser once so you can sign in and choose the organization to connect;
+nothing else is stored on your side, and you can revoke a connection at any time from
+**Settings → Connected Apps** in the dashboard.
 
 ## Install
 
@@ -93,7 +102,6 @@ only speak stdio: `npx mcp-remote https://api.jule.ai/mcp`.
 
 Every command previews and stops; publishing is a separate, confirmed step you ask for.
 
-
 ## Repository layout
 
 ```
@@ -116,6 +124,19 @@ The catalogs under `skills/*/references/`, the blocks between `<!-- sync:… -->
 Jule engineers refresh them with `scripts/sync-references.mjs` (`--check` exits 1 on drift or when
 the three manifests disagree on `version`). Release: bump `version` in `.claude-plugin/plugin.json`,
 `.codex-plugin/plugin.json` and `gemini-extension.json`, run the check, tag `vX.Y.Z`, push.
+
+**Any change to the Jule server's tools, guides or document schema lands here too.** This kit is a
+copy of what the server tells an assistant, so a new item type, a new tool or a reworded guide
+leaves the kit describing a Jule that no longer exists — and the skills then steer assistants
+wrong. Re-run the sync as part of that change, not as a later cleanup:
+
+```bash
+JULE_SERVER_SRC=/path/to/server/source node scripts/sync-references.mjs
+JULE_SERVER_SRC=/path/to/server/source node scripts/sync-references.mjs --check   # exit 0 before pushing
+```
+
+`AGENTS.md` is hand-written and is the one body the rule copies are generated from; edit it there,
+never in `GEMINI.md`, `.cursor/rules/jule.mdc` or `.windsurf/rules/jule.md`.
 
 ## License
 
