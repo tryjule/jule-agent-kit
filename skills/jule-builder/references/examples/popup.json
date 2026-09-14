@@ -1,0 +1,516 @@
+{
+  "expected_version": 1,
+  "name": "Lang",
+  "description": "",
+  "display_type": "modal",
+  "primary_color": "#7c3aed",
+  "thank_you_message": "Thank you for your response!",
+  "trigger_id": null,
+  "style_config": {
+    "position": "center",
+    "template": "2-column",
+    "card_width": "600px",
+    "desc_color": "#111827",
+    "card_height": "auto",
+    "card_padding": "20px",
+    "input_radius": "6px",
+    "overlay_blur": 0,
+    "border_radius": "12px",
+    "button_radius": "6px",
+    "input_padding": "10px",
+    "primary_color": "#7c3aed",
+    "button_padding": "10px",
+    "desc_font_size": "16px",
+    "background_type": "color",
+    "input_font_size": "16px",
+    "justify_content": "center",
+    "overlay_opacity": 0,
+    "title_font_size": "30px",
+    "background_color": "#ffffff",
+    "button_font_size": "14px",
+    "input_text_color": "#1f2937",
+    "button_text_color": "#ffffff",
+    "card_border_color": "#e5e7eb",
+    "card_border_style": "solid",
+    "card_border_width": "0px",
+    "close_button_size": "16px",
+    "close_button_color": "#111827",
+    "left_column_padding": "0px",
+    "close_button_padding": "0px",
+    "right_column_padding": "0px",
+    "background_object_fit": "cover",
+    "close_button_bg_color": "transparent",
+    "notification_bg_color": "#10b981",
+    "close_button_border_radius": "0px",
+    "notification_error_bg_color": "#ef4444",
+    "responsive": {
+      "mobile": {
+        "card_width": "92%"
+      }
+    }
+  },
+  "settings_config": {
+    "localeConfig": {
+      "directions": {
+        "ar": "rtl"
+      },
+      "defaultLocale": "en",
+      "enabledLocales": ["en", "tr", "ar", "de"]
+    },
+    "iterable_integration": {
+      "actions": ["update_profile"],
+      "field_mappings": [],
+      "update_profile_mappings": [
+        {
+          "actions": [],
+          "enabled": true,
+          "survey_field": "519b60be-fcaa-4521-af5a-0b5a56b5e92f",
+          "iterable_field": "email",
+          "survey_field_name": "email"
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "id": "cc3110ea-1ffa-41c1-9ca1-a173091447cb",
+      "title": "Page 1",
+      "order_index": 0,
+      "items": [
+        {
+          "id": "cdef110f-1933-47fe-841c-1dab88c5c812",
+          "type": "text",
+          "order_index": 0,
+          "config": {
+            "tag": "h1",
+            "i18n": {
+              "ar": {
+                "content": "<p>مرحبًا</p>"
+              },
+              "de": {
+                "content": "<p><strong>Hallo</strong></p>"
+              },
+              "tr": {
+                "content": "<p>Selam</p>"
+              }
+            },
+            "content": "<p>Hello</p>"
+          },
+          "style_info": {
+            "color": "#111827",
+            "margin": "0px",
+            "fontSize": "30px",
+            "textAlign": "left",
+            "fontWeight": "700"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "519b60be-fcaa-4521-af5a-0b5a56b5e92f",
+          "type": "input",
+          "order_index": 1,
+          "config": {
+            "i18n": {
+              "tr": {
+                "placeholder": "name@example.com"
+              },
+              "ar": {
+                "placeholder": "name@example.com"
+              },
+              "de": {
+                "placeholder": "name@example.com"
+              }
+            },
+            "required": false,
+            "fieldName": "email",
+            "inputType": "email",
+            "placeholder": "name@example.com"
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "padding": "10px",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#ffffff"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "824f10af-14e0-4f7e-8cdb-af3258b30ff8",
+          "type": "input",
+          "order_index": 2,
+          "config": {
+            "i18n": {
+              "tr": {
+                "placeholder": "Adres"
+              },
+              "ar": {
+                "placeholder": "العنوان"
+              },
+              "de": {
+                "placeholder": "Adresse"
+              }
+            },
+            "required": false,
+            "fieldName": "address",
+            "inputType": "text",
+            "placeholder": "Address"
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "padding": "10px",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#ffffff"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "d3305e17-ceb0-4b18-a25e-7ef2cf00ed5f",
+          "type": "logo",
+          "order_index": 3,
+          "config": {
+            "imageUrl": "projects/test_image_test_2.webp"
+          },
+          "style_info": {
+            "width": "200px",
+            "margin": "0px",
+            "textAlign": "center"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "right",
+          "parent_id": null
+        },
+        {
+          "id": "9ba10c4f-df03-4af8-bec7-362b971af4d8",
+          "type": "input",
+          "order_index": 4,
+          "config": {
+            "required": false,
+            "fieldName": "date",
+            "inputType": "date",
+            "placeholder": "Enter your answer",
+            "i18n": {
+              "tr": {
+                "placeholder": "Cevabınızı girin"
+              },
+              "ar": {
+                "placeholder": "أدخل إجابتك"
+              },
+              "de": {
+                "placeholder": "Ihre Antwort"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "padding": "10px",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#ffffff"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "e2f48c0c-cf42-4600-85df-4b0ca8abe3ec",
+          "type": "input",
+          "order_index": 5,
+          "config": {
+            "i18n": {
+              "tr": {
+                "placeholder": "Jevabyny yaz"
+              },
+              "ar": {
+                "placeholder": "أدخل إجابتك"
+              },
+              "de": {
+                "placeholder": "Ihre Antwort"
+              }
+            },
+            "required": false,
+            "fieldName": "textarea",
+            "inputType": "textarea",
+            "placeholder": "Enter your answer"
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "padding": "10px",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#ffffff"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "c9c9267c-af83-4646-aa4e-c2cde4216540",
+          "type": "button",
+          "order_index": 6,
+          "config": {
+            "i18n": {
+              "tr": {
+                "label": "Gonder"
+              },
+              "ar": {
+                "label": "إرسال"
+              },
+              "de": {
+                "label": "Senden"
+              }
+            },
+            "label": "Send",
+            "action": "submit"
+          },
+          "style_info": {
+            "color": "#ffffff",
+            "padding": "10px",
+            "fontSize": "14px",
+            "textAlign": "center",
+            "fontWeight": "500",
+            "borderColor": "#7c3aed",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#7c3aed"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "22631699-191a-452c-bfc1-493cd9de4e4f",
+          "type": "html-block",
+          "order_index": 7,
+          "config": {
+            "css": ".badges {\n  color: red;\n}",
+            "html": "<ul class=\"badges\"><li>Hello</li></ul>",
+            "i18n": {
+              "tr": {
+                "html": "<ul class=\"badges\"><li>Selam</li></ul>"
+              },
+              "ar": {
+                "html": "<ul class=\"badges\"><li>مرحبا</li></ul>"
+              },
+              "de": {
+                "html": "<ul class=\"badges\"><li>Hallo</li></ul>"
+              }
+            },
+            "name": "HTML Block",
+            "javascript": ""
+          },
+          "style_info": {
+            "color": "#111827",
+            "margin": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "78c735cd-246d-4a5b-8b64-8152d875c340",
+          "type": "rating",
+          "order_index": 8,
+          "config": {
+            "iconType": "star",
+            "required": false,
+            "fieldName": "rating",
+            "fillColor": "transparent",
+            "maxRating": 5,
+            "strokeColor": "#d1d5db",
+            "selectedFillColor": "#facc15",
+            "selectedStrokeColor": "#facc15"
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "2ddcc43a-3ed9-4507-8944-70524b32642c",
+          "type": "logo",
+          "order_index": 9,
+          "config": {
+            "logo": {
+              "id": "1779721653488-xmhdguq2s",
+              "url": "workspaces/4abe0221-4afd-431a-8dd3-4a3bca5dec3d.webp",
+              "name": "Screenshot 2026-05-20 at 20.09.44"
+            }
+          },
+          "style_info": {
+            "width": "200px",
+            "margin": "0px",
+            "textAlign": "center"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "right",
+          "parent_id": null
+        },
+        {
+          "id": "e3cc7aba-f94e-4ad1-87da-d1ab112222ce",
+          "type": "flex",
+          "order_index": 10,
+          "config": {},
+          "style_info": {
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px",
+            "alignItems": "stretch",
+            "borderColor": "#e5e7eb",
+            "borderWidth": "1px",
+            "flexDirection": "column"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "right",
+          "parent_id": null
+        },
+        {
+          "id": "ffc09ee7-2621-4fe8-bbbe-e6c01d8cf6c8",
+          "type": "success_message",
+          "order_index": 11,
+          "config": {
+            "tag": "p",
+            "i18n": {
+              "tr": {
+                "content": "<p>Saolun</p>",
+                "errorContent": "<p>Bir şeyler ters gitti. Lütfen tekrar deneyin.</p>"
+              },
+              "ar": {
+                "content": "<p>شكرًا لاشتراكك!</p>",
+                "errorContent": "<p>حدث خطأ ما. يرجى المحاولة مرة أخرى.</p>"
+              },
+              "de": {
+                "content": "<p>Danke für Ihre Anmeldung!</p>",
+                "errorContent": "<p>Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.</p>"
+              }
+            },
+            "content": "<p>Thanks for subscribing!</p>",
+            "errorContent": "<p>Something went wrong. Please try again.</p>"
+          },
+          "style_info": {
+            "color": "#047857",
+            "margin": "0px",
+            "fontSize": "16px",
+            "textAlign": "left",
+            "fontWeight": "400"
+          },
+          "error_style_info": {
+            "color": "#dc2626",
+            "margin": "0px",
+            "fontSize": "16px",
+            "textAlign": "left",
+            "fontWeight": "400"
+          },
+          "visibility": null,
+          "side": "left",
+          "parent_id": "e3cc7aba-f94e-4ad1-87da-d1ab112222ce"
+        },
+        {
+          "id": "4b187b83-7a40-4853-958a-8336ffb530f6",
+          "type": "html-block",
+          "order_index": 12,
+          "config": {
+            "css": "",
+            "html": "<table><tr><td>english</td></tr></table>",
+            "i18n": {
+              "ar": {
+                "html": "<table><tr><td>arabic</td></tr></table>"
+              },
+              "tr": {
+                "html": "<table><tr><td>turkish</td></tr></table>"
+              },
+              "de": {
+                "html": "<table><tr><td>deutsch</td></tr></table>"
+              }
+            },
+            "name": "HTML Block",
+            "javascript": ""
+          },
+          "style_info": {
+            "color": "#111827",
+            "margin": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        }
+      ]
+    },
+    {
+      "id": "4b4ac02e-24b2-44f6-aa2f-c460fce6a2fd",
+      "title": "Page 2",
+      "order_index": 1,
+      "items": [
+        {
+          "id": "632806e8-377d-4098-9a88-d8ea8d9b6bfb",
+          "type": "coupon",
+          "order_index": 0,
+          "config": {
+            "i18n": {
+              "tr": {
+                "teaser_text": "Coupon Almak icin gonder",
+                "success_text": "Bu senin indirim kodun",
+                "description_text": "15% indirim"
+              },
+              "ar": {
+                "success_text": "إليك رمز الخصم الخاص بك!",
+                "description_text": "خصم 15%"
+              },
+              "de": {
+                "success_text": "Hier ist Ihr Rabattcode!",
+                "description_text": "15 % Rabatt"
+              }
+            },
+            "show_expiry": false,
+            "teaser_text": "Submit your email to unlock your exclusive discount",
+            "success_text": "Here is your discount code!",
+            "description_text": "15% Discount",
+            "show_copy_button": true,
+            "show_description": true
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        }
+      ]
+    }
+  ]
+}

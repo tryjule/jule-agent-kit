@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jule": {
+      "type": "http",
+      "url": "${JULE_MCP_URL:-https://api.jule.ai/mcp}"
+    }
+  }
+}

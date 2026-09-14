@@ -1,0 +1,42 @@
+{
+  "name": "jule",
+  "version": "0.2.2",
+  "description": "Build pop-ups, sign-up forms, quizzes, preference centers and landing pages as Jule projects through the Jule MCP server: the server connection and three skills.",
+  "author": {
+    "name": "Jule",
+    "url": "https://jule.ai"
+  },
+  "homepage": "https://docs.jule.ai/developers/mcp",
+  "repository": "https://github.com/tryjule/jule-agent-kit",
+  "license": "MIT",
+  "keywords": [
+    "jule",
+    "mcp",
+    "popup",
+    "sign-up-form",
+    "landing-page",
+    "preference-center",
+    "figma",
+    "analytics"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.codex-plugin/mcp.json",
+  "interface": {
+    "displayName": "Jule",
+    "shortDescription": "Pop-ups, forms, quizzes, preference centers and landing pages as Jule projects",
+    "longDescription": "Connects Codex to the Jule MCP server and teaches it how to author, preview, operate and analyze Jule projects \u2014 pop-ups, sign-up and newsletter forms, quizzes, preference centers and hosted landing pages \u2014 from a brief or a Figma design.",
+    "developerName": "Jule",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills",
+      "MCP server"
+    ],
+    "websiteURL": "https://jule.ai",
+    "defaultPrompt": [
+      "Build a newsletter sign-up pop-up with a 10% welcome coupon.",
+      "Turn this Figma frame into a landing page hosted by Jule.",
+      "How did the welcome pop-up do in the last 30 days, and what should we change?"
+    ]
+  },
+  "hooks": "./hooks/claude-codex-hooks.json"
+}

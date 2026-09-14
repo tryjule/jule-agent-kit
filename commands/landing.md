@@ -1,0 +1,9 @@
+---
+description: Build a landing page hosted by Jule (not a static site) from a brief or a Figma link — validate, save, preview; publish only on request
+argument-hint: "<brief or Figma URL> [in workspace <name>]"
+---
+Build a landing page as a Jule project with the jule MCP server — a hosted Jule page, never HTML/CSS/React files — following the jule-builder skill (its Landing pages section and workflow) exactly. If the brief contains a Figma URL, first read the design with the Figma MCP server and apply the figma-to-jule skill's mapping rules.
+
+Brief: $ARGUMENTS
+
+If the brief is empty, ask for the page's goal, sections and the call to action before calling any tool. Call whoami first; when the organization has several workspaces and none is named, list them and ask. Sections are Boxes with htmlId anchors; content is text, logo, icon, button and input, with html-block only for what those cannot express (tell the user where you used it). Draft only what the brief asks for — editor defaults for everything else. Validate until it passes, check for a same-named project, save, and put the preview_url on its own line. Do not publish.

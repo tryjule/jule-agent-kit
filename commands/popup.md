@@ -1,0 +1,9 @@
+---
+description: Build a Jule pop-up (modal, inline, banner or bubble) from a brief — validate, save, preview; publish only on request
+argument-hint: "<brief> [in workspace <name>]"
+---
+Build a Jule pop-up with the jule MCP server, following the jule-builder skill (its Pop-ups section and workflow) exactly.
+
+Brief: $ARGUMENTS
+
+If the brief is empty, ask for the goal, audience, fields to collect and tone before calling any tool. Call whoami first; when the organization has several workspaces and none is named, list them and ask. Read the resources and the pop-up example, then the workspace branding and integrations. Draft only what the brief asks for — editor defaults for everything else, no backdrop unless asked. Validate until it passes, check for a same-named project, save, and put the preview_url on its own line. Do not publish.

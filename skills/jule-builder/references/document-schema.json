@@ -1,0 +1,4735 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ProjectDocument",
+  "definitions": {
+    "ProjectDocument": {
+      "type": "object",
+      "properties": {
+        "expected_version": {
+          "type": "integer",
+          "description": "Project version the client last read (`get_project` returns it). The save is rejected with 409 when it no longer matches the stored version."
+        },
+        "name": {
+          "type": "string",
+          "description": "Project name."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Internal description; null clears it."
+        },
+        "display_type": {
+          "type": "string",
+          "description": "Presentation of a popup project (`modal` today)."
+        },
+        "primary_color": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Legacy accent color; prefer `style_config.primary_color`. null clears it."
+        },
+        "thank_you_message": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Legacy post-submit message; prefer a `success_message` item. null clears it."
+        },
+        "redirect_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Legacy post-submit redirect; prefer `sign_up_config.success_behavior`. null clears it."
+        },
+        "trigger_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the workspace trigger that controls when the popup shows; null for none."
+        },
+        "style_config": {
+          "$ref": "#/definitions/ProjectStyleInfo",
+          "description": "Project-level appearance."
+        },
+        "settings_config": {
+          "$ref": "#/definitions/SettingsInfo",
+          "description": "Behaviour settings (trigger, targeting, Iterable, logic, languages). Unknown keys and `iterable_integration.api_key` are dropped."
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentPage"
+          },
+          "description": "Full page list; replaces all existing pages."
+        }
+      },
+      "required": [
+        "expected_version",
+        "pages"
+      ],
+      "additionalProperties": false,
+      "description": "A whole Jule project as saved by `save_project_document`: pages with their items, project styles and behaviour settings. Validated against the generated JSON Schema, then by the save rules."
+    },
+    "ProjectStyleInfo": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string",
+          "description": "Layout template: `default` (single column) or `2-column` (left/right columns, items placed by `side`)."
+        },
+        "border_radius": {
+          "type": "string",
+          "description": "Card corner radius."
+        },
+        "card_shadow": {
+          "type": "string",
+          "description": "Card drop shadow preset: `None`, `Small`, `Medium` (default) or `Large`. Anything else falls back to Medium; raw CSS is not accepted."
+        },
+        "font_family": {
+          "type": "string",
+          "description": "Default font family for the whole widget."
+        },
+        "font_family_url": {
+          "type": "string",
+          "description": "URL of the stylesheet or font file backing `font_family`."
+        },
+        "font_weight": {
+          "type": "string",
+          "description": "Default font weight."
+        },
+        "primary_color": {
+          "type": "string",
+          "description": "Accent color used for buttons and focus states when items set none."
+        },
+        "button_radius": {
+          "type": "string",
+          "description": "Default button corner radius."
+        },
+        "button_padding": {
+          "type": "string",
+          "description": "Default button padding."
+        },
+        "button_font_size": {
+          "type": "string",
+          "description": "Default button font size."
+        },
+        "button_text_color": {
+          "type": "string",
+          "description": "Default button text color."
+        },
+        "input_radius": {
+          "type": "string",
+          "description": "Default input corner radius."
+        },
+        "input_padding": {
+          "type": "string",
+          "description": "Default input padding."
+        },
+        "input_font_size": {
+          "type": "string",
+          "description": "Default input font size."
+        },
+        "input_text_color": {
+          "type": "string",
+          "description": "Default input text color."
+        },
+        "title_font_size": {
+          "type": "string",
+          "description": "Default heading font size."
+        },
+        "title_text_align": {
+          "type": "string",
+          "description": "Default heading alignment."
+        },
+        "title_color": {
+          "type": "string",
+          "description": "Default heading color."
+        },
+        "desc_font_size": {
+          "type": "string",
+          "description": "Default paragraph font size."
+        },
+        "desc_text_align": {
+          "type": "string",
+          "description": "Default paragraph alignment."
+        },
+        "desc_color": {
+          "type": "string",
+          "description": "Default paragraph color."
+        },
+        "card_width": {
+          "type": "string",
+          "description": "Card width (`480px`, `90%`)."
+        },
+        "card_max_width": {
+          "type": "string",
+          "description": "Card maximum width."
+        },
+        "card_height": {
+          "type": "string",
+          "description": "Card height; `auto` fits content."
+        },
+        "card_padding": {
+          "type": "string",
+          "description": "Card inner padding."
+        },
+        "hide_progress": {
+          "type": "boolean",
+          "description": "Legacy; the widget renders no progress indicator today, so this has no effect."
+        },
+        "hide_previous": {
+          "type": "boolean",
+          "description": "Hides every button item whose action is `previous` (CSS display none). There is no separate built-in bar; leave unset."
+        },
+        "hide_next": {
+          "type": "boolean",
+          "description": "Hides every button item whose action is `next`, including the ones in the document, so visitors cannot advance. Leave unset."
+        },
+        "previous_button_text": {
+          "type": "string",
+          "description": "Legacy; not used by the widget (buttons are `button` items with their own label)."
+        },
+        "next_button_text": {
+          "type": "string",
+          "description": "Legacy; not used by the widget (buttons are `button` items with their own label)."
+        },
+        "submit_button_text": {
+          "type": "string",
+          "description": "Legacy; not used by the widget (buttons are `button` items with their own label)."
+        },
+        "background_type": {
+          "type": "string",
+          "enum": [
+            "color",
+            "image"
+          ],
+          "description": "Whether the card background is a color or an image."
+        },
+        "background_color": {
+          "type": "string",
+          "description": "Card background color."
+        },
+        "background_image": {
+          "type": "string",
+          "description": "Card background image URL."
+        },
+        "background_object_fit": {
+          "type": "string",
+          "enum": [
+            "cover",
+            "contain",
+            "fill",
+            "none"
+          ],
+          "description": "How the background image fills the card."
+        },
+        "background_repeat": {
+          "type": "string",
+          "enum": [
+            "no-repeat",
+            "repeat",
+            "repeat-x",
+            "repeat-y"
+          ],
+          "description": "Background image repeat."
+        },
+        "background_position": {
+          "type": "string",
+          "description": "Background image position."
+        },
+        "justify_content": {
+          "type": "string",
+          "description": "Main-axis distribution of the card body (`center`, `flex-start`, `space-between`)."
+        },
+        "body_flex_direction": {
+          "type": "string",
+          "enum": [
+            "row",
+            "column"
+          ],
+          "description": "Direction of the card body; banners default to `row`, everything else to `column`."
+        },
+        "body_align_items": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "center",
+            "flex-end",
+            "stretch"
+          ],
+          "description": "Cross-axis alignment of the card body."
+        },
+        "left_column_bg": {
+          "type": "string",
+          "description": "2-column: left column background color."
+        },
+        "left_column_image": {
+          "type": "string",
+          "description": "2-column: left column background image URL."
+        },
+        "left_column_bg_type": {
+          "type": "string",
+          "enum": [
+            "color",
+            "image"
+          ],
+          "description": "2-column: left column background kind."
+        },
+        "left_column_object_fit": {
+          "type": "string",
+          "enum": [
+            "cover",
+            "contain",
+            "fill",
+            "none"
+          ],
+          "description": "2-column: fit of the left column image."
+        },
+        "right_column_bg": {
+          "type": "string",
+          "description": "2-column: right column background color."
+        },
+        "right_column_image": {
+          "type": "string",
+          "description": "2-column: right column background image URL."
+        },
+        "right_column_bg_type": {
+          "type": "string",
+          "enum": [
+            "color",
+            "image"
+          ],
+          "description": "2-column: right column background kind."
+        },
+        "right_column_object_fit": {
+          "type": "string",
+          "enum": [
+            "cover",
+            "contain",
+            "fill",
+            "none"
+          ],
+          "description": "2-column: fit of the right column image."
+        },
+        "left_column_text": {
+          "type": "string",
+          "description": "2-column: text shown in the left column when it holds no items."
+        },
+        "left_column_width": {
+          "type": "string",
+          "description": "2-column: left column width (`40%`)."
+        },
+        "column_gap": {
+          "type": "string",
+          "description": "2-column: gap between the columns."
+        },
+        "left_column_padding": {
+          "type": "string",
+          "description": "2-column: left column padding."
+        },
+        "right_column_padding": {
+          "type": "string",
+          "description": "2-column: right column padding."
+        },
+        "left_column_text_color": {
+          "type": "string",
+          "description": "2-column: color of `left_column_text`."
+        },
+        "left_column_font_size": {
+          "type": "string",
+          "description": "2-column: font size of `left_column_text`."
+        },
+        "left_column_font_weight": {
+          "type": "string",
+          "description": "2-column: font weight of `left_column_text`."
+        },
+        "left_column_text_align": {
+          "type": "string",
+          "description": "2-column: alignment of `left_column_text`."
+        },
+        "left_column_line_height": {
+          "type": "string",
+          "description": "2-column: line height of `left_column_text`."
+        },
+        "left_column_font_family": {
+          "type": "string",
+          "description": "2-column: font family of `left_column_text`."
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "bottom-right",
+            "bottom-left",
+            "top-right",
+            "top-left",
+            "center",
+            "top-center",
+            "bottom-center",
+            "center-left",
+            "center-right"
+          ],
+          "description": "Where a popup card sits on the screen."
+        },
+        "close_button_size": {
+          "type": "string",
+          "description": "Close button size."
+        },
+        "close_button_color": {
+          "type": "string",
+          "description": "Close button icon color."
+        },
+        "close_button_bg_color": {
+          "type": "string",
+          "description": "Close button background color."
+        },
+        "close_button_border_radius": {
+          "type": "string",
+          "description": "Close button corner radius."
+        },
+        "close_button_padding": {
+          "type": "string",
+          "description": "Close button padding."
+        },
+        "overlay_opacity": {
+          "type": "number",
+          "description": "Legacy backdrop dimness behind a popup, 0–100 percent of black (default 0). Ignored when overlay_color is set; the editor keeps it mirrored to overlay_color's alpha."
+        },
+        "overlay_blur": {
+          "type": "number",
+          "description": "Backdrop blur behind a popup in px (default 0)."
+        },
+        "overlay_color": {
+          "type": "string",
+          "description": "Backdrop color behind a popup as #rrggbbaa — the alpha byte is the dimness (#00000080 = 50%). A 6-digit hex is fully opaque and hides the site. Omit for the editor default (no backdrop)."
+        },
+        "mobile_hide_left_column": {
+          "type": "boolean",
+          "description": "2-column: hide the left column on mobile."
+        },
+        "mobile_hide_right_column": {
+          "type": "boolean",
+          "description": "2-column: hide the right column on mobile."
+        },
+        "mobile_column_order": {
+          "type": "string",
+          "enum": [
+            "left-first",
+            "right-first"
+          ],
+          "description": "2-column: which column comes first when stacked on mobile."
+        },
+        "mobile_column_layout": {
+          "type": "string",
+          "enum": [
+            "stacked",
+            "side-by-side"
+          ],
+          "description": "2-column: stack the columns on mobile or keep them side by side."
+        },
+        "preference_center_header_html": {
+          "type": "string",
+          "description": "Preference center / landing page: HTML rendered above the card."
+        },
+        "preference_center_footer_html": {
+          "type": "string",
+          "description": "Preference center / landing page: HTML rendered below the card."
+        },
+        "preference_center_header_css": {
+          "type": "string",
+          "description": "CSS for the header HTML."
+        },
+        "preference_center_footer_css": {
+          "type": "string",
+          "description": "CSS for the footer HTML."
+        },
+        "preference_center_header_js": {
+          "type": "string",
+          "description": "JavaScript run after the header renders."
+        },
+        "preference_center_footer_js": {
+          "type": "string",
+          "description": "JavaScript run after the footer renders."
+        },
+        "preference_center_header_linked": {
+          "type": "boolean",
+          "description": "Header follows the workspace branding header instead of the project's own HTML."
+        },
+        "preference_center_footer_linked": {
+          "type": "boolean",
+          "description": "Footer follows the workspace branding footer instead of the project's own HTML."
+        },
+        "card_border_width": {
+          "type": "string",
+          "description": "Card border width."
+        },
+        "card_border_color": {
+          "type": "string",
+          "description": "Card border color."
+        },
+        "card_border_style": {
+          "type": "string",
+          "enum": [
+            "none",
+            "solid",
+            "dashed",
+            "dotted",
+            "double"
+          ],
+          "description": "Card border style."
+        },
+        "card_custom_css": {
+          "type": "string",
+          "description": "Raw CSS appended to the card (advanced)."
+        },
+        "responsive": {
+          "$ref": "#/definitions/ResponsiveStyleConfig",
+          "description": "Tablet / mobile overrides."
+        },
+        "display_mode": {
+          "type": "string",
+          "enum": [
+            "whole_page",
+            "container_based"
+          ],
+          "description": "Preference center / landing page: fill the whole page or render inside a container."
+        },
+        "seo_page_title": {
+          "type": "string",
+          "description": "Hosted page `<title>`."
+        },
+        "seo_meta_description": {
+          "type": "string",
+          "description": "Hosted page meta description."
+        },
+        "seo_favicon_url": {
+          "type": "string",
+          "description": "Hosted page favicon URL."
+        },
+        "seo_og_image_url": {
+          "type": "string",
+          "description": "Hosted page Open Graph image URL."
+        },
+        "notification_enabled": {
+          "type": "boolean",
+          "description": "Show a toast after submit."
+        },
+        "notification_success_text": {
+          "type": "string",
+          "description": "Toast text on success."
+        },
+        "notification_error_text": {
+          "type": "string",
+          "description": "Toast text on failure."
+        },
+        "notification_bg_color": {
+          "type": "string",
+          "description": "Toast background on success."
+        },
+        "notification_error_bg_color": {
+          "type": "string",
+          "description": "Toast background on failure."
+        },
+        "notification_text_color": {
+          "type": "string",
+          "description": "Toast text color."
+        },
+        "notification_position": {
+          "type": "string",
+          "enum": [
+            "top",
+            "bottom"
+          ],
+          "description": "Toast position."
+        },
+        "notification_duration": {
+          "type": "number",
+          "description": "How long the toast stays, in ms."
+        },
+        "notification_font_size": {
+          "type": "string",
+          "description": "Toast font size."
+        },
+        "notification_font_weight": {
+          "type": "string",
+          "description": "Toast font weight."
+        },
+        "notification_border_radius": {
+          "type": "string",
+          "description": "Toast corner radius."
+        },
+        "notification_shadow": {
+          "type": "string",
+          "enum": [
+            "none",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Toast shadow preset."
+        },
+        "notification_animation": {
+          "type": "string",
+          "enum": [
+            "fade",
+            "slide",
+            "bounce"
+          ],
+          "description": "Toast entrance animation."
+        },
+        "notification_animation_direction": {
+          "type": "string",
+          "enum": [
+            "down",
+            "up"
+          ],
+          "description": "Direction of the slide animation."
+        },
+        "notification_custom_css": {
+          "type": "string",
+          "description": "Raw CSS appended to the toast (advanced)."
+        },
+        "loading_spinner_enabled": {
+          "type": "boolean",
+          "description": "Show a spinner while a submit is in flight. Undefined means on."
+        },
+        "loading_spinner_color": {
+          "type": "string",
+          "description": "Spinner color."
+        },
+        "loading_spinner_size": {
+          "type": "string",
+          "description": "Spinner size, CSS length."
+        },
+        "i18n": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "description": "Per-locale overrides of translatable style fields (header/footer HTML, SEO strings, button labels): locale → field → value."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Project-level appearance: the card, its background and overlay, default typography of titles / text / buttons / inputs, the two-column layout, close button, submit notification, and preference-center chrome. Values are CSS strings unless noted; colors may be `brand:` references."
+    },
+    "ResponsiveStyleConfig": {
+      "type": "object",
+      "properties": {
+        "tablet": {
+          "$ref": "#/definitions/ResponsiveStyleOverrides",
+          "description": "Overrides applied at widths up to 1024px."
+        },
+        "mobile": {
+          "$ref": "#/definitions/ResponsiveStyleOverrides",
+          "description": "Overrides applied at widths up to 768px (on top of `tablet`)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Tablet / mobile overrides of the project styles; each bucket holds only the fields that differ."
+    },
+    "ResponsiveStyleOverrides": {
+      "$ref": "#/definitions/ProjectStyleInfo",
+      "description": "Style fields overridden per breakpoint. The widget honours the layout and typography sizes only: card_width, card_max_width, card_height, card_padding, justify_content, body_flex_direction, body_align_items, title/desc/button/input font sizes and alignments, button/input padding, column_gap, left_column_width and the column paddings."
+    },
+    "SettingsInfo": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/IterableActions",
+          "description": "Legacy single Iterable action; prefer `iterable_integration.actions`."
+        },
+        "trigger_type": {
+          "type": "string",
+          "enum": [
+            "immediate",
+            "delay",
+            "scroll",
+            "exit_intent",
+            "manual",
+            "engagement"
+          ],
+          "description": "What opens a popup: `immediate`/`delay` (after `trigger_delay` seconds), `scroll` (at `trigger_scroll_depth` %), `exit_intent`, `manual` (`trigger_manual_condition` or the JS API), or `engagement`."
+        },
+        "trigger_delay": {
+          "type": "number",
+          "description": "Seconds to wait for `delay`."
+        },
+        "trigger_scroll_depth": {
+          "type": "number",
+          "description": "Scroll percentage 0–100 for `scroll`."
+        },
+        "trigger_desktop_enabled": {
+          "type": "boolean",
+          "description": "Trigger on desktop."
+        },
+        "trigger_mobile_enabled": {
+          "type": "boolean",
+          "description": "Trigger on mobile."
+        },
+        "trigger_manual_condition": {
+          "type": "string",
+          "description": "CSS selector or JS expression that opens a `manual` popup."
+        },
+        "targeting_conditions": {
+          "$ref": "#/definitions/TargetingConditionsConfig",
+          "description": "Audience targeting rules."
+        },
+        "schedule_config": {
+          "$ref": "#/definitions/ScheduleConfig",
+          "description": "Date / time schedule."
+        },
+        "display_frequency": {
+          "$ref": "#/definitions/DisplayFrequencyConfig",
+          "description": "Display frequency per visitor."
+        },
+        "iterable_integration": {
+          "$ref": "#/definitions/IterableIntegration",
+          "description": "Iterable behaviour on submit."
+        },
+        "sign_up_config": {
+          "$ref": "#/definitions/SignUpConfig",
+          "description": "How the popup is embedded and its teaser / bubble."
+        },
+        "logic_rules": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/PageLogicRule"
+            }
+          },
+          "description": "Page logic rules keyed by page id."
+        },
+        "logic_fallback": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/LogicDestination"
+          },
+          "description": "Fallback destination per page id when no rule fires."
+        },
+        "logic_fallback_scores": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Score added when the fallback of a page is taken, keyed by page id."
+        },
+        "logic_positions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/CanvasPosition"
+          },
+          "description": "Editor canvas positions of the logic nodes, keyed by page id (layout only)."
+        },
+        "page_iterable_fields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/PageIterableField"
+            }
+          },
+          "description": "Per-page Iterable profile fields, keyed by page id."
+        },
+        "page_iterable_actions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PageIterableActions"
+          },
+          "description": "Per-page Iterable actions, keyed by page id."
+        },
+        "localeConfig": {
+          "$ref": "#/definitions/LocaleConfig",
+          "description": "Languages the widget offers."
+        },
+        "email_deliverability_check": {
+          "type": "boolean",
+          "description": "Block a widget submit when the email's domain provably cannot receive mail. Defaults to true in the served payload."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Behaviour settings: when the widget shows (trigger, targeting, schedule, frequency), how it is embedded (`sign_up_config`), Iterable, page logic and languages."
+    },
+    "IterableActions": {
+      "type": "string",
+      "enum": [
+        "subscribe",
+        "track_event",
+        "update_profile"
+      ],
+      "description": "What Jule does in Iterable when a visitor submits."
+    },
+    "TargetingConditionsConfig": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TargetingRuleConfig"
+          },
+          "description": "Rule groups."
+        },
+        "topLevelOperator": {
+          "type": "string",
+          "enum": [
+            "AND",
+            "OR"
+          ],
+          "description": "How the rule groups combine."
+        },
+        "display_until": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Event names (`form_submit`, `close`, …)."
+            },
+            "enabled": {
+              "type": "boolean",
+              "description": "Rule is active."
+            }
+          },
+          "required": [
+            "events",
+            "enabled"
+          ],
+          "additionalProperties": false,
+          "description": "Keep showing the widget until one of these widget events has happened for the visitor."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Audience targeting: rules that must pass before the widget is shown."
+    },
+    "TargetingRuleConfig": {
+      "type": "object",
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TargetingConditionConfig"
+          },
+          "description": "Conditions in the group."
+        },
+        "operator": {
+          "type": "string",
+          "enum": [
+            "AND",
+            "OR"
+          ],
+          "description": "How the conditions combine."
+        },
+        "arrows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TargetingArrow"
+          },
+          "description": "Editor canvas connectors between conditions (layout only)."
+        }
+      },
+      "required": [
+        "conditions",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "A group of targeting conditions."
+    },
+    "TargetingConditionConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/TargetingConditionType",
+          "description": "What is checked (device, country, time on page, cookie, Iterable list membership, …)."
+        },
+        "operator": {
+          "$ref": "#/definitions/TargetingOperator",
+          "description": "Comparison."
+        },
+        "logicOperator": {
+          "type": "string",
+          "enum": [
+            "and",
+            "or",
+            "and_not",
+            "or_not"
+          ],
+          "description": "How this condition combines with the previous one inside the rule."
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          ],
+          "description": "Value compared against; list ids are numbers for `iterable_list_membership`."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Condition is active."
+        }
+      },
+      "required": [
+        "type",
+        "operator",
+        "value",
+        "enabled"
+      ],
+      "additionalProperties": false,
+      "description": "One targeting condition evaluated before the widget shows."
+    },
+    "TargetingConditionType": {
+      "type": "string",
+      "enum": [
+        "device_type",
+        "country",
+        "time_on_page",
+        "past_visits",
+        "referring_url",
+        "first_time_visitor",
+        "pages_visited",
+        "cookie_value",
+        "local_storage_value",
+        "scroll_depth",
+        "exit_intent",
+        "iterable_list_membership",
+        "iterable_user_exists"
+      ]
+    },
+    "TargetingOperator": {
+      "type": "string",
+      "enum": [
+        "equals",
+        "not_equals",
+        "contains",
+        "not_contains",
+        "greater_than",
+        "less_than",
+        "any_of",
+        "none_of"
+      ]
+    },
+    "TargetingArrow": {
+      "type": "object",
+      "properties": {
+        "fromIndex": {
+          "type": "number",
+          "description": "Index of the condition the arrow starts from."
+        },
+        "toIndex": {
+          "type": "number",
+          "description": "Index of the condition the arrow points to."
+        }
+      },
+      "required": [
+        "fromIndex",
+        "toIndex"
+      ],
+      "additionalProperties": false,
+      "description": "Editor canvas connector between two conditions of a rule."
+    },
+    "ScheduleConfig": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Schedule is active."
+        },
+        "start_date": {
+          "type": "string",
+          "description": "First day the widget shows, `YYYY-MM-DD`."
+        },
+        "end_date": {
+          "type": "string",
+          "description": "Last day the widget shows, `YYYY-MM-DD`."
+        },
+        "start_time": {
+          "type": "string",
+          "description": "Time of day on `start_date` the schedule begins, `HH:mm`."
+        },
+        "end_time": {
+          "type": "string",
+          "description": "Time of day on `end_date` the schedule ends, `HH:mm`."
+        },
+        "active_start_time": {
+          "type": "string",
+          "description": "Daily window start, `HH:mm`."
+        },
+        "active_end_time": {
+          "type": "string",
+          "description": "Daily window end, `HH:mm`."
+        },
+        "active_days": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Weekdays the widget shows (0 = Sunday … 6 = Saturday)."
+        },
+        "timezone": {
+          "type": "string",
+          "description": "IANA time zone the schedule is evaluated in."
+        }
+      },
+      "additionalProperties": false,
+      "description": "When the widget may show, by date and time."
+    },
+    "DisplayFrequencyConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "until_completed",
+            "once",
+            "always",
+            "multiple",
+            "once_per_session",
+            "cooldown"
+          ],
+          "description": "`until_completed` (default: until they submit), `once`, `always`, `multiple` (up to `max_displays`), `once_per_session`, or `cooldown` (again after `cooldown_days`)."
+        },
+        "max_displays": {
+          "type": "number",
+          "description": "Maximum number of displays for `multiple`."
+        },
+        "cooldown_days": {
+          "type": "number",
+          "description": "Days between displays for `cooldown`."
+        }
+      },
+      "additionalProperties": false,
+      "description": "How often a popup shows to the same visitor."
+    },
+    "IterableIntegration": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Send submissions to Iterable."
+        },
+        "api_key": {
+          "type": "string",
+          "description": "Never stored on the project (stripped on save); the workspace connection holds the key."
+        },
+        "list_id": {
+          "type": "string",
+          "description": "Legacy single list id; prefer `list_ids`."
+        },
+        "list_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Iterable list ids the visitor is subscribed to."
+        },
+        "unsubscribed_channel_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Channel ids the visitor is unsubscribed from on submit."
+        },
+        "subscribed_message_type_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Message type ids the visitor is subscribed to on submit."
+        },
+        "unsubscribed_message_type_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Message type ids the visitor is unsubscribed from on submit."
+        },
+        "event_name": {
+          "type": "string",
+          "description": "Custom event name for `track_event`."
+        },
+        "track_event_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableFieldMapping"
+          },
+          "description": "Field mappings sent as event properties."
+        },
+        "track_event_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Editor group labels for `track_event_mappings`."
+        },
+        "track_event_custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableCustomField"
+          },
+          "description": "Constant event properties."
+        },
+        "update_profile_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableFieldMapping"
+          },
+          "description": "Field mappings written to the user profile."
+        },
+        "update_profile_custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableCustomField"
+          },
+          "description": "Constant profile fields."
+        },
+        "update_profile_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Editor group labels for `update_profile_mappings`."
+        },
+        "action": {
+          "$ref": "#/definitions/IterableActions",
+          "description": "Legacy single action; prefer `actions`."
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableActions"
+          },
+          "description": "Actions performed on submit."
+        },
+        "field_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableFieldMapping"
+          },
+          "description": "Legacy mappings applied to every action; prefer the per-action lists."
+        },
+        "send_on_complete": {
+          "type": "boolean",
+          "description": "Send only when the whole form is completed (default) rather than per page."
+        },
+        "send_on_question": {
+          "type": "string",
+          "description": "Page id after which to send when not sending on complete."
+        },
+        "preference_center_enabled": {
+          "type": "boolean",
+          "description": "Preference center: load and write the visitor's Iterable subscriptions."
+        },
+        "message_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableMessageTypeInfo"
+          },
+          "description": "Message types available in the preference center."
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableChannelInfo"
+          },
+          "description": "Channels available in the preference center."
+        },
+        "use_token_validation": {
+          "type": "boolean",
+          "description": "Preference center: require a signed token in the URL to identify the visitor."
+        },
+        "token_secret": {
+          "type": "string",
+          "description": "Secret used to sign preference-center tokens (write-only; configure via the dashboard)."
+        },
+        "one_click_unsubscribe_behavior": {
+          "$ref": "#/definitions/OneClickUnsubscribeBehavior",
+          "description": "One-click unsubscribe behaviour."
+        },
+        "sms_double_opt_in_message_type_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "SMS message type ids that require double opt-in."
+        },
+        "sms_double_opt_in_brand_name": {
+          "type": "string",
+          "description": "Brand name used in the SMS double opt-in text."
+        },
+        "unsubscribe_list_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "List ids the visitor is unsubscribed from on submit."
+        },
+        "subscribe_channel_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Channel ids the visitor is subscribed to on submit."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Per-project Iterable behaviour. The workspace holds the API key; this only says which lists, events and profile fields a submission touches."
+    },
+    "IterableFieldMapping": {
+      "type": "object",
+      "properties": {
+        "survey_field": {
+          "type": "string",
+          "description": "Item id or `fieldName` of the submitted answer."
+        },
+        "iterable_field": {
+          "type": "string",
+          "description": "Iterable data field the value is written to."
+        },
+        "survey_field_name": {
+          "type": "string",
+          "description": "Human-readable name of the submitted field (for the editor)."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Mapping is active."
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableActions"
+          },
+          "description": "Which Iterable actions this mapping applies to."
+        },
+        "group": {
+          "type": "string",
+          "description": "Editor grouping label."
+        }
+      },
+      "required": [
+        "survey_field",
+        "iterable_field",
+        "survey_field_name"
+      ],
+      "additionalProperties": false,
+      "description": "Maps one submitted field to an Iterable profile field or event property."
+    },
+    "IterableCustomField": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Iterable field name."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value; may use `{{fieldName}}` placeholders."
+        },
+        "group": {
+          "type": "string",
+          "description": "Editor grouping label."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Field is active."
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "additionalProperties": false,
+      "description": "A constant key/value sent to Iterable with every submission."
+    },
+    "IterableMessageTypeInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Iterable message type id."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name shown to the visitor."
+        },
+        "subscriptionPolicy": {
+          "type": "string",
+          "enum": [
+            "OptIn",
+            "OptOut"
+          ],
+          "description": "Iterable subscription policy of the message type."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "An Iterable message type mirrored into the project for preference rendering."
+    },
+    "IterableChannelInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Iterable channel id."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name shown to the visitor."
+        },
+        "channelType": {
+          "type": "string",
+          "description": "Iterable channel type (`Email`, `SMS`, `Push`)."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "An Iterable channel mirrored into the project for preference rendering."
+    },
+    "OneClickUnsubscribeBehavior": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_channel",
+            "global_email",
+            "specific_channels"
+          ],
+          "description": "Unsubscribe from the campaign's channel, from all email, or from `channel_ids`."
+        },
+        "channel_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Channel ids for `specific_channels`."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Behaviour of the one-click unsubscribe link in a preference center."
+    },
+    "SignUpConfig": {
+      "type": "object",
+      "properties": {
+        "display_mode": {
+          "type": "string",
+          "enum": [
+            "popup",
+            "inline",
+            "bubble",
+            "banner"
+          ],
+          "description": "`popup` (modal), `inline` (in the page flow), `bubble` (floating button) or `banner` (edge bar)."
+        },
+        "banner_position": {
+          "type": "string",
+          "enum": [
+            "top",
+            "bottom"
+          ],
+          "description": "Banner edge."
+        },
+        "banner_align_items": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "center",
+            "flex-end"
+          ],
+          "description": "Banner cross-axis alignment."
+        },
+        "banner_show_close_button": {
+          "type": "boolean",
+          "description": "Show a close button on the banner. Undefined means shown."
+        },
+        "bubble_position": {
+          "type": "string",
+          "enum": [
+            "bottom-right",
+            "bottom-left"
+          ],
+          "description": "Bubble corner."
+        },
+        "bubble_icon_bg_color": {
+          "type": "string",
+          "description": "Bubble background color."
+        },
+        "bubble_size": {
+          "type": "number",
+          "description": "Bubble diameter in px (circle)."
+        },
+        "bubble_width": {
+          "type": "number",
+          "description": "Bubble width in px (rectangle)."
+        },
+        "bubble_height": {
+          "type": "number",
+          "description": "Bubble height in px (rectangle)."
+        },
+        "bubble_border_radius": {
+          "type": "number",
+          "description": "Bubble corner radius in px."
+        },
+        "bubble_border_radius_top_left": {
+          "type": "number",
+          "description": "Bubble top-left radius in px."
+        },
+        "bubble_border_radius_top_right": {
+          "type": "number",
+          "description": "Bubble top-right radius in px."
+        },
+        "bubble_border_radius_bottom_right": {
+          "type": "number",
+          "description": "Bubble bottom-right radius in px."
+        },
+        "bubble_border_radius_bottom_left": {
+          "type": "number",
+          "description": "Bubble bottom-left radius in px."
+        },
+        "bubble_icon_type": {
+          "type": "string",
+          "const": "custom",
+          "description": "Use a custom icon image in the bubble."
+        },
+        "bubble_custom_icon_url": {
+          "type": "string",
+          "description": "Custom bubble icon URL."
+        },
+        "bubble_icon_size": {
+          "type": "number",
+          "description": "Bubble icon size in px."
+        },
+        "bubble_text": {
+          "type": "string",
+          "description": "Text inside the bubble / teaser."
+        },
+        "bubble_text_color": {
+          "type": "string",
+          "description": "Bubble text color."
+        },
+        "bubble_text_font_size": {
+          "type": "number",
+          "description": "Bubble text size in px."
+        },
+        "bubble_text_font_weight": {
+          "type": "string",
+          "description": "Bubble text weight."
+        },
+        "bubble_text_font_family": {
+          "type": "string",
+          "description": "Bubble text font family."
+        },
+        "bubble_text_font_url": {
+          "type": "string",
+          "description": "URL of the font backing `bubble_text_font_family`."
+        },
+        "bubble_text_letter_spacing": {
+          "type": "string",
+          "description": "Bubble text letter spacing."
+        },
+        "bubble_text_line_height": {
+          "type": "string",
+          "description": "Bubble text line height."
+        },
+        "bubble_text_align": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "description": "Bubble text alignment."
+        },
+        "bubble_bg_image_url": {
+          "type": "string",
+          "description": "Bubble background image URL."
+        },
+        "bubble_margin_top": {
+          "type": "number",
+          "description": "Bubble top margin in px."
+        },
+        "bubble_margin_bottom": {
+          "type": "number",
+          "description": "Bubble bottom margin in px."
+        },
+        "bubble_margin_left": {
+          "type": "number",
+          "description": "Bubble left margin in px."
+        },
+        "bubble_margin_right": {
+          "type": "number",
+          "description": "Bubble right margin in px."
+        },
+        "teaser_style": {
+          "type": "string",
+          "enum": [
+            "rectangle",
+            "circle"
+          ],
+          "description": "Teaser shape (a popup's teaser reuses the bubble styling)."
+        },
+        "teaser_position": {
+          "type": "string",
+          "enum": [
+            "top-left",
+            "top-center",
+            "top-right",
+            "center-left",
+            "center",
+            "center-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right"
+          ],
+          "description": "Teaser position on the screen."
+        },
+        "teaser_width": {
+          "type": "number",
+          "description": "Teaser width in px."
+        },
+        "teaser_saved_rect_width": {
+          "type": "number",
+          "description": "Editor memory of the last rectangle width."
+        },
+        "teaser_saved_rect_height": {
+          "type": "number",
+          "description": "Editor memory of the last rectangle height."
+        },
+        "teaser_saved_circle_size": {
+          "type": "number",
+          "description": "Editor memory of the last circle size."
+        },
+        "teaser_display_setting": {
+          "type": "string",
+          "enum": [
+            "after_close",
+            "before_form",
+            "before_and_after"
+          ],
+          "description": "When the teaser shows: after the popup is closed, before the form, or both."
+        },
+        "teaser_anchored": {
+          "type": "boolean",
+          "description": "Popup opens anchored to the teaser instead of centered. Undefined means anchored."
+        },
+        "teaser_enabled": {
+          "type": "boolean",
+          "description": "Show a teaser that re-opens a closed popup."
+        },
+        "teaser_show_close_button": {
+          "type": "boolean",
+          "description": "Show a close button on the teaser."
+        },
+        "teaser_mirror_text": {
+          "type": "boolean",
+          "description": "Teaser text mirrors the first heading of the form."
+        },
+        "success_behavior": {
+          "type": "string",
+          "enum": [
+            "message",
+            "redirect",
+            "hide"
+          ],
+          "description": "After submit: show a message, redirect, or hide the widget."
+        },
+        "success_message": {
+          "type": "string",
+          "description": "Success message text."
+        },
+        "success_redirect_url": {
+          "type": "string",
+          "description": "Redirect URL for `success_behavior: redirect`."
+        },
+        "i18n": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "description": "Per-locale overrides of `bubble_text` and `success_message`: locale → field → value."
+        }
+      },
+      "required": [
+        "display_mode"
+      ],
+      "additionalProperties": false,
+      "description": "How a popup project is embedded and the teaser / bubble that opens it."
+    },
+    "PageLogicRule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable rule id."
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogicCondition"
+          },
+          "description": "AND-combined conditions."
+        },
+        "destination": {
+          "$ref": "#/definitions/LogicDestination",
+          "description": "Where to go when the rule fires."
+        },
+        "score": {
+          "type": "number",
+          "description": "Points added to the running score when the rule fires."
+        }
+      },
+      "required": [
+        "id",
+        "conditions",
+        "destination"
+      ],
+      "additionalProperties": false,
+      "description": "A page logic rule: when all conditions hold, go to `destination`."
+    },
+    "LogicCondition": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "`fieldName` of the input or rating the condition reads (or `__score__`)."
+        },
+        "operator": {
+          "$ref": "#/definitions/LogicOperator",
+          "description": "Comparison."
+        },
+        "value": {
+          "$ref": "#/definitions/LogicConditionValue",
+          "description": "Value compared against; omitted for `is_empty` / `is_not_empty`."
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "One condition of a page logic rule; reads a submitted answer."
+    },
+    "LogicOperator": {
+      "type": "string",
+      "enum": [
+        "equals",
+        "not_equals",
+        "contains",
+        "not_contains",
+        "greater_than",
+        "less_than",
+        "greater_or_equal",
+        "less_or_equal",
+        "any_of",
+        "none_of",
+        "is_empty",
+        "is_not_empty"
+      ],
+      "description": "Comparison used by page logic conditions."
+    },
+    "LogicConditionValue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Value a logic condition compares against."
+    },
+    "LogicDestination": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/LogicGoToPage"
+        },
+        {
+          "$ref": "#/definitions/LogicTerminal"
+        },
+        {
+          "$ref": "#/definitions/LogicRedirect"
+        },
+        {
+          "$ref": "#/definitions/LogicSubmitAndPage"
+        },
+        {
+          "$ref": "#/definitions/LogicSubmitAndRedirect"
+        }
+      ],
+      "description": "Where a logic rule sends the visitor when it fires."
+    },
+    "LogicGoToPage": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "page",
+          "description": "Destination kind."
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Id of the page to show."
+        }
+      },
+      "required": [
+        "type",
+        "pageId"
+      ],
+      "additionalProperties": false,
+      "description": "Go to another page."
+    },
+    "LogicTerminal": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "submit",
+            "close"
+          ],
+          "description": "Destination kind."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Submit the answers (`submit`) or close the widget (`close`)."
+    },
+    "LogicRedirect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "redirect",
+          "description": "Destination kind."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to open."
+        }
+      },
+      "required": [
+        "type",
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": "Open a URL."
+    },
+    "LogicSubmitAndPage": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "submit_and_page",
+          "description": "Destination kind."
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Id of the page to show after submitting."
+        }
+      },
+      "required": [
+        "type",
+        "pageId"
+      ],
+      "additionalProperties": false,
+      "description": "Submit the answers, then show another page."
+    },
+    "LogicSubmitAndRedirect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "submit_and_redirect",
+          "description": "Destination kind."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to open after submitting."
+        }
+      },
+      "required": [
+        "type",
+        "url"
+      ],
+      "additionalProperties": false,
+      "description": "Submit the answers, then open a URL."
+    },
+    "CanvasPosition": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "Horizontal coordinate in px."
+        },
+        "y": {
+          "type": "number",
+          "description": "Vertical coordinate in px."
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false,
+      "description": "A position on the logic editor canvas."
+    },
+    "PageIterableField": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable field id."
+        },
+        "fieldKey": {
+          "type": "string",
+          "description": "Iterable profile field name."
+        },
+        "source": {
+          "$ref": "#/definitions/PageIterableFieldValueSource",
+          "description": "Static text or the running quiz score."
+        }
+      },
+      "required": [
+        "id",
+        "fieldKey",
+        "source"
+      ],
+      "additionalProperties": false,
+      "description": "A profile field written to Iterable when the visitor reaches a page."
+    },
+    "PageIterableFieldValueSource": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PageIterableStaticSource"
+        },
+        {
+          "$ref": "#/definitions/PageIterableScoreSource"
+        }
+      ],
+      "description": "Where a per-page Iterable field value comes from."
+    },
+    "PageIterableStaticSource": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "static",
+          "description": "Source kind."
+        },
+        "value": {
+          "type": "string",
+          "description": "The text written to the field."
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "description": "A literal value typed in the editor."
+    },
+    "PageIterableScoreSource": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "score",
+          "description": "Source kind."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "The running quiz score at the moment the visitor reaches the page."
+    },
+    "PageIterableActions": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Master switch for this page."
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "update_profile",
+              "track_event"
+            ]
+          },
+          "description": "Update the profile and/or fire a custom event with the page's fields."
+        },
+        "eventName": {
+          "type": "string",
+          "description": "Event name, required when `actions` includes `track_event`."
+        }
+      },
+      "required": [
+        "actions"
+      ],
+      "additionalProperties": false,
+      "description": "What happens in Iterable when the visitor reaches a page."
+    },
+    "LocaleConfig": {
+      "type": "object",
+      "properties": {
+        "defaultLocale": {
+          "type": "string",
+          "description": "Locale code shown by default (`en`)."
+        },
+        "enabledLocales": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Locale codes the visitor can switch between."
+        },
+        "directions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "ltr",
+              "rtl"
+            ]
+          },
+          "description": "Text direction per locale; unlisted locales are `ltr`."
+        }
+      },
+      "required": [
+        "defaultLocale",
+        "enabledLocales"
+      ],
+      "additionalProperties": false,
+      "description": "Languages of the widget. Translations live in the `i18n` maps of items, styles and settings."
+    },
+    "DocumentPage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Existing page id to update; omit to create the page. Logic rules and buttons reference page ids."
+        },
+        "title": {
+          "type": "string",
+          "description": "Page title (shown in the editor and progress indicator)."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Position of the page (0-based)."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentItem"
+          },
+          "description": "Items on the page, top-level and nested alike (nesting is expressed by `parent_id`)."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "description": "One page (step) of the project."
+    },
+    "DocumentItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "text",
+            "button",
+            "input",
+            "logo",
+            "group",
+            "checkbox-group",
+            "preference-category",
+            "html-block",
+            "rating",
+            "success_message",
+            "flex",
+            "coupon",
+            "icon"
+          ],
+          "description": "Selects the variant: one of text, button, input, logo, group, checkbox-group, preference-category, html-block, rating, success_message, flex, coupon, icon."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "text",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/TextItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "button",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/ButtonItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "input",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/InputItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "logo",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/LogoItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "group",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/GroupItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "checkbox-group",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/CheckboxGroupItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "preference-category",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/PreferenceCategoryItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "html-block",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/HtmlBlockItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "rating",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/RatingItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "success_message",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/SuccessMessageItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "flex",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/FlexItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "coupon",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/CouponItem"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "icon",
+                "description": "Item type."
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/definitions/IconItem"
+          }
+        }
+      ],
+      "description": "One item of a page; the `type` decides the `config` shape."
+    },
+    "TextItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "text",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/TextItemConfig",
+          "description": "Text settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "A heading, paragraph, span or link."
+    },
+    "ItemStyleInfo": {
+      "type": "object",
+      "properties": {
+        "fontSize": {
+          "type": "string",
+          "description": "Font size, CSS length."
+        },
+        "fontWeight": {
+          "type": "string",
+          "description": "Font weight (`400`, `700`, `bold`)."
+        },
+        "fontFamily": {
+          "type": "string",
+          "description": "Font family name. Workspace fonts need `fontUrl` too."
+        },
+        "fontUrl": {
+          "type": "string",
+          "description": "URL of the font stylesheet or file backing `fontFamily`."
+        },
+        "color": {
+          "type": "string",
+          "description": "Text color."
+        },
+        "textAlign": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right",
+            "justify"
+          ],
+          "description": "Horizontal text alignment."
+        },
+        "lineHeight": {
+          "type": "string",
+          "description": "Line height, CSS value."
+        },
+        "letterSpacing": {
+          "type": "string",
+          "description": "Letter spacing, CSS length."
+        },
+        "padding": {
+          "type": "string",
+          "description": "Inner spacing, CSS shorthand."
+        },
+        "margin": {
+          "type": "string",
+          "description": "Outer spacing, CSS shorthand."
+        },
+        "width": {
+          "type": "string",
+          "description": "Width, CSS length or percentage."
+        },
+        "height": {
+          "type": "string",
+          "description": "Height, CSS length."
+        },
+        "backgroundColor": {
+          "type": "string",
+          "description": "Background color."
+        },
+        "borderRadius": {
+          "type": "string",
+          "description": "Corner radius, CSS length."
+        },
+        "borderWidth": {
+          "type": "string",
+          "description": "Border width, CSS length."
+        },
+        "borderColor": {
+          "type": "string",
+          "description": "Border color."
+        },
+        "checkColor": {
+          "type": "string",
+          "description": "Checkbox / radio: color of the check mark or the checked box."
+        },
+        "checkboxVariant": {
+          "type": "string",
+          "enum": [
+            "box",
+            "switch"
+          ],
+          "description": "Checkbox look: a box (default) or a switch with the tick in the knob."
+        },
+        "checkboxPosition": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "description": "Which side of the label the checkbox or switch sits on. Default `left`."
+        },
+        "gap": {
+          "type": "string",
+          "description": "Space between a checkbox and its label, CSS length."
+        },
+        "borderStyle": {
+          "type": "string",
+          "description": "Border style (`solid`, `dashed`, `none`)."
+        },
+        "display": {
+          "type": "string",
+          "enum": [
+            "flex",
+            "stack",
+            "grid"
+          ],
+          "description": "Box layout mode — a Jule mode name, not a raw CSS `display` value. Only read for `type: 'flex'` items. Absent means `flex`."
+        },
+        "alignSelf": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "center",
+            "flex-end",
+            "stretch"
+          ],
+          "description": "Cross-axis alignment of this item inside its flex parent."
+        },
+        "justifySelf": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "center",
+            "flex-end",
+            "stretch"
+          ],
+          "description": "Inline-axis alignment of this item inside its grid cell."
+        },
+        "contentAlign": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "description": "Coupon block: horizontal alignment of its content. Default `center`."
+        },
+        "clipContents": {
+          "type": "boolean",
+          "description": "Stack mode, parent: clip children to the Box instead of letting them bleed past its edges."
+        },
+        "pin": {
+          "type": "string",
+          "enum": [
+            "none",
+            "top-left",
+            "top-center",
+            "top-right",
+            "center-left",
+            "center",
+            "center-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right"
+          ],
+          "description": "Stack mode, child: anchor this item is pinned to inside its Stack parent. `none` keeps it in normal flow."
+        },
+        "pinOffsetX": {
+          "type": "string",
+          "description": "Stack mode, child: horizontal offset from the pin anchor, CSS length (may be negative)."
+        },
+        "pinOffsetY": {
+          "type": "string",
+          "description": "Stack mode, child: vertical offset from the pin anchor, CSS length (may be negative)."
+        },
+        "stackOrder": {
+          "type": "string",
+          "description": "Stack mode, child: paint order (becomes `z-index`)."
+        },
+        "gridTemplateColumns": {
+          "type": "string",
+          "description": "Grid mode, parent: column track list, space-joined (`1fr minmax(0, 200px)`)."
+        },
+        "gridTemplateRows": {
+          "type": "string",
+          "description": "Grid mode, parent: row track list, space-joined."
+        },
+        "gridTemplateAreas": {
+          "type": "string",
+          "description": "Grid mode, parent: named-area map in logical form — one row per line, cell names separated by spaces, `.` for an empty cell. No CSS quotes."
+        },
+        "gridArea": {
+          "type": "string",
+          "description": "Grid mode, child: named area from the parent's map; wins over the spans."
+        },
+        "gridSpanColumns": {
+          "type": "string",
+          "description": "Grid mode, child: number of columns to span (auto-flow only)."
+        },
+        "gridSpanRows": {
+          "type": "string",
+          "description": "Grid mode, child: number of rows to span (auto-flow only)."
+        },
+        "activeBackground": {
+          "type": "string",
+          "description": "Option cards: background when the option is selected."
+        },
+        "activeColor": {
+          "type": "string",
+          "description": "Option cards: text color when the option is selected."
+        },
+        "activeBorderColor": {
+          "type": "string",
+          "description": "Option cards: border color when the option is selected."
+        },
+        "optionGap": {
+          "type": "string",
+          "description": "Option cards: space between options, CSS length."
+        },
+        "markerSize": {
+          "type": "string",
+          "description": "Option cards: diameter of the radio / tick / letter marker, CSS length."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dot",
+            "tick",
+            "ab"
+          ],
+          "description": "Legacy option marker style; superseded by `renderAs` on the input config."
+        },
+        "objectFit": {
+          "type": "string",
+          "enum": [
+            "cover",
+            "contain",
+            "fill",
+            "none",
+            "scale-down"
+          ],
+          "description": "Logo / image fit inside its box."
+        },
+        "customCss": {
+          "type": "string",
+          "description": "Raw CSS declarations appended to the item (advanced)."
+        },
+        "flexDirection": {
+          "type": "string",
+          "enum": [
+            "row",
+            "column",
+            "row-reverse",
+            "column-reverse"
+          ],
+          "description": "Flex parent: main axis; reverse values flip visual order without changing DOM order."
+        },
+        "alignItems": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "center",
+            "flex-end",
+            "stretch"
+          ],
+          "description": "Flex parent: cross-axis alignment of children."
+        },
+        "justifyContent": {
+          "type": "string",
+          "enum": [
+            "flex-start",
+            "center",
+            "flex-end",
+            "space-between",
+            "space-around"
+          ],
+          "description": "Flex parent: main-axis distribution of children."
+        },
+        "flexWrap": {
+          "type": "string",
+          "enum": [
+            "nowrap",
+            "wrap",
+            "wrap-reverse"
+          ],
+          "description": "Flex parent: wrapping of children."
+        },
+        "rowGap": {
+          "type": "string",
+          "description": "Flex / grid parent: vertical gap between children, CSS length."
+        },
+        "columnGap": {
+          "type": "string",
+          "description": "Flex / grid parent: horizontal gap between children, CSS length."
+        },
+        "minWidth": {
+          "type": "string",
+          "description": "Minimum width, CSS length."
+        },
+        "maxWidth": {
+          "type": "string",
+          "description": "Maximum width, CSS length."
+        },
+        "minHeight": {
+          "type": "string",
+          "description": "Minimum height, CSS length."
+        },
+        "maxHeight": {
+          "type": "string",
+          "description": "Maximum height, CSS length."
+        },
+        "boxShadow": {
+          "type": "string",
+          "description": "Box shadow, CSS value."
+        },
+        "opacity": {
+          "type": "string",
+          "description": "Opacity 0–1, as a string."
+        },
+        "backgroundImage": {
+          "type": "string",
+          "description": "Background image URL."
+        },
+        "backgroundSize": {
+          "type": "string",
+          "description": "Background size (`cover`, `contain`, CSS length)."
+        },
+        "backgroundPosition": {
+          "type": "string",
+          "description": "Background position, CSS value."
+        },
+        "suggestionStyle": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "`email` inputs: styles of the typo-suggestion line shown under the field."
+        },
+        "i18n": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ItemStyleInfo"
+          },
+          "description": "Per-locale style overrides: locale code → the styles that differ in that locale."
+        },
+        "responsive": {
+          "$ref": "#/definitions/ItemResponsiveStyleConfig",
+          "description": "Tablet / mobile overrides."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Visual styles of an item. Values are CSS strings (`16px`, `#111827`, `1rem 2rem`); colors may also be `brand:primary`-style references to the workspace branding."
+    },
+    "ItemResponsiveStyleConfig": {
+      "type": "object",
+      "properties": {
+        "tablet": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Overrides applied at widths up to 1024px."
+        },
+        "mobile": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Overrides applied at widths up to 768px (on top of `tablet`)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Tablet / mobile overrides of an item's styles; each bucket holds only the fields that differ."
+    },
+    "SaveDocumentItemVisibilityDto": {
+      "type": "object",
+      "properties": {
+        "hideOnMobile": {
+          "type": "boolean",
+          "description": "Hide on phones (≤ 768px)."
+        },
+        "hideOnTablet": {
+          "type": "boolean",
+          "description": "Hide on tablets (≤ 1024px)."
+        },
+        "hideOnDesktop": {
+          "type": "boolean",
+          "description": "Hide on desktop."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Device visibility of an item."
+    },
+    "TextItemConfig": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "The text to show. Supports `{{fieldName}}` and `{{score}}` placeholders."
+        },
+        "errorContent": {
+          "type": "string",
+          "description": "Shown instead of `content` when the item is rendered in its error state (`success_message` items)."
+        },
+        "tag": {
+          "type": "string",
+          "enum": [
+            "h1",
+            "h2",
+            "h3",
+            "p",
+            "span",
+            "a"
+          ],
+          "description": "HTML element the text renders as; `a` makes it a link (see `href`)."
+        },
+        "href": {
+          "type": "string",
+          "description": "Link destination when `tag` is `a`."
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "_self",
+            "_blank"
+          ],
+          "description": "Link target when `tag` is `a`."
+        },
+        "isSmsDisclaimer": {
+          "type": "boolean",
+          "description": "Marks the text as the SMS consent disclaimer that belongs to a phone input."
+        },
+        "linkedPhoneInputId": {
+          "type": "string",
+          "description": "Item id of the `tel` input this disclaimer is attached to (renders in the same grid cell)."
+        },
+        "startIcon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "Icon drawn before the text."
+        },
+        "endIcon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "Icon drawn after the text."
+        },
+        "iconGap": {
+          "type": "number",
+          "description": "Space between an icon and the text, in px."
+        },
+        "i18n": {
+          "$ref": "#/definitions/LocalizedFieldMap",
+          "description": "Translations of `content` (and `errorContent`) per locale."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`text` item — a heading, paragraph, inline span or link."
+    },
+    "ItemIcon": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "type": "string",
+          "description": "Library reference `icon:custom/<iconId>`; lets the editor show which icon is selected."
+        },
+        "svg": {
+          "type": "string",
+          "description": "Inner SVG markup (no wrapping `<svg>`), painted in `currentColor`."
+        },
+        "viewBox": {
+          "type": "string",
+          "description": "SVG viewBox of the snapshotted markup, e.g. `0 0 18 18`."
+        },
+        "size": {
+          "type": "number",
+          "description": "Rendered size in px."
+        },
+        "color": {
+          "type": "string",
+          "description": "Hex color or a `brand:` reference; empty inherits the surrounding text color."
+        }
+      },
+      "required": [
+        "ref",
+        "svg",
+        "viewBox"
+      ],
+      "additionalProperties": false,
+      "description": "An icon picked from the workspace icon library (Branding → Icons). The SVG body is snapshotted here so the widget renders it with no extra request; re-uploading the library icon does not update items already using it."
+    },
+    "LocalizedFieldMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "description": "Per-locale overrides of an item's translatable config fields: locale code (`en`, `tr`, …) → field name → translated string.",
+      "examples": [
+        {
+          "tr": {
+            "content": "Merhaba"
+          }
+        }
+      ]
+    },
+    "ButtonItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "button",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/ButtonItemConfig",
+          "description": "Button settings."
+        }
+      },
+      "required": [
+        "type",
+        "config"
+      ],
+      "additionalProperties": false,
+      "description": "A navigation or submit button."
+    },
+    "ButtonItemConfig": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Button text."
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "next",
+            "previous",
+            "submit",
+            "submit_and_next",
+            "submit_and_page",
+            "submit_and_redirect",
+            "skip",
+            "redirect",
+            "close"
+          ],
+          "description": "What clicking does: move `next` / `previous`, `submit` the answers, `submit_and_next`, `submit_and_page` (needs `targetPageId`), `submit_and_redirect` / `redirect` (need `redirectUrl`), `skip` the page, or `close` the widget."
+        },
+        "targetPageId": {
+          "type": "string",
+          "description": "Page id to jump to for `submit_and_page` (and page-targeted `next`)."
+        },
+        "redirectUrl": {
+          "type": "string",
+          "description": "URL opened by `redirect` / `submit_and_redirect`."
+        },
+        "startIcon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "Icon before the label."
+        },
+        "endIcon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "Icon after the label."
+        },
+        "iconGap": {
+          "type": "number",
+          "description": "Space between an icon and the label, in px."
+        },
+        "i18n": {
+          "$ref": "#/definitions/LocalizedFieldMap",
+          "description": "Translations of `label` per locale."
+        }
+      },
+      "required": [
+        "label",
+        "action"
+      ],
+      "additionalProperties": false,
+      "description": "`button` item — navigation or submit control."
+    },
+    "InputItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "input",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/InputItemConfig",
+          "description": "Field settings; `fieldName` is required."
+        }
+      },
+      "required": [
+        "type",
+        "config"
+      ],
+      "additionalProperties": false,
+      "description": "A form field."
+    },
+    "InputItemConfig": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string",
+          "description": "Key of this answer in the submission and in Iterable mappings; unique per project."
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text inside the field."
+        },
+        "i18n": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/InputLocalizedFields"
+          },
+          "description": "Translations of the placeholder and option labels per locale."
+        },
+        "inputType": {
+          "type": "string",
+          "enum": [
+            "text",
+            "email",
+            "number",
+            "tel",
+            "url",
+            "textarea",
+            "multiselect",
+            "radio",
+            "select",
+            "dropdown",
+            "single-select",
+            "checkbox",
+            "date",
+            "time"
+          ],
+          "description": "Kind of control. `checkbox` is a single consent box; `radio`, `single-select`, `dropdown` and `multiselect` use `options`; `date` and `time` are native pickers. `select` and `url` are legacy aliases of `dropdown` and `text`."
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectionOption"
+          },
+          "description": "Choices for `radio`, `dropdown`, `single-select` and `multiselect` inputs."
+        },
+        "dateFormat": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "MM/DD/YYYY",
+            "DD/MM/YYYY",
+            "DD.MM.YYYY",
+            "DD-MM-YYYY",
+            "YYYY-MM-DD",
+            "YYYY/MM/DD",
+            "D MMMM YYYY",
+            "MMMM D, YYYY",
+            "DD MMM YYYY",
+            "custom"
+          ],
+          "description": "`date` inputs: how the picked date is displayed. The submitted value is always ISO `YYYY-MM-DD`. Missing or `auto` uses the visitor's locale."
+        },
+        "dateFormatCustom": {
+          "type": "string",
+          "description": "Pattern used when `dateFormat` is `custom`: tokens yy/yyyy, m/mm/mmm/mmmm, d/dd/ddd/dddd joined by / . - , or space."
+        },
+        "includeTime": {
+          "type": "boolean",
+          "description": "`date` inputs: also ask for a time of day; the value becomes `YYYY-MM-DDTHH:mm`."
+        },
+        "timeFormat": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "hh:mm",
+            "hh:mm:ss",
+            "hh:mm:ss.s",
+            "hh:mm TZD",
+            "hh:mm:ss TZD",
+            "custom"
+          ],
+          "description": "How the time half is displayed (`time` inputs and `includeTime`). Patterns are 24-hour."
+        },
+        "timeFormatCustom": {
+          "type": "string",
+          "description": "Pattern used when `timeFormat` is `custom`: tokens hh, mm, ss, s and TZD joined by : . - , or space."
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "Time zone the typed time is interpreted in: `visitor` (default), `UTC`, or an IANA name such as `Europe/Berlin`."
+        },
+        "timeValueFormat": {
+          "type": "string",
+          "enum": [
+            "wall",
+            "offset",
+            "utc",
+            "wall_zone"
+          ],
+          "description": "What a date-time field submits: `wall` (no zone), `offset` (with the zone's offset), `utc` (normalized to Z) or `wall_zone` (wall clock plus a `<fieldName>_tz` field). Only `offset` and `utc` are readable by Iterable as dates."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Visitor must fill the field before continuing."
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "Value the field starts with when the visitor has none yet; never overwrites what they typed."
+        },
+        "urlPrefillParam": {
+          "type": "string",
+          "description": "Name of a URL query parameter allowed to override `defaultValue`. Unset means no URL prefill."
+        },
+        "submitOnSelect": {
+          "type": "boolean",
+          "description": "Selecting an option submits (or advances) immediately, without a button."
+        },
+        "emailTypoCheck": {
+          "type": "boolean",
+          "description": "`email` inputs: suggest a fix for common domain typos (gmial.com → gmail.com)."
+        },
+        "validation": {
+          "$ref": "#/definitions/InputValidation",
+          "description": "Length, range and pattern constraints."
+        },
+        "renderAs": {
+          "type": "string",
+          "enum": [
+            "button",
+            "radio",
+            "tick",
+            "ab"
+          ],
+          "description": "How options render: `button` cards, or cards with a `radio` dot, `tick` or A/B/C letter marker."
+        },
+        "hoverEffect": {
+          "type": "boolean",
+          "description": "Lift-and-tint hover effect on option cards. Undefined means on."
+        },
+        "_isChannelToggle": {
+          "type": "boolean",
+          "description": "Internal: this checkbox toggles an Iterable channel or message type subscription (managed by the channels group)."
+        },
+        "_iterableChannelId": {
+          "type": "number",
+          "description": "Internal: Iterable channel id this toggle controls."
+        },
+        "_iterableMessageTypeId": {
+          "type": "number",
+          "description": "Internal: Iterable message type id this toggle controls."
+        },
+        "iterableListIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "`checkbox` inputs: Iterable list ids the visitor is subscribed to when checked."
+        },
+        "iterableUnsubscribedChannelIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "`checkbox` inputs: Iterable channel ids the visitor is unsubscribed from when checked."
+        },
+        "iterableSubscribedMessageTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "`checkbox` inputs: Iterable message type ids the visitor is subscribed to when checked."
+        },
+        "iterableUnsubscribedMessageTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "`checkbox` inputs: Iterable message type ids the visitor is unsubscribed from when checked."
+        },
+        "checkboxBehavior": {
+          "type": "string",
+          "enum": [
+            "default",
+            "select_all",
+            "unselect_all"
+          ],
+          "description": "`checkbox` inputs inside a channels group: a normal toggle, or a helper that selects / unselects every sibling."
+        },
+        "startIcon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "Icon drawn inside the control at its start (text-like inputs only)."
+        },
+        "endIcon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "Icon drawn inside the control at its end (text-like inputs only)."
+        },
+        "iconGap": {
+          "type": "number",
+          "description": "Space between an icon and the field's text, in px."
+        }
+      },
+      "required": [
+        "fieldName"
+      ],
+      "additionalProperties": false,
+      "description": "`input` item — a form field. The submitted answer is keyed by `fieldName`."
+    },
+    "InputLocalizedFields": {
+      "type": "object",
+      "properties": {
+        "placeholder": {
+          "type": "string",
+          "description": "Translated placeholder."
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/InputOptionTranslation"
+          },
+          "description": "Translated option labels keyed by option value."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Per-locale translations of an input's visible strings."
+    },
+    "InputOptionTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Translated label."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Translation of a single selection option."
+    },
+    "SelectionOption": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Value submitted when the option is chosen."
+        },
+        "label": {
+          "type": "string",
+          "description": "Text shown to the visitor."
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ],
+      "additionalProperties": false,
+      "description": "One choice of a `radio`, `dropdown`, `single-select` or `multiselect` input."
+    },
+    "InputValidation": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Regular expression the value must match."
+        },
+        "minLength": {
+          "type": "number",
+          "description": "Minimum number of characters."
+        },
+        "maxLength": {
+          "type": "number",
+          "description": "Maximum number of characters."
+        },
+        "min": {
+          "type": "number",
+          "description": "Minimum numeric value (`number` inputs)."
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum numeric value (`number` inputs)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Min/max constraints checked in the widget before submit."
+    },
+    "LogoItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "logo",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/LogoItemConfig",
+          "description": "Image settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "An image, usually the brand logo."
+    },
+    "LogoItemConfig": {
+      "type": "object",
+      "properties": {
+        "logo": {
+          "$ref": "#/definitions/LogoRef",
+          "description": "Logo chosen from the workspace branding."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Direct image URL when not using a branding logo."
+        },
+        "altText": {
+          "type": "string",
+          "description": "Alternative text for screen readers."
+        },
+        "isWorkspaceLogo": {
+          "type": "boolean",
+          "description": "Editor flag: the image is the brand logo picked from workspace branding. The widget renders `imageUrl` / `logo.url` as saved; it does not re-resolve branding."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`logo` item — an image, usually the brand logo."
+    },
+    "LogoRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Branding logo id."
+        },
+        "url": {
+          "type": "string",
+          "description": "Image URL."
+        },
+        "name": {
+          "type": "string",
+          "description": "File name."
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "A logo uploaded to the workspace branding."
+    },
+    "GroupItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "group",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/GroupItemConfig",
+          "description": "Section settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "A titled, collapsible section (preference centers). Children reference it via `parent_id`."
+    },
+    "GroupItemConfig": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Section title."
+        },
+        "htmlId": {
+          "type": "string",
+          "description": "DOM id for the container so `#that-id` links scroll to it."
+        },
+        "i18n": {
+          "$ref": "#/definitions/LocalizedFieldMap",
+          "description": "Translations of `title` per locale."
+        },
+        "collapsed": {
+          "type": "boolean",
+          "description": "Start collapsed."
+        },
+        "iterableChannelsGroup": {
+          "type": "boolean",
+          "description": "This group is the Iterable channels group: its checkboxes are generated from `channelConfig`. Requires an Iterable connection."
+        },
+        "iterableChannelId": {
+          "type": "number",
+          "description": "Iterable channel id when the group represents a single channel."
+        },
+        "iterableHelperGroup": {
+          "type": "boolean",
+          "description": "This group holds the subscribe-all / unsubscribe-all helper checkboxes."
+        },
+        "channelConfig": {
+          "$ref": "#/definitions/GroupChannelConfig",
+          "description": "Channels and message types managed by a channels group."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`group` item — a titled, collapsible section that contains other items (preference centers)."
+    },
+    "GroupChannelConfig": {
+      "type": "object",
+      "properties": {
+        "selectedChannels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableChannelRef"
+          },
+          "description": "Channels the visitor can toggle."
+        },
+        "selectedMessageTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IterableMessageTypeRef"
+          },
+          "description": "Message types the visitor can toggle."
+        },
+        "helperCheckbox": {
+          "type": "string",
+          "enum": [
+            "none",
+            "subscribe_all",
+            "unsubscribe_all",
+            "both"
+          ],
+          "description": "Extra helper checkbox(es): subscribe all, unsubscribe all, both or none."
+        },
+        "channelStyleInfo": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Styles applied to the generated channel checkboxes."
+        },
+        "messageTypeStyleInfo": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Styles applied to the generated message-type checkboxes."
+        }
+      },
+      "required": [
+        "selectedChannels",
+        "selectedMessageTypes"
+      ],
+      "additionalProperties": false,
+      "description": "Which Iterable channels and message types a channels group manages, and how they look."
+    },
+    "IterableChannelRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Iterable channel id."
+        },
+        "name": {
+          "type": "string",
+          "description": "Channel name as shown in Iterable."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "An Iterable channel selected for a channels group."
+    },
+    "IterableMessageTypeRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Iterable message type id."
+        },
+        "name": {
+          "type": "string",
+          "description": "Message type name as shown in Iterable."
+        },
+        "channelId": {
+          "type": "number",
+          "description": "Id of the channel the message type belongs to."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "channelId"
+      ],
+      "additionalProperties": false,
+      "description": "An Iterable message type selected for a channels group."
+    },
+    "CheckboxGroupItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "checkbox-group",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/CheckboxGroupItemConfig",
+          "description": "Checkbox list settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "A labelled list of checkboxes."
+    },
+    "CheckboxGroupItemConfig": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label above the checkboxes."
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CheckboxGroupOption"
+          },
+          "description": "The checkboxes."
+        },
+        "i18n": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/CheckboxGroupLocalizedFields"
+          },
+          "description": "Translations of the label and option labels per locale."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`checkbox-group` item — a labelled list of checkboxes."
+    },
+    "CheckboxGroupOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable option id."
+        },
+        "label": {
+          "type": "string",
+          "description": "Text next to the checkbox."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value submitted when checked."
+        },
+        "checked": {
+          "type": "boolean",
+          "description": "Checked by default."
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "value"
+      ],
+      "additionalProperties": false,
+      "description": "One checkbox of a `checkbox-group`."
+    },
+    "CheckboxGroupLocalizedFields": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Translated group label."
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/InputOptionTranslation"
+          },
+          "description": "Translated option labels keyed by option id."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Per-locale translations of a checkbox group."
+    },
+    "PreferenceCategoryItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "preference-category",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/PreferenceCategoryItemConfig",
+          "description": "Category settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "A titled category inside a preference center."
+    },
+    "PreferenceCategoryItemConfig": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Category title."
+        },
+        "description": {
+          "type": "string",
+          "description": "Category description."
+        },
+        "i18n": {
+          "$ref": "#/definitions/LocalizedFieldMap",
+          "description": "Translations of `title` and `description` per locale."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`preference-category` item — a titled category inside a preference center."
+    },
+    "HtmlBlockItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "html-block",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/HtmlBlockItemConfig",
+          "description": "Markup and code of one embed, table or piece of vector art."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Custom HTML with optional CSS and JavaScript — the escape hatch for one embed, table or piece of vector art the other items cannot show, never a heading, image, field, button, section or page."
+    },
+    "HtmlBlockItemConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Editor label for the block."
+        },
+        "html": {
+          "type": "string",
+          "description": "HTML markup of one embed, table or piece of vector art. Not for headings, copy, images, links, fields or buttons — those are `text`, `logo`, `button` and `input` items, which stay editable, translatable, branded and measured; validation warns when a block holds them."
+        },
+        "css": {
+          "type": "string",
+          "description": "CSS scoped to the block (selectors are prefixed with the block's id)."
+        },
+        "javascript": {
+          "type": "string",
+          "description": "JavaScript run after the block renders, as a strict-mode function."
+        },
+        "i18n": {
+          "$ref": "#/definitions/LocalizedFieldMap",
+          "description": "Translations of `html` per locale."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`html-block` item — custom HTML with optional CSS and JavaScript, for what the other items cannot show (embedded video, third-party widgets, tables, custom vector art)."
+    },
+    "RatingItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "rating",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/RatingItemConfig",
+          "description": "Rating settings; `fieldName` is required."
+        }
+      },
+      "required": [
+        "type",
+        "config"
+      ],
+      "additionalProperties": false,
+      "description": "A row of icons the visitor scores with."
+    },
+    "RatingItemConfig": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string",
+          "description": "Key of the answer in the submission."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Visitor must pick a rating before continuing."
+        },
+        "submitOnSelect": {
+          "type": "boolean",
+          "description": "Picking a rating submits (or advances) immediately."
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "Rating the widget starts on, as a string (`\"3\"`). Out-of-range values are ignored."
+        },
+        "urlPrefillParam": {
+          "type": "string",
+          "description": "Name of a URL query parameter allowed to override `defaultValue`."
+        },
+        "maxRating": {
+          "type": "number",
+          "description": "Number of icons. Default 5."
+        },
+        "iconType": {
+          "$ref": "#/definitions/RatingIconType",
+          "description": "Icon glyph."
+        },
+        "strokeColor": {
+          "type": "string",
+          "description": "Outline color of unselected icons."
+        },
+        "fillColor": {
+          "type": "string",
+          "description": "Fill color of unselected icons."
+        },
+        "selectedStrokeColor": {
+          "type": "string",
+          "description": "Outline color of selected icons."
+        },
+        "selectedFillColor": {
+          "type": "string",
+          "description": "Fill color of selected icons."
+        },
+        "size": {
+          "type": "number",
+          "description": "Icon size in px."
+        },
+        "valueMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Optional label per rating value (`{\"1\": \"Poor\", \"5\": \"Great\"}`), submitted instead of the number."
+        }
+      },
+      "required": [
+        "fieldName"
+      ],
+      "additionalProperties": false,
+      "description": "`rating` item — a row of icons the visitor scores with (1..maxRating)."
+    },
+    "RatingIconType": {
+      "type": "string",
+      "enum": [
+        "star",
+        "heart",
+        "thumbs-up",
+        "smiley",
+        "crown",
+        "dog",
+        "cat",
+        "circle",
+        "flag",
+        "droplet",
+        "checkmark",
+        "lightbulb",
+        "trophy",
+        "cloud",
+        "lightning",
+        "pencil",
+        "skull"
+      ],
+      "description": "Icon glyph of a `rating` item."
+    },
+    "SuccessMessageItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "success_message",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/SuccessMessageItemConfig",
+          "description": "Message settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Text shown after a successful submit (`errorContent` on failure)."
+    },
+    "SuccessMessageItemConfig": {
+      "$ref": "#/definitions/TextItemConfig",
+      "description": "`success_message` item — text shown after a successful submit; `errorContent` shows on failure."
+    },
+    "FlexItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "flex",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/FlexItemConfig",
+          "description": "Box settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "A layout Box (flex, stack or grid, chosen by `style_info.display`). Children reference it via `parent_id`."
+    },
+    "FlexItemConfig": {
+      "type": "object",
+      "properties": {
+        "htmlId": {
+          "type": "string",
+          "description": "DOM id for the Box so `#that-id` links scroll to it."
+        },
+        "title": {
+          "type": "string",
+          "description": "Name of the Box in the editor's layer list; not rendered."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`flex` item — a layout Box whose children are laid out by `style_info.display` (flex, stack or grid)."
+    },
+    "CouponItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "coupon",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/CouponItemConfig",
+          "description": "Coupon settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Assigns the visitor a coupon code after submit."
+    },
+    "CouponItemConfig": {
+      "type": "object",
+      "properties": {
+        "coupon_id": {
+          "type": "string",
+          "description": "Id of the workspace coupon to assign codes from."
+        },
+        "identifier_type": {
+          "$ref": "#/definitions/CouponIdentifierType",
+          "description": "Which submitted field identifies the visitor (`email` default)."
+        },
+        "display_type": {
+          "$ref": "#/definitions/CouponDisplayType",
+          "description": "Reveal style."
+        },
+        "teaser_text": {
+          "type": "string",
+          "description": "Copy for the retired \"before submit\" state; never rendered.",
+          "deprecated": true
+        },
+        "success_text": {
+          "type": "string",
+          "description": "Text shown above the revealed code."
+        },
+        "show_expiry": {
+          "type": "boolean",
+          "description": "Show the expiry."
+        },
+        "expiry_display_type": {
+          "$ref": "#/definitions/CouponExpiryDisplay",
+          "description": "How the expiry is shown."
+        },
+        "show_copy_button": {
+          "type": "boolean",
+          "description": "Show a copy-to-clipboard button."
+        },
+        "show_description": {
+          "type": "boolean",
+          "description": "Show `description_text` under the code."
+        },
+        "description_text": {
+          "type": "string",
+          "description": "Free text under the code."
+        },
+        "shop_now_url": {
+          "type": "string",
+          "description": "URL of the \"shop now\" button; blank hides the button."
+        },
+        "shop_now_label": {
+          "type": "string",
+          "description": "Label of the \"shop now\" button."
+        },
+        "shop_now_append_code": {
+          "type": "boolean",
+          "description": "Append the code to `shop_now_url` as a query parameter."
+        },
+        "shop_now_code_param": {
+          "type": "string",
+          "description": "Query parameter name used by `shop_now_append_code`."
+        },
+        "show_code_in_widget": {
+          "type": "boolean",
+          "description": "Show the code itself (off = only tell the visitor it was sent)."
+        },
+        "styles": {
+          "$ref": "#/definitions/CouponStyles",
+          "description": "Section styling."
+        },
+        "label_template": {
+          "type": "string",
+          "description": "Template for the `label_only` text; `{{code}}` is replaced by the code."
+        },
+        "prompt_text": {
+          "type": "string",
+          "description": "Pre-reveal prompt above the gift boxes / balls; blank uses the built-in text."
+        },
+        "wheel_segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WheelSegment"
+          },
+          "description": "Spin wheel slices."
+        },
+        "wheel_spin_duration": {
+          "type": "number",
+          "description": "Spin duration in ms."
+        },
+        "wheel_pointer_color": {
+          "type": "string",
+          "description": "Wheel pointer color."
+        },
+        "wheel_center_text": {
+          "type": "string",
+          "description": "Text in the wheel hub."
+        },
+        "spin_button_label": {
+          "type": "string",
+          "description": "Spin button label; blank uses the built-in text."
+        },
+        "gift_box_count": {
+          "type": "number",
+          "description": "Number of gift boxes."
+        },
+        "gift_box_colors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Gift box colors."
+        },
+        "gift_box_icon": {
+          "type": "string",
+          "description": "Emoji or image used for the gift boxes."
+        },
+        "gift_box_icon_type": {
+          "type": "string",
+          "enum": [
+            "emoji",
+            "image"
+          ],
+          "description": "Whether `gift_box_icon` is an emoji or an image URL."
+        },
+        "gift_box_icon_url": {
+          "type": "string",
+          "description": "Image URL for the gift boxes when `gift_box_icon_type` is `image`."
+        },
+        "ball_count": {
+          "type": "number",
+          "description": "Number of balls."
+        },
+        "ball_colors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ball colors."
+        },
+        "ball_static": {
+          "type": "boolean",
+          "description": "Balls do not bounce."
+        },
+        "error_screen": {
+          "$ref": "#/definitions/CouponScreenConfig",
+          "description": "Screen shown when no code could be assigned."
+        },
+        "expiry_screen": {
+          "$ref": "#/definitions/CouponScreenConfig",
+          "description": "Screen shown when the coupon has expired."
+        },
+        "i18n": {
+          "$ref": "#/definitions/LocalizedFieldMap",
+          "description": "Translations of the text fields per locale."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`coupon` item — assigns the visitor a code from a workspace coupon after submit. Renders on its own page reached after the form. Requires the organization's coupon capability."
+    },
+    "CouponIdentifierType": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone"
+      ],
+      "description": "Which submitted field identifies the visitor for the coupon assignment."
+    },
+    "CouponDisplayType": {
+      "type": "string",
+      "enum": [
+        "always_show",
+        "label_only",
+        "spin_wheel",
+        "gift_boxes",
+        "pick_a_ball"
+      ],
+      "description": "How the coupon is revealed: shown outright, a label, or a spin wheel / gift boxes / ball game."
+    },
+    "CouponExpiryDisplay": {
+      "type": "string",
+      "enum": [
+        "label",
+        "countdown",
+        "progress",
+        "flip",
+        "badge"
+      ],
+      "description": "How the coupon expiry is shown."
+    },
+    "CouponStyles": {
+      "type": "object",
+      "properties": {
+        "teaser_bg": {
+          "type": "string",
+          "description": "Retired \"before submit\" teaser background; read only as a fallback for `label_*`.",
+          "deprecated": true
+        },
+        "prompt_text_color": {
+          "type": "string",
+          "description": "Pre-reveal prompt text color."
+        },
+        "prompt_text_size": {
+          "type": "number",
+          "description": "Pre-reveal prompt font size in px."
+        },
+        "spin_btn_bg": {
+          "type": "string",
+          "description": "Spin button background."
+        },
+        "spin_btn_text_color": {
+          "type": "string",
+          "description": "Spin button text color."
+        },
+        "label_text_color": {
+          "type": "string",
+          "description": "Label text color (`label_only`)."
+        },
+        "label_text_size": {
+          "type": "number",
+          "description": "Label font size in px."
+        },
+        "success_text_color": {
+          "type": "string",
+          "description": "Success text color."
+        },
+        "success_text_size": {
+          "type": "number",
+          "description": "Success text size in px."
+        },
+        "code_bg": {
+          "type": "string",
+          "description": "Code box background."
+        },
+        "code_text_color": {
+          "type": "string",
+          "description": "Code text color."
+        },
+        "code_text_size": {
+          "type": "number",
+          "description": "Code font size in px."
+        },
+        "code_border_radius": {
+          "type": "number",
+          "description": "Code box corner radius in px."
+        },
+        "copy_btn_color": {
+          "type": "string",
+          "description": "Copy button color."
+        },
+        "desc_text_color": {
+          "type": "string",
+          "description": "Description text color."
+        },
+        "desc_text_size": {
+          "type": "number",
+          "description": "Description font size in px."
+        },
+        "timer_digit_bg": {
+          "type": "string",
+          "description": "Countdown digit background."
+        },
+        "timer_digit_color": {
+          "type": "string",
+          "description": "Countdown digit color."
+        },
+        "progress_bar_color": {
+          "type": "string",
+          "description": "Progress bar fill color."
+        },
+        "progress_track_color": {
+          "type": "string",
+          "description": "Progress bar track color."
+        },
+        "shop_btn_bg": {
+          "type": "string",
+          "description": "Shop button background."
+        },
+        "shop_btn_text_color": {
+          "type": "string",
+          "description": "Shop button text color."
+        }
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "not": {}
+          }
+        ],
+        "description": "Any other `<section>_<property>` key from the coupon style panel."
+      },
+      "description": "Coupon block styling, keyed by section: `prompt_*` (pre-reveal text), `spin_btn_*`, `label_*`, `success_*`, `code_*`, `desc_*`, `timer_*`, `progress_*`, `shop_btn_*`. Colors are hex strings, sizes are px numbers, paddings CSS shorthand. `teaser_*` and `divider_*` keys are deprecated and ignored. Any other key is carried but unused."
+    },
+    "WheelSegment": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Text on the slice."
+        },
+        "color": {
+          "type": "string",
+          "description": "Slice color."
+        }
+      },
+      "required": [
+        "label",
+        "color"
+      ],
+      "additionalProperties": false,
+      "description": "One slice of a spin wheel."
+    },
+    "CouponScreenConfig": {
+      "type": "object",
+      "properties": {
+        "goto_page": {
+          "type": "number",
+          "description": "Page index to jump to instead of showing the screen."
+        },
+        "title": {
+          "type": "string",
+          "description": "Screen title."
+        },
+        "message": {
+          "type": "string",
+          "description": "Screen body text."
+        },
+        "icon_hidden": {
+          "type": "boolean",
+          "description": "Hide the icon."
+        },
+        "icon_color": {
+          "type": "string",
+          "description": "Icon color."
+        },
+        "bg": {
+          "type": "string",
+          "description": "Screen background color."
+        },
+        "btn_text": {
+          "type": "string",
+          "description": "Button label."
+        },
+        "btn_bg": {
+          "type": "string",
+          "description": "Button background color."
+        },
+        "btn_text_color": {
+          "type": "string",
+          "description": "Button text color."
+        },
+        "btn_action": {
+          "type": "string",
+          "description": "What the button does (`close`, `redirect`, …)."
+        },
+        "btn_url": {
+          "type": "string",
+          "description": "URL for a redirect button."
+        }
+      },
+      "additionalProperties": false,
+      "description": "The screen shown when no code can be assigned (error) or the coupon has expired."
+    },
+    "IconItem": {
+      "type": "object",
+      "properties": {
+        "style_info": {
+          "$ref": "#/definitions/ItemStyleInfo",
+          "description": "Visual styles of the item."
+        },
+        "error_style_info": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ItemStyleInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Styles applied in the error state (`success_message` items)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Existing item id to update; omit to create the item."
+        },
+        "order_index": {
+          "type": "integer",
+          "description": "Accepted for round-tripping only: on save the server assigns the position from the item's index in the page's `items` array. Write items in reading order."
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SaveDocumentItemVisibilityDto"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Hide the item on some device sizes; null means visible everywhere."
+        },
+        "side": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "left",
+            "right",
+            null
+          ],
+          "description": "`2-column` template only: which column the item sits in."
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Id of the containing `flex` or `group` item; null for top-level items."
+        },
+        "type": {
+          "type": "string",
+          "const": "icon",
+          "description": "Item type."
+        },
+        "config": {
+          "$ref": "#/definitions/IconItemConfig",
+          "description": "Icon settings."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "A library icon on its own."
+    },
+    "IconItemConfig": {
+      "type": "object",
+      "properties": {
+        "icon": {
+          "$ref": "#/definitions/ItemIcon",
+          "description": "The icon to draw."
+        },
+        "altText": {
+          "type": "string",
+          "description": "Alternative text; blank keeps the glyph decorative (`aria-hidden`)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "`icon` item — a library icon standing on its own."
+    }
+  }
+}

@@ -1,0 +1,745 @@
+{
+  "expected_version": 1,
+  "name": "Lang Pref",
+  "description": "",
+  "display_type": "modal",
+  "primary_color": "#7c3aed",
+  "thank_you_message": "Thank you for your response!",
+  "trigger_id": null,
+  "style_config": {
+    "i18n": {
+      "tr": {
+        "seo_page_title": "Sahipa bashy",
+        "seo_meta_description": "Meta tr",
+        "preference_center_footer_html": "Ashak",
+        "preference_center_header_html": "Bash"
+      }
+    },
+    "position": "center",
+    "template": "default",
+    "card_width": "400px",
+    "desc_color": "#111827",
+    "card_height": "auto",
+    "card_padding": "20px",
+    "input_radius": "6px",
+    "overlay_blur": 0,
+    "border_radius": "12px",
+    "button_radius": "6px",
+    "input_padding": "10px",
+    "primary_color": "#7c3aed",
+    "button_padding": "10px",
+    "desc_font_size": "16px",
+    "seo_page_title": "Page Title",
+    "background_type": "color",
+    "input_font_size": "16px",
+    "justify_content": "center",
+    "overlay_opacity": 0,
+    "title_font_size": "30px",
+    "background_color": "#ffffff",
+    "button_font_size": "14px",
+    "input_text_color": "#1f2937",
+    "button_text_color": "#ffffff",
+    "card_border_color": "#e5e7eb",
+    "card_border_style": "solid",
+    "card_border_width": "0px",
+    "close_button_size": "16px",
+    "close_button_color": "#111827",
+    "close_button_padding": "0px",
+    "seo_meta_description": "Meta Desc",
+    "background_object_fit": "cover",
+    "close_button_bg_color": "transparent",
+    "notification_bg_color": "#10b981",
+    "close_button_border_radius": "0px",
+    "notification_error_bg_color": "#ef4444",
+    "preference_center_footer_html": "Footer",
+    "preference_center_header_html": "Header"
+  },
+  "settings_config": {
+    "localeConfig": {
+      "defaultLocale": "en",
+      "enabledLocales": ["en", "tr"]
+    },
+    "iterable_integration": {}
+  },
+  "pages": [
+    {
+      "id": "dcb5e70a-6a14-4557-b604-d52313aaf8e9",
+      "title": "Page 1",
+      "order_index": 0,
+      "items": [
+        {
+          "id": "fe412460-4b66-414e-b3da-6e93f1b60c02",
+          "type": "group",
+          "order_index": 0,
+          "config": {
+            "title": "Iterable Channels / Types",
+            "collapsed": false,
+            "channelConfig": {
+              "helperCheckbox": "both",
+              "selectedChannels": [
+                {
+                  "id": 131885,
+                  "name": "test"
+                },
+                {
+                  "id": 131797,
+                  "name": "Push Marketing Channel"
+                },
+                {
+                  "id": 131796,
+                  "name": "Transactional Channel"
+                },
+                {
+                  "id": 131795,
+                  "name": "Marketing Channel"
+                }
+              ],
+              "selectedMessageTypes": [
+                {
+                  "id": 183576,
+                  "name": "double-opt-in-test",
+                  "channelId": 131885
+                },
+                {
+                  "id": 183431,
+                  "name": "SMS Message Type",
+                  "channelId": 131885
+                },
+                {
+                  "id": 170401,
+                  "name": "Push Marketing Message",
+                  "channelId": 131797
+                },
+                {
+                  "id": 170400,
+                  "name": "Transactional Message",
+                  "channelId": 131796
+                },
+                {
+                  "id": 170399,
+                  "name": "Marketing Message",
+                  "channelId": 131795
+                }
+              ]
+            },
+            "iterableChannelsGroup": true,
+            "i18n": {
+              "tr": {
+                "title": "Kanallar / Türler"
+              }
+            }
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "5ddb55e3-7290-4949-b742-c44bb45d003b",
+          "type": "group",
+          "order_index": 1,
+          "config": {
+            "title": "test",
+            "collapsed": false,
+            "iterableChannelId": 131885,
+            "i18n": {
+              "tr": {
+                "title": "test"
+              }
+            }
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "fe412460-4b66-414e-b3da-6e93f1b60c02"
+        },
+        {
+          "id": "614e20b2-da3d-47a2-be73-1074737b8cca",
+          "type": "input",
+          "order_index": 2,
+          "config": {
+            "i18n": {
+              "tr": {
+                "placeholder": "<p>Selam</p>"
+              }
+            },
+            "fieldName": "test",
+            "inputType": "checkbox",
+            "placeholder": "test",
+            "_isChannelToggle": true,
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131885
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "10px 0 0 0",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "700"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "5ddb55e3-7290-4949-b742-c44bb45d003b"
+        },
+        {
+          "id": "09db8fe4-e2e1-4d9e-a0b3-23c712cd8b1a",
+          "type": "input",
+          "order_index": 3,
+          "config": {
+            "fieldName": "double_opt_in_test",
+            "inputType": "checkbox",
+            "placeholder": "double-opt-in-test",
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131885,
+            "_iterableMessageTypeId": 183576,
+            "iterableSubscribedMessageTypeIds": [183576],
+            "i18n": {
+              "tr": {
+                "placeholder": "çift onay testi"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0 0 0 14px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "5ddb55e3-7290-4949-b742-c44bb45d003b"
+        },
+        {
+          "id": "cd5e0cae-3360-4ae3-b4d0-2fab8dd0df2d",
+          "type": "input",
+          "order_index": 4,
+          "config": {
+            "i18n": {
+              "tr": {
+                "placeholder": "<p>SMS Gornushi</p>"
+              }
+            },
+            "fieldName": "sms_message_type",
+            "inputType": "checkbox",
+            "placeholder": "SMS Message Type",
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131885,
+            "_iterableMessageTypeId": 183431,
+            "iterableSubscribedMessageTypeIds": [183431]
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0 0 0 14px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "5ddb55e3-7290-4949-b742-c44bb45d003b"
+        },
+        {
+          "id": "b456338d-bbfa-4ac1-8adc-871a87b92ee0",
+          "type": "group",
+          "order_index": 5,
+          "config": {
+            "title": "Push Marketing Channel",
+            "collapsed": false,
+            "iterableChannelId": 131797,
+            "i18n": {
+              "tr": {
+                "title": "Push Pazarlama Kanalı"
+              }
+            }
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "fe412460-4b66-414e-b3da-6e93f1b60c02"
+        },
+        {
+          "id": "acae5957-a2ea-483d-9415-61cae1be7f1b",
+          "type": "input",
+          "order_index": 6,
+          "config": {
+            "fieldName": "push_marketing_channel",
+            "inputType": "checkbox",
+            "placeholder": "Push Marketing Channel",
+            "_isChannelToggle": true,
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131797,
+            "i18n": {
+              "tr": {
+                "placeholder": "Push Pazarlama Kanalı"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "10px 0 0 0",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "700"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "b456338d-bbfa-4ac1-8adc-871a87b92ee0"
+        },
+        {
+          "id": "03c82a72-78a5-4eda-b80a-38e544241647",
+          "type": "input",
+          "order_index": 7,
+          "config": {
+            "fieldName": "push_marketing_message",
+            "inputType": "checkbox",
+            "placeholder": "Push Marketing Message",
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131797,
+            "_iterableMessageTypeId": 170401,
+            "iterableSubscribedMessageTypeIds": [170401],
+            "i18n": {
+              "tr": {
+                "placeholder": "Push Pazarlama Mesajı"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0 0 0 14px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "b456338d-bbfa-4ac1-8adc-871a87b92ee0"
+        },
+        {
+          "id": "566abb05-0ce1-4667-b19a-95b9f96febfa",
+          "type": "group",
+          "order_index": 8,
+          "config": {
+            "title": "Transactional Channel",
+            "collapsed": false,
+            "iterableChannelId": 131796,
+            "i18n": {
+              "tr": {
+                "title": "İşlem Kanalı"
+              }
+            }
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "fe412460-4b66-414e-b3da-6e93f1b60c02"
+        },
+        {
+          "id": "55add621-9569-4d3a-9bce-b35471a8f663",
+          "type": "input",
+          "order_index": 9,
+          "config": {
+            "fieldName": "transactional_channel",
+            "inputType": "checkbox",
+            "placeholder": "Transactional Channel",
+            "_isChannelToggle": true,
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131796,
+            "i18n": {
+              "tr": {
+                "placeholder": "İşlem Kanalı"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "10px 0 0 0",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "700"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "566abb05-0ce1-4667-b19a-95b9f96febfa"
+        },
+        {
+          "id": "8dfda010-59be-42b2-aca2-0c7aa80f12f9",
+          "type": "input",
+          "order_index": 10,
+          "config": {
+            "fieldName": "transactional_message",
+            "inputType": "checkbox",
+            "placeholder": "Transactional Message",
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131796,
+            "_iterableMessageTypeId": 170400,
+            "iterableSubscribedMessageTypeIds": [170400],
+            "i18n": {
+              "tr": {
+                "placeholder": "İşlem Mesajı"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0 0 0 14px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "566abb05-0ce1-4667-b19a-95b9f96febfa"
+        },
+        {
+          "id": "cb6391b4-8345-44bb-a1a4-58fbd23e5b6c",
+          "type": "group",
+          "order_index": 11,
+          "config": {
+            "title": "Marketing Channel",
+            "collapsed": false,
+            "iterableChannelId": 131795,
+            "i18n": {
+              "tr": {
+                "title": "Pazarlama Kanalı"
+              }
+            }
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "fe412460-4b66-414e-b3da-6e93f1b60c02"
+        },
+        {
+          "id": "d0daa537-416c-4f46-88be-eb2bb5a3451f",
+          "type": "input",
+          "order_index": 12,
+          "config": {
+            "fieldName": "marketing_channel",
+            "inputType": "checkbox",
+            "placeholder": "Marketing Channel",
+            "_isChannelToggle": true,
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131795,
+            "i18n": {
+              "tr": {
+                "placeholder": "Pazarlama Kanalı"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "10px 0 0 0",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "700"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "cb6391b4-8345-44bb-a1a4-58fbd23e5b6c"
+        },
+        {
+          "id": "a5e3846e-5bd8-48d3-8f36-e43b62ca5f01",
+          "type": "input",
+          "order_index": 13,
+          "config": {
+            "fieldName": "marketing_message",
+            "inputType": "checkbox",
+            "placeholder": "Marketing Message",
+            "checkboxBehavior": "default",
+            "_iterableChannelId": 131795,
+            "_iterableMessageTypeId": 170399,
+            "iterableSubscribedMessageTypeIds": [170399],
+            "i18n": {
+              "tr": {
+                "placeholder": "Pazarlama Mesajı"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0 0 0 14px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "cb6391b4-8345-44bb-a1a4-58fbd23e5b6c"
+        },
+        {
+          "id": "ab50bfa4-98b7-4897-8312-c78f711bbd35",
+          "type": "group",
+          "order_index": 14,
+          "config": {
+            "title": "Subscribe / Unsubscribe All",
+            "collapsed": false,
+            "iterableHelperGroup": true,
+            "i18n": {
+              "tr": {
+                "title": "Tümüne Abone Ol / Aboneliği İptal Et"
+              }
+            }
+          },
+          "style_info": {},
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "fe412460-4b66-414e-b3da-6e93f1b60c02"
+        },
+        {
+          "id": "6faba6d2-47b9-49b3-b7f4-7635d78aa012",
+          "type": "input",
+          "order_index": 15,
+          "config": {
+            "fieldName": "subscribe_all",
+            "inputType": "checkbox",
+            "placeholder": "Subscribe All",
+            "_isChannelToggle": true,
+            "checkboxBehavior": "select_all",
+            "_iterableChannelId": -1,
+            "i18n": {
+              "tr": {
+                "placeholder": "Tümüne Abone Ol"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "ab50bfa4-98b7-4897-8312-c78f711bbd35"
+        },
+        {
+          "id": "8d76b63b-d529-4fef-b1b3-b77827af013c",
+          "type": "input",
+          "order_index": 16,
+          "config": {
+            "fieldName": "unsubscribe_all",
+            "inputType": "checkbox",
+            "placeholder": "Unsubscribe All",
+            "_isChannelToggle": true,
+            "checkboxBehavior": "unselect_all",
+            "_iterableChannelId": -2,
+            "i18n": {
+              "tr": {
+                "placeholder": "Tüm Abonelikleri İptal Et"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": "ab50bfa4-98b7-4897-8312-c78f711bbd35"
+        },
+        {
+          "id": "10c4bf0d-40b7-4b52-ae41-be1a1b2c4f16",
+          "type": "button",
+          "order_index": 17,
+          "config": {
+            "label": "Submit",
+            "action": "submit",
+            "i18n": {
+              "tr": {
+                "label": "Gönder"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#ffffff",
+            "padding": "10px",
+            "fontSize": "14px",
+            "textAlign": "center",
+            "fontWeight": "500",
+            "borderColor": "#7c3aed",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#7c3aed"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "9ea17a4c-a61d-4c1f-a899-a8cf7e813f3b",
+          "type": "input",
+          "order_index": 18,
+          "config": {
+            "i18n": {
+              "tr": {
+                "options": {
+                  "english_1": {
+                    "label": "Tr 1"
+                  },
+                  "english_2": {
+                    "label": "İngilizce 2"
+                  },
+                  "english_3": {
+                    "label": "İngilizce 3"
+                  }
+                },
+                "placeholder": "Cevabınızı girin"
+              }
+            },
+            "options": [
+              {
+                "label": "English 1",
+                "value": "english_1"
+              },
+              {
+                "label": "English 2",
+                "value": "english_2"
+              },
+              {
+                "label": "English 3",
+                "value": "english_3"
+              }
+            ],
+            "required": false,
+            "fieldName": "dropdown",
+            "inputType": "dropdown",
+            "placeholder": "Enter your answer"
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "padding": "10px",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#ffffff"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "af2c7196-bbef-4378-a6b1-0180eab69e26",
+          "type": "input",
+          "order_index": 19,
+          "config": {
+            "i18n": {
+              "tr": {
+                "placeholder": "<p>Turkish</p>"
+              }
+            },
+            "required": true,
+            "fieldName": "checkbox",
+            "inputType": "checkbox",
+            "placeholder": "I agree to the terms and conditions",
+            "checkboxBehavior": "default"
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "width": "16px",
+            "margin": "0px",
+            "padding": "0px",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        },
+        {
+          "id": "fba38708-9138-49b5-bc0d-09e523d5b112",
+          "type": "input",
+          "order_index": 20,
+          "config": {
+            "i18n": {
+              "tr": {
+                "options": {
+                  "english_1": {
+                    "label": "Turkmen 1"
+                  },
+                  "english_2": {
+                    "label": "Turkmen 2"
+                  },
+                  "english_3": {
+                    "label": "Turkmen 3"
+                  }
+                },
+                "placeholder": "Cevabınızı girin"
+              }
+            },
+            "options": [
+              {
+                "label": "English 1",
+                "value": "english_1"
+              },
+              {
+                "label": "English 2",
+                "value": "english_2"
+              },
+              {
+                "label": "English 3",
+                "value": "english_3"
+              }
+            ],
+            "required": false,
+            "fieldName": "single_select",
+            "inputType": "single-select",
+            "placeholder": "Enter your answer"
+          },
+          "style_info": {
+            "color": "#1f2937",
+            "padding": "10px",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "borderStyle": "solid",
+            "borderWidth": "1px",
+            "borderRadius": "6px",
+            "backgroundColor": "#ffffff"
+          },
+          "error_style_info": null,
+          "visibility": null,
+          "side": "left",
+          "parent_id": null
+        }
+      ]
+    }
+  ]
+}

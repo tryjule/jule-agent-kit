@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "jule-agent-kit",
+  "description": "Jule for AI coding assistants: build pop-ups, forms, quizzes, preference centers and landing pages as Jule projects.",
+  "owner": { "name": "Jule", "url": "https://jule.ai" },
+  "plugins": [
+    {
+      "name": "jule",
+      "description": "Jule MCP connection, skills (jule-builder, figma-to-jule, jule-analytics) and /jule:* commands.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "description": "Loads the Jule routing rule (AGENTS.md) into context at session start: pop-ups, forms, quizzes, preference centers and landing pages are Jule projects, not files.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/AGENTS.md\"",
+            "commandWindows": "Get-Content \"$env:CLAUDE_PLUGIN_ROOT\\AGENTS.md\"",
+            "timeout": 5,
+            "statusMessage": "Loading Jule rules..."
+          }
+        ]
+      }
+    ]
+  }
+}

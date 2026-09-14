@@ -1,0 +1,6 @@
+description = "Read-only performance report on a Jule project — views, submissions, conversion, drop-off, trends — ending in one grounded recommendation"
+prompt = """Analyze a Jule project with the jule MCP server, following the jule-analytics skill exactly. Read-only: do not save, patch or publish anything.
+
+Request: {{args}}
+
+Call whoami first; when the organization has several workspaces and none is named, list them and ask. Find the project with list_projects (several matches: list them by name and ask). Fetch analytics_overview for the project (30 days unless a period is named), the analytics_report tables the question needs, and the workspace overview for comparison; then get_project and check the document against the catalogs and best practices. Report the findings in priority order with the exact fields to change, quoting only fetched numbers with their period in the dashboard's words, and end with one recommendation tied to a number and a way to verify it. Offer to apply changes as a separate step."""

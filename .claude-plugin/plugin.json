@@ -1,0 +1,23 @@
+{
+  "name": "jule",
+  "version": "0.2.2",
+  "description": "Build pop-ups, sign-up forms, quizzes, preference centers and landing pages as Jule projects through the Jule MCP server: the server connection, three skills and four slash commands.",
+  "author": {
+    "name": "Jule",
+    "url": "https://jule.ai"
+  },
+  "homepage": "https://docs.jule.ai/developers/mcp",
+  "repository": "https://github.com/tryjule/jule-agent-kit",
+  "license": "MIT",
+  "keywords": [
+    "jule",
+    "mcp",
+    "popup",
+    "sign-up-form",
+    "landing-page",
+    "preference-center",
+    "figma",
+    "analytics"
+  ],
+  "hooks": "./hooks/claude-codex-hooks.json"
+}

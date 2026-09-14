@@ -1,0 +1,11 @@
+{
+  "name": "jule",
+  "version": "0.2.2",
+  "description": "Build pop-ups, sign-up forms, quizzes, preference centers and landing pages as Jule projects through the Jule MCP server.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "jule": {
+      "httpUrl": "https://api.jule.ai/mcp"
+    }
+  }
+}

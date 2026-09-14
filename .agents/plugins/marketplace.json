@@ -1,0 +1,12 @@
+{
+  "name": "jule-agent-kit",
+  "interface": { "displayName": "Jule" },
+  "plugins": [
+    {
+      "name": "jule",
+      "source": { "source": "url", "url": "https://github.com/tryjule/jule-agent-kit.git", "ref": "main" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
