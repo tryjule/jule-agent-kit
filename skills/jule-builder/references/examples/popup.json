@@ -306,9 +306,40 @@
           "parent_id": null
         },
         {
+          "id": "0f4b6d21-7b0e-4a1f-9d63-2c7a1e5f4c88",
+          "type": "text",
+          "order_index": 7,
+          "config": {
+            "tag": "a",
+            "href": "https://example.com/privacy",
+            "target": "_blank",
+            "content": "<p>We use your email to send the code. Read our privacy policy.</p>",
+            "i18n": {
+              "tr": {
+                "content": "<p>E-postanızı kodu göndermek için kullanırız. Gizlilik politikamızı okuyun.</p>"
+              },
+              "ar": {
+                "content": "<p>نستخدم بريدك الإلكتروني لإرسال الرمز. اقرأ سياسة الخصوصية.</p>"
+              },
+              "de": {
+                "content": "<p>Wir nutzen Ihre E-Mail, um den Code zu senden. Lesen Sie unsere Datenschutzerklärung.</p>"
+              }
+            }
+          },
+          "style_info": {
+            "color": "#6b7280",
+            "fontSize": "14px",
+            "textAlign": "center"
+          },
+          "error_style_info": {},
+          "visibility": null,
+          "side": null,
+          "parent_id": null
+        },
+        {
           "id": "22631699-191a-452c-bfc1-493cd9de4e4f",
           "type": "html-block",
-          "order_index": 7,
+          "order_index": 8,
           "config": {
             "css": ".badges {\n  color: red;\n}",
             "html": "<ul class=\"badges\"><li>Hello</li></ul>",
@@ -340,7 +371,7 @@
         {
           "id": "78c735cd-246d-4a5b-8b64-8152d875c340",
           "type": "rating",
-          "order_index": 8,
+          "order_index": 9,
           "config": {
             "iconType": "star",
             "required": false,
@@ -360,7 +391,7 @@
         {
           "id": "2ddcc43a-3ed9-4507-8944-70524b32642c",
           "type": "logo",
-          "order_index": 9,
+          "order_index": 10,
           "config": {
             "logo": {
               "id": "1779721653488-xmhdguq2s",
@@ -381,7 +412,7 @@
         {
           "id": "e3cc7aba-f94e-4ad1-87da-d1ab112222ce",
           "type": "flex",
-          "order_index": 10,
+          "order_index": 11,
           "config": {},
           "style_info": {
             "gap": "8px",
@@ -400,7 +431,7 @@
         {
           "id": "ffc09ee7-2621-4fe8-bbbe-e6c01d8cf6c8",
           "type": "success_message",
-          "order_index": 11,
+          "order_index": 12,
           "config": {
             "tag": "p",
             "i18n": {
@@ -441,7 +472,7 @@
         {
           "id": "4b187b83-7a40-4853-958a-8336ffb530f6",
           "type": "html-block",
-          "order_index": 12,
+          "order_index": 13,
           "config": {
             "css": "",
             "html": "<table><tr><td>english</td></tr></table>",

@@ -2,7 +2,9 @@
 
 Every page of a Jule project is a flat list of **items**. An item is
 `{ id?, type, config, style_info, parent_id, side?, visibility?, error_style_info? }`;
-`type` decides the `config` shape. This guide explains what each of the 13 types does in the
+`type` decides the `config` shape; on `text`, `button`, `input` and `flex` items `config` may also carry
+`presetIds` / `presetOverrides`, the binding to a workspace style class (Style classes in
+`jule://docs/project-style`). This guide explains what each of the 13 types does in the
 published widget (`widget.js`), what the editor calls it, which fields matter, one real-shaped
 JSON example, and what it needs to work. Field-level detail for every key lives in the schema,
 served in parts: `jule://docs/schema/items/<type>` for one item type (or `whoami` with
@@ -501,7 +503,7 @@ page with the submit button, or use a second page for a full thank-you screen in
 
 ## `flex`
 
-**Purpose.** A layout **Box**. Editor: Container. Children are laid out by `style_info.display`:
+**Purpose.** A layout **Box**. Editor: Container. How children take their width and align, and the layouts real pages are built from (inline form row, hero, card grid, bands), are in `jule://docs/layout` — read it before placing items side by side. Children are laid out by `style_info.display`:
 
 | `display`                    | Children                                 | Parent fields                                                                                                                                                                                                   | Child fields                                                                                                                                                                                                |
 | ---------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
