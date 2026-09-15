@@ -51,6 +51,11 @@ Check these before every save. Each one is [HARD].
    (`fontFamily` + `fontUrl`), a branding logo, the legal texts (privacy URL, SMS disclaimer) and
    the style classes (`element_presets`): when a class exists for the element you are placing,
    bind it (`config.presetIds` + its `style` in `style_info`) instead of hand-rolling the style.
+   When the workspace carries none of it — no brand colors, no font, no usable logo — do not stop
+   to ask for a hex. Take the palette and the font from what you already have (the design, the
+   logo, the site the brief names, the product's own words), say in one line what you chose and
+   why, and build with it; the user changes it in Branding afterwards. Ask only when there is
+   nothing to take them from.
 2. Read `jule://workspaces/{id}/integrations`: Iterable connected and active? Which lists,
    channels and message types exist? Are coupons enabled, is a provider connected? Never add a
    channels group, Iterable list ids or a coupon item the workspace cannot honour.
@@ -232,10 +237,14 @@ Check these before every save. Each one is [HARD].
   `features`, `pricing`) so header links scroll; `display: "grid"` for columns with
   `responsive.mobile.gridTemplateColumns: "1fr"`; `display: "stack"` only for overlaps (badges,
   captions over images).
-- **[CONVENTION] Hosted chrome.** `display_mode: "whole_page"`, header/footer linked to branding or
-  written in the `preference_center_header_*` fields, SEO fields (`seo_page_title`,
-  `seo_meta_description` at 150–160 characters, `seo_og_image_url`, `seo_favicon_url`). The custom
-  domain is configured in the dashboard.
+- **[CONVENTION] Hosted chrome.** `display_mode: "whole_page"`, SEO fields (`seo_page_title`,
+  `seo_meta_description` at 150–160 characters, `seo_og_image_url`, `seo_favicon_url`). The site
+  navbar and the site footer are chrome, not sections: link them to the workspace
+  (`preference_center_header_linked` / `preference_center_footer_linked: true`) or write them in
+  `preference_center_header_html` / `_css` / `_js` and the footer fields. Rebuilding a navbar out
+  of Boxes and text items is the usual mistake — it then scrolls away with the page, has to be
+  repeated on every page you add and stops following branding. The custom domain is configured in
+  the dashboard.
 - **[CONVENTION] Images.** `logo` items take hosted URLs: a branding logo, an entry from
   `list_assets` (`url` key or `public_url`), or a file you upload with `upload_branding_asset`
   (`source.url` for a public URL, `source.base64` for a small file, `source.upload_link: true` for
