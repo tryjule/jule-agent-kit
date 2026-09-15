@@ -61,6 +61,18 @@ padding (16px stops iOS from zooming the page on focus), makes buttons full-widt
 caps a `logo` at 80% width / 60px height. An explicit `fontSize` on an item wins over the clamp, so
 a 12px legal text stays 12px — check it is still readable.
 
+## The rendered review
+
+After every save call `preview_project` with `device: "all"` and `review: true`. Jule renders the
+draft at the three widths, returns a picture of the card per device (look at them) and lists what
+it measured: items running past the card edge, text scrolling inside its box, a card that scrolls
+sideways, images that filled the desktop card but float small on tablet or phone, row Boxes left
+mostly empty, text under 14px and tap targets under 40px on the phone. Fix every line, save and
+review again until every device comes back clean; then walk the checklist below for what a
+measurement cannot see (order, wording, contrast, what is hidden). When the review answers
+`available: false`, the checklist is all you have: run it against the document and ask the user
+to open the phone link.
+
 ## The mobile checklist
 
 Open the mobile preview (`preview_project` → `device: "mobile"`, or `device: "all"` for the three

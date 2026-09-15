@@ -185,6 +185,118 @@ popup is `template: "2-column"`, `right_column_bg_type: "image"`, `right_column_
 For hosted pages (preference centers and landing pages): `seo_page_title` (`<title>`),
 `seo_meta_description`, `seo_favicon_url`, `seo_og_image_url`. Ignored by embedded popups.
 
+## Style classes (`element_presets`)
+
+Reusable element styles the editor offers as **classes** (Branding → Style classes, and the class
+picker on an element). They live in the workspace branding: `jule://workspaces/{id}/branding` →
+`element_presets[]`, each `{ id, name, position, target, style, project_id? }`. `target` is the
+item type the class is for — `button`, `text`, `input` or `flex` (a Box); `style` holds class-able
+keys (below) with the values `style_info` takes, `brand:<name>` colors included; a class with
+`project_id` belongs to that one project (the editor's "this project only" classes), one without
+is shared by the whole workspace. Read them before styling: "our button style", "the heading
+class", "the brand input look" name a class, and a class that fits the element you are placing
+wins over hand-rolled values.
+
+**Apply a class to an item** — two steps, both required:
+
+1. `config.presetIds: ["<class id>"]` (several in order; a later class wins on a shared key). Only
+   classes whose `target` matches the item type apply: `text` → text, `button` → button, `input` →
+   input (checkbox inputs carry no class), `flex` → Box. Skip a project-scoped class of another
+   project.
+2. Copy the class `style` values into the item's `style_info`: the widget reads `style_info` only,
+   and the editor re-applies the class when it opens the project, so the two must agree.
+
+The editor treats every class-able key as owned by the class: when it reconciles it writes the
+class values and **clears the other class-able keys** the item set itself. Keep a deliberate
+per-item deviation by naming that key in `config.presetOverrides: ["textAlign"]` — the class never
+writes it and it stays local. Keys outside the class-able set (`display`, `objectFit`, `customCss`,
+`boxShadow`, `opacity`, `responsive`, `i18n`, …) are always the item's own.
+
+Class-able keys — typography `fontFamily`, `fontUrl`, `fontSize`, `fontWeight`, `letterSpacing`,
+`lineHeight`, `color`, `textAlign` (text, button, input); box `width`, `height`, `maxWidth`,
+`alignSelf`, `borderWidth`, `borderRadius`, `borderColor`, `borderStyle`, `backgroundColor`,
+`backgroundImage`, `backgroundSize`, `backgroundPosition`, `padding`, `margin` and the stack / grid
+child keys `pin`, `pinOffsetX`, `pinOffsetY`, `stackOrder`, `gridArea`, `gridSpanColumns`,
+`gridSpanRows` (every target); option cards `activeBackground`, `activeColor`, `activeBorderColor`,
+`optionGap`, `markerSize` (input); Box layout `gridTemplateColumns`, `gridTemplateRows`,
+`gridTemplateAreas`, `flexDirection`, `alignItems`, `justifyContent`, `flexWrap`, `gap`, `rowGap`,
+`columnGap` (flex).
+
+**Worked example.** `jule://docs/examples/landing-page-classes` is a marketing page whose cards,
+headings, copy and buttons are bound to twelve classes (`cls-card`, `cls-card-title`,
+`cls-card-text`, `cls-section-name`, `cls-heading`, `cls-secondary-text`, `cls-stat`, `cls-eyebrow`,
+`cls-on-dark-title`, `cls-on-dark-text`, `cls-step-card`, `cls-cta-btn`); every bound item carries
+the class values in `style_info` and names its own deviations in `presetOverrides` (a centred
+paragraph, a transparent second button). The first four classes, as `update_branding` takes them:
+
+```json
+[
+  {
+    "id": "cls-eyebrow",
+    "name": "eyebrow",
+    "position": 0,
+    "target": "text",
+    "style": {
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "letterSpacing": "2px",
+      "color": "brand:Teal"
+    }
+  },
+  {
+    "id": "cls-section-name",
+    "name": "section-name",
+    "position": 1,
+    "target": "text",
+    "style": {
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "color": "brand:Teal",
+      "textAlign": "center"
+    }
+  },
+  {
+    "id": "cls-heading",
+    "name": "heading",
+    "position": 2,
+    "target": "text",
+    "style": {
+      "fontSize": "34px",
+      "fontWeight": "400",
+      "color": "#111827",
+      "textAlign": "center",
+      "lineHeight": "1.2"
+    }
+  },
+  {
+    "id": "cls-secondary-text",
+    "name": "secondary-text",
+    "position": 3,
+    "target": "text",
+    "style": {
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "color": "brand:Muted Gray",
+      "lineHeight": "1.5"
+    }
+  }
+]
+```
+
+**Workflow for a new page with its own classes.** 1) `create_project`; 2) read
+`jule://workspaces/{id}/branding`, append the new classes with `project_id` set to the new project
+id (or without it for classes the whole workspace should share) and send the complete list to
+`update_branding` → `element_presets`; 3) save the document with `config.presetIds` on the bound
+items and the class values copied into their `style_info`. Reuse an existing workspace class
+before inventing one: "our button style" is a class the user already made.
+
+**Create or change classes** with `update_branding` → `element_presets`: the list replaces the
+stored one, so read the resource first, keep existing ids (items reference them), add or edit, and
+send everything back; at most 40 classes per scope (the workspace, or one project). A changed class
+reaches the items bound to it when the project is next opened in the editor; documents you save
+carry the `style_info` you wrote, so re-save the ones that follow a class you changed. Published
+projects keep their resolved styles until republished.
+
 ## Defaults a new project gets
 
 The editor freezes these into `style_config` on creation: `template: "default"`,

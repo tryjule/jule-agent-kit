@@ -2639,6 +2639,20 @@
     "TextItemConfig": {
       "type": "object",
       "properties": {
+        "presetIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ids of the workspace style classes (`element_presets[].id`) this item follows, in order — a later class wins on a shared key. Only classes whose `target` matches the item type apply."
+        },
+        "presetOverrides": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Style keys this item keeps for itself: the classes never write them and the editor leaves them alone when it reconciles (every other class-able key not set by a class is cleared)."
+        },
         "content": {
           "type": "string",
           "description": "The text to show. Supports `{{fieldName}}` and `{{score}}` placeholders."
@@ -2824,6 +2838,20 @@
     "ButtonItemConfig": {
       "type": "object",
       "properties": {
+        "presetIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ids of the workspace style classes (`element_presets[].id`) this item follows, in order — a later class wins on a shared key. Only classes whose `target` matches the item type apply."
+        },
+        "presetOverrides": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Style keys this item keeps for itself: the classes never write them and the editor leaves them alone when it reconciles (every other class-able key not set by a class is cleared)."
+        },
         "label": {
           "type": "string",
           "description": "Button text."
@@ -2951,6 +2979,20 @@
     "InputItemConfig": {
       "type": "object",
       "properties": {
+        "presetIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ids of the workspace style classes (`element_presets[].id`) this item follows, in order — a later class wins on a shared key. Only classes whose `target` matches the item type apply."
+        },
+        "presetOverrides": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Style keys this item keeps for itself: the classes never write them and the editor leaves them alone when it reconciles (every other class-able key not set by a class is cleared)."
+        },
         "fieldName": {
           "type": "string",
           "description": "Key of this answer in the submission and in Iterable mappings; unique per project."
@@ -4191,6 +4233,20 @@
     "FlexItemConfig": {
       "type": "object",
       "properties": {
+        "presetIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ids of the workspace style classes (`element_presets[].id`) this item follows, in order — a later class wins on a shared key. Only classes whose `target` matches the item type apply."
+        },
+        "presetOverrides": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Style keys this item keeps for itself: the classes never write them and the editor leaves them alone when it reconciles (every other class-able key not set by a class is cleared)."
+        },
         "htmlId": {
           "type": "string",
           "description": "DOM id for the Box so `#that-id` links scroll to it."

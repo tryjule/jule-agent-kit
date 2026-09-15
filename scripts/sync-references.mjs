@@ -28,6 +28,7 @@ const COPIES = {
   'skills/jule-builder/references/item-catalog.md': 'resources/item-catalog.md',
   'skills/jule-builder/references/project-style.md': 'resources/project-style.md',
   'skills/jule-builder/references/settings.md': 'resources/settings.md',
+  'skills/jule-builder/references/layout.md': 'resources/layout.md',
   'skills/jule-builder/references/responsive.md': 'resources/responsive.md',
   'skills/jule-builder/references/languages.md': 'resources/languages.md',
   'skills/jule-builder/references/best-practices.md': 'resources/best-practices.md',
@@ -35,9 +36,12 @@ const COPIES = {
   'skills/jule-builder/references/examples/popup.json': 'schema/fixtures/popup-multilingual-coupon.json',
   'skills/jule-builder/references/examples/preference-center.json': 'schema/fixtures/preference-center-iterable.json',
   'skills/jule-builder/references/examples/landing-page.json': 'schema/fixtures/landing-page-layout.json',
+  'skills/jule-builder/references/examples/landing-page-classes.json': 'schema/fixtures/landing-page-classes.json',
   'skills/figma-to-jule/references/figma-mapping.md': 'resources/figma-mapping.md',
   'skills/figma-to-jule/references/item-catalog.md': 'resources/item-catalog.md',
   'skills/figma-to-jule/references/project-style.md': 'resources/project-style.md',
+  'skills/figma-to-jule/references/layout.md': 'resources/layout.md',
+  'skills/figma-to-jule/references/best-practices.md': 'resources/best-practices.md',
   'skills/jule-analytics/references/best-practices.md': 'resources/best-practices.md',
 };
 for (const [dest, src] of Object.entries(COPIES)) out.set(dest, read(join(MCP, src)));

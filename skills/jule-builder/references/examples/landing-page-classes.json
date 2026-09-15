@@ -1,0 +1,1153 @@
+{
+  "expected_version": 1,
+  "name": "Finpay landing",
+  "description": "Marketing landing page with a lead form, built from Boxes and workspace style classes",
+  "display_type": "modal",
+  "primary_color": "#1b7a82",
+  "thank_you_message": "Thank you for your response!",
+  "trigger_id": null,
+  "style_config": {
+    "template": "default",
+    "position": "center",
+    "card_width": "100%",
+    "card_max_width": "100%",
+    "card_height": "auto",
+    "card_padding": "0px",
+    "border_radius": "0px",
+    "card_border_width": "0px",
+    "card_border_color": "#e5e7eb",
+    "card_border_style": "solid",
+    "justify_content": "center",
+    "primary_color": "#1b7a82",
+    "font_family": "Inter",
+    "font_family_url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap",
+    "title_font_size": "30px",
+    "desc_font_size": "16px",
+    "desc_color": "#111827",
+    "button_text_color": "#ffffff",
+    "button_padding": "10px",
+    "button_font_size": "14px",
+    "button_radius": "6px",
+    "input_text_color": "#1f2937",
+    "input_padding": "10px",
+    "input_font_size": "16px",
+    "input_radius": "6px",
+    "background_type": "color",
+    "background_color": "#ffffff",
+    "background_object_fit": "cover",
+    "overlay_opacity": 0,
+    "overlay_blur": 0,
+    "display_mode": "whole_page",
+    "seo_page_title": "Finpay — get paid early",
+    "seo_meta_description": "Simple invoicing, powerful integrations and cash-flow tools for small businesses.",
+    "notification_bg_color": "#10b981",
+    "notification_error_bg_color": "#ef4444"
+  },
+  "settings_config": {
+    "iterable_integration": {}
+  },
+  "pages": [
+    {
+      "title": "Page 1",
+      "items": [
+        {
+          "type": "flex",
+          "parent_id": null,
+          "config": {
+            "htmlId": "hero",
+            "title": "Hero"
+          },
+          "style_info": {
+            "flexDirection": "row",
+            "alignItems": "center",
+            "gap": "40px",
+            "padding": "80px 56px",
+            "backgroundColor": "brand:Bg",
+            "responsive": {
+              "mobile": {
+                "flexDirection": "column",
+                "padding": "40px 20px",
+                "gap": "24px"
+              }
+            }
+          },
+          "id": "hero"
+        },
+        {
+          "type": "flex",
+          "parent_id": "hero",
+          "config": {},
+          "style_info": {
+            "flexDirection": "column",
+            "alignItems": "flex-start",
+            "gap": "16px",
+            "width": "50%",
+            "responsive": {
+              "mobile": {
+                "width": "100%"
+              }
+            }
+          },
+          "id": "hero-copy"
+        },
+        {
+          "type": "text",
+          "parent_id": "hero-copy",
+          "config": {
+            "tag": "h1",
+            "content": "<p><strong>Get paid early,</strong> save automatically, all your pay.</p>"
+          },
+          "style_info": {
+            "fontSize": "52px",
+            "fontWeight": "400",
+            "lineHeight": "1.1",
+            "color": "#111827",
+            "responsive": {
+              "mobile": {
+                "fontSize": "32px"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "hero-copy",
+          "config": {
+            "tag": "p",
+            "content": "<p>Supports small businesses with simple invoicing, powerful integrations and cash-flow management tools.</p>"
+          },
+          "style_info": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "color": "brand:Muted Gray",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "hero-copy",
+          "config": {},
+          "style_info": {
+            "flexDirection": "row",
+            "alignItems": "center",
+            "gap": "8px",
+            "width": "auto",
+            "padding": "2px",
+            "borderRadius": "10px",
+            "backgroundColor": "#ffffff",
+            "responsive": {
+              "mobile": {
+                "width": "100%"
+              }
+            }
+          },
+          "id": "hero-pill"
+        },
+        {
+          "type": "input",
+          "parent_id": "hero-pill",
+          "config": {
+            "fieldName": "email",
+            "inputType": "email",
+            "placeholder": "Your business email",
+            "required": true
+          },
+          "style_info": {
+            "borderWidth": "0px",
+            "backgroundColor": "#ffffff00",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "button",
+          "parent_id": "hero-pill",
+          "config": {
+            "label": "Get started",
+            "action": "submit_and_next",
+            "presetIds": ["cls-cta-btn"]
+          },
+          "style_info": {
+            "backgroundColor": "brand:Teal",
+            "color": "#ffffff",
+            "padding": "12px 20px",
+            "borderRadius": "10px",
+            "fontSize": "14px",
+            "fontWeight": "500",
+            "borderWidth": "1px",
+            "borderColor": "brand:Teal",
+            "borderStyle": "solid"
+          }
+        },
+        {
+          "type": "text",
+          "config": {
+            "tag": "a",
+            "href": "https://finpay.example.com/privacy",
+            "target": "_blank",
+            "content": "<p>By continuing you agree to our privacy policy.</p>"
+          },
+          "style_info": {
+            "color": "#6b7280",
+            "fontSize": "14px",
+            "margin": "12px 0 0 0"
+          },
+          "parent_id": "hero-copy"
+        },
+        {
+          "type": "flex",
+          "parent_id": "hero",
+          "config": {},
+          "style_info": {
+            "flexDirection": "column",
+            "alignItems": "center",
+            "width": "50%",
+            "responsive": {
+              "mobile": {
+                "width": "100%"
+              }
+            }
+          },
+          "id": "hero-art"
+        },
+        {
+          "type": "logo",
+          "parent_id": "hero-art",
+          "config": {
+            "imageUrl": "projects/dcbe0e86-48d1-424f-986f-f78f27bc1600.webp",
+            "altText": "Finpay dashboard on a laptop"
+          },
+          "style_info": {
+            "width": "100%",
+            "borderRadius": "16px"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": null,
+          "config": {
+            "htmlId": "features",
+            "title": "Future payment"
+          },
+          "style_info": {
+            "flexDirection": "column",
+            "alignItems": "center",
+            "gap": "12px",
+            "padding": "72px 56px",
+            "responsive": {
+              "mobile": {
+                "padding": "40px 20px"
+              }
+            }
+          },
+          "id": "features"
+        },
+        {
+          "type": "text",
+          "parent_id": "features",
+          "config": {
+            "tag": "p",
+            "content": "<p>FUTURE PAYMENT</p>",
+            "presetIds": ["cls-section-name"]
+          },
+          "style_info": {
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "color": "brand:Teal",
+            "textAlign": "center"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "features",
+          "config": {
+            "tag": "h2",
+            "content": "<p>Experience that grows with your scale.</p>",
+            "presetIds": ["cls-heading"]
+          },
+          "style_info": {
+            "fontSize": "34px",
+            "fontWeight": "400",
+            "color": "#111827",
+            "textAlign": "center",
+            "lineHeight": "1.2"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "features",
+          "config": {
+            "tag": "p",
+            "content": "<p>A financial operating system that works for your business and streamlines cash-flow management.</p>",
+            "presetIds": ["cls-secondary-text"],
+            "presetOverrides": ["textAlign"]
+          },
+          "style_info": {
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "color": "brand:Muted Gray",
+            "lineHeight": "1.5",
+            "textAlign": "center",
+            "maxWidth": "640px"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "features",
+          "config": {},
+          "style_info": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 1fr 1fr",
+            "gap": "20px",
+            "margin": "32px 0 0",
+            "responsive": {
+              "mobile": {
+                "gridTemplateColumns": "1fr"
+              }
+            }
+          },
+          "id": "cards"
+        },
+        {
+          "type": "flex",
+          "parent_id": "cards",
+          "config": {
+            "presetIds": ["cls-card"]
+          },
+          "style_info": {
+            "padding": "24px",
+            "borderRadius": "16px",
+            "backgroundColor": "#f6f9fb",
+            "gap": "8px",
+            "flexDirection": "column"
+          },
+          "id": "card-1"
+        },
+        {
+          "type": "logo",
+          "parent_id": "card-1",
+          "config": {
+            "imageUrl": "projects/ce88043c-b119-4521-932a-dadb6b5d96da.webp",
+            "altText": ""
+          },
+          "style_info": {
+            "width": "64px",
+            "height": "64px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "card-1",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Free transfers</p>",
+            "presetIds": ["cls-card-title"]
+          },
+          "style_info": {
+            "fontSize": "24px",
+            "fontWeight": "500",
+            "color": "#111827"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "card-1",
+          "config": {
+            "tag": "p",
+            "content": "<p>Create financial operations with customised payments by scheduling recurring transfers.</p>",
+            "presetIds": ["cls-card-text"]
+          },
+          "style_info": {
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "color": "brand:Muted Gray",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "cards",
+          "config": {
+            "presetIds": ["cls-card"]
+          },
+          "style_info": {
+            "padding": "24px",
+            "borderRadius": "16px",
+            "backgroundColor": "#f6f9fb",
+            "gap": "8px",
+            "flexDirection": "column"
+          },
+          "id": "card-2"
+        },
+        {
+          "type": "logo",
+          "parent_id": "card-2",
+          "config": {
+            "imageUrl": "projects/ce88043c-b119-4521-932a-dadb6b5d96da.webp",
+            "altText": ""
+          },
+          "style_info": {
+            "width": "64px",
+            "height": "64px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "card-2",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Multiple accounts</p>",
+            "presetIds": ["cls-card-title"]
+          },
+          "style_info": {
+            "fontSize": "24px",
+            "fontWeight": "500",
+            "color": "#111827"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "card-2",
+          "config": {
+            "tag": "p",
+            "content": "<p>Run your operations from one secure, organised account.</p>",
+            "presetIds": ["cls-card-text"]
+          },
+          "style_info": {
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "color": "brand:Muted Gray",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "cards",
+          "config": {
+            "presetIds": ["cls-card"]
+          },
+          "style_info": {
+            "padding": "24px",
+            "borderRadius": "16px",
+            "backgroundColor": "#f6f9fb",
+            "gap": "8px",
+            "flexDirection": "column"
+          },
+          "id": "card-3"
+        },
+        {
+          "type": "logo",
+          "parent_id": "card-3",
+          "config": {
+            "imageUrl": "projects/ce88043c-b119-4521-932a-dadb6b5d96da.webp",
+            "altText": ""
+          },
+          "style_info": {
+            "width": "64px",
+            "height": "64px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "card-3",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Unmatched security</p>",
+            "presetIds": ["cls-card-title"]
+          },
+          "style_info": {
+            "fontSize": "24px",
+            "fontWeight": "500",
+            "color": "#111827"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "card-3",
+          "config": {
+            "tag": "p",
+            "content": "<p>Firewall-level protection with MFA and account-level controls.</p>",
+            "presetIds": ["cls-card-text"]
+          },
+          "style_info": {
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "color": "brand:Muted Gray",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": null,
+          "config": {
+            "htmlId": "why-us",
+            "title": "Why us"
+          },
+          "style_info": {
+            "flexDirection": "column",
+            "alignItems": "center",
+            "gap": "12px",
+            "padding": "0 56px 72px",
+            "responsive": {
+              "mobile": {
+                "padding": "0 20px 40px"
+              }
+            }
+          },
+          "id": "why-us"
+        },
+        {
+          "type": "text",
+          "parent_id": "why-us",
+          "config": {
+            "tag": "p",
+            "content": "<p>WHY US</p>",
+            "presetIds": ["cls-section-name"]
+          },
+          "style_info": {
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "color": "brand:Teal",
+            "textAlign": "center"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "why-us",
+          "config": {
+            "tag": "h2",
+            "content": "<p>Why they prefer Finpay</p>",
+            "presetIds": ["cls-heading"]
+          },
+          "style_info": {
+            "fontSize": "34px",
+            "fontWeight": "400",
+            "color": "#111827",
+            "textAlign": "center",
+            "lineHeight": "1.2"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "why-us",
+          "config": {},
+          "style_info": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 2fr",
+            "gap": "26px",
+            "margin": "32px 0 0",
+            "responsive": {
+              "mobile": {
+                "gridTemplateColumns": "1fr"
+              }
+            }
+          },
+          "id": "why-grid"
+        },
+        {
+          "type": "flex",
+          "parent_id": "why-grid",
+          "config": {
+            "presetIds": ["cls-card"],
+            "presetOverrides": ["padding", "borderRadius"]
+          },
+          "style_info": {
+            "backgroundColor": "#f6f9fb",
+            "gap": "8px",
+            "flexDirection": "column",
+            "justifyContent": "center",
+            "padding": "40px",
+            "borderRadius": "28px"
+          },
+          "id": "stat-card"
+        },
+        {
+          "type": "text",
+          "parent_id": "stat-card",
+          "config": {
+            "tag": "p",
+            "content": "<p>3k+</p>",
+            "presetIds": ["cls-stat"],
+            "presetOverrides": ["textAlign"]
+          },
+          "style_info": {
+            "fontSize": "92px",
+            "fontWeight": "500",
+            "color": "brand:Teal",
+            "lineHeight": "1",
+            "textAlign": "left",
+            "responsive": {
+              "tablet": {
+                "fontSize": "64px"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "stat-card",
+          "config": {
+            "tag": "p",
+            "content": "<p>Businesses already running on Finpay</p>",
+            "presetIds": ["cls-card-title"]
+          },
+          "style_info": {
+            "fontSize": "24px",
+            "fontWeight": "500",
+            "color": "#111827"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "why-grid",
+          "config": {
+            "presetIds": ["cls-card"],
+            "presetOverrides": ["padding", "borderRadius"]
+          },
+          "style_info": {
+            "backgroundColor": "#f6f9fb",
+            "gap": "24px",
+            "flexDirection": "row",
+            "alignItems": "center",
+            "padding": "40px",
+            "borderRadius": "28px",
+            "responsive": {
+              "mobile": {
+                "flexDirection": "column"
+              }
+            }
+          },
+          "id": "image-card"
+        },
+        {
+          "type": "flex",
+          "parent_id": "image-card",
+          "config": {},
+          "style_info": {
+            "flexDirection": "column",
+            "gap": "8px"
+          },
+          "id": "image-card-copy"
+        },
+        {
+          "type": "text",
+          "parent_id": "image-card-copy",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Instant withdrawals at any time</p>",
+            "presetIds": ["cls-card-title"]
+          },
+          "style_info": {
+            "fontSize": "24px",
+            "fontWeight": "500",
+            "color": "#111827"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "image-card-copy",
+          "config": {
+            "tag": "p",
+            "content": "<p>Generate returns on cash reserves without making investments.</p>",
+            "presetIds": ["cls-card-text"]
+          },
+          "style_info": {
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "color": "brand:Muted Gray",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "logo",
+          "parent_id": "image-card",
+          "config": {
+            "imageUrl": "projects/dcbe0e86-48d1-424f-986f-f78f27bc1600.webp",
+            "altText": "Withdrawal screen"
+          },
+          "style_info": {
+            "width": "40%",
+            "borderRadius": "16px",
+            "responsive": {
+              "mobile": {
+                "width": "100%"
+              }
+            }
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": null,
+          "config": {
+            "htmlId": "steps",
+            "title": "Steps"
+          },
+          "style_info": {
+            "flexDirection": "column",
+            "gap": "20px",
+            "padding": "72px 56px",
+            "backgroundColor": "#0b3a44",
+            "responsive": {
+              "mobile": {
+                "padding": "40px 20px"
+              }
+            }
+          },
+          "id": "steps"
+        },
+        {
+          "type": "text",
+          "parent_id": "steps",
+          "config": {
+            "tag": "p",
+            "content": "<p>STEP</p>",
+            "presetIds": ["cls-eyebrow"],
+            "presetOverrides": ["color"]
+          },
+          "style_info": {
+            "fontSize": "14px",
+            "fontWeight": "600",
+            "letterSpacing": "2px",
+            "color": "#7fb4bc"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "steps",
+          "config": {
+            "tag": "h2",
+            "content": "<p>Maximise your returns with a Reserve account.</p>",
+            "presetIds": ["cls-on-dark-title"]
+          },
+          "style_info": {
+            "fontSize": "34px",
+            "fontWeight": "500",
+            "color": "#ffffff",
+            "lineHeight": "1.3",
+            "maxWidth": "640px"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "steps",
+          "config": {},
+          "style_info": {
+            "display": "grid",
+            "gridTemplateColumns": "1fr 1fr 1fr",
+            "gap": "20px",
+            "responsive": {
+              "mobile": {
+                "gridTemplateColumns": "1fr"
+              }
+            }
+          },
+          "id": "step-grid"
+        },
+        {
+          "type": "flex",
+          "parent_id": "step-grid",
+          "config": {
+            "presetIds": ["cls-step-card"]
+          },
+          "style_info": {
+            "padding": "24px",
+            "borderRadius": "14px",
+            "backgroundColor": "#134450",
+            "borderWidth": "1px",
+            "borderColor": "#1e5866",
+            "gap": "8px",
+            "flexDirection": "column"
+          },
+          "id": "step-1"
+        },
+        {
+          "type": "text",
+          "parent_id": "step-1",
+          "config": {
+            "tag": "p",
+            "content": "<p>1</p>"
+          },
+          "style_info": {
+            "fontSize": "38px",
+            "fontWeight": "600",
+            "color": "#2e6b78",
+            "lineHeight": "1.4"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "step-1",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Open your account</p>",
+            "presetIds": ["cls-on-dark-title"],
+            "presetOverrides": ["fontSize"]
+          },
+          "style_info": {
+            "fontWeight": "600",
+            "color": "#ffffff",
+            "lineHeight": "1.3",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "step-1",
+          "config": {
+            "tag": "p",
+            "content": "<p>Sign up to Finpay and set up your account from the dashboard.</p>",
+            "presetIds": ["cls-on-dark-text"]
+          },
+          "style_info": {
+            "fontSize": "14px",
+            "fontWeight": "400",
+            "color": "#9fc3c9",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "step-grid",
+          "config": {
+            "presetIds": ["cls-step-card"]
+          },
+          "style_info": {
+            "padding": "24px",
+            "borderRadius": "14px",
+            "backgroundColor": "#134450",
+            "borderWidth": "1px",
+            "borderColor": "#1e5866",
+            "gap": "8px",
+            "flexDirection": "column"
+          },
+          "id": "step-2"
+        },
+        {
+          "type": "text",
+          "parent_id": "step-2",
+          "config": {
+            "tag": "p",
+            "content": "<p>2</p>"
+          },
+          "style_info": {
+            "fontSize": "38px",
+            "fontWeight": "600",
+            "color": "#2e6b78",
+            "lineHeight": "1.4"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "step-2",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Transfer your money</p>",
+            "presetIds": ["cls-on-dark-title"],
+            "presetOverrides": ["fontSize"]
+          },
+          "style_info": {
+            "fontWeight": "600",
+            "color": "#ffffff",
+            "lineHeight": "1.3",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "step-2",
+          "config": {
+            "tag": "p",
+            "content": "<p>Move money between accounts and start earning.</p>",
+            "presetIds": ["cls-on-dark-text"]
+          },
+          "style_info": {
+            "fontSize": "14px",
+            "fontWeight": "400",
+            "color": "#9fc3c9",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "step-grid",
+          "config": {
+            "presetIds": ["cls-step-card"]
+          },
+          "style_info": {
+            "padding": "24px",
+            "borderRadius": "14px",
+            "backgroundColor": "#134450",
+            "borderWidth": "1px",
+            "borderColor": "#1e5866",
+            "gap": "8px",
+            "flexDirection": "column"
+          },
+          "id": "step-3"
+        },
+        {
+          "type": "text",
+          "parent_id": "step-3",
+          "config": {
+            "tag": "p",
+            "content": "<p>3</p>"
+          },
+          "style_info": {
+            "fontSize": "38px",
+            "fontWeight": "600",
+            "color": "#2e6b78",
+            "lineHeight": "1.4"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "step-3",
+          "config": {
+            "tag": "h3",
+            "content": "<p>Watch your balance grow</p>",
+            "presetIds": ["cls-on-dark-title"],
+            "presetOverrides": ["fontSize"]
+          },
+          "style_info": {
+            "fontWeight": "600",
+            "color": "#ffffff",
+            "lineHeight": "1.3",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "step-3",
+          "config": {
+            "tag": "p",
+            "content": "<p>Access it instantly, insulated from market volatility.</p>",
+            "presetIds": ["cls-on-dark-text"]
+          },
+          "style_info": {
+            "fontSize": "14px",
+            "fontWeight": "400",
+            "color": "#9fc3c9",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": null,
+          "config": {
+            "htmlId": "cta",
+            "title": "CTA"
+          },
+          "style_info": {
+            "flexDirection": "column",
+            "padding": "56px",
+            "responsive": {
+              "mobile": {
+                "padding": "24px 20px 48px"
+              }
+            }
+          },
+          "id": "cta"
+        },
+        {
+          "type": "flex",
+          "parent_id": "cta",
+          "config": {},
+          "style_info": {
+            "flexDirection": "row",
+            "alignItems": "center",
+            "justifyContent": "space-between",
+            "gap": "32px",
+            "padding": "40px",
+            "borderRadius": "18px",
+            "backgroundColor": "#0b3a44",
+            "responsive": {
+              "mobile": {
+                "flexDirection": "column",
+                "alignItems": "flex-start",
+                "padding": "24px"
+              }
+            }
+          },
+          "id": "cta-card"
+        },
+        {
+          "type": "flex",
+          "parent_id": "cta-card",
+          "config": {},
+          "style_info": {
+            "flexDirection": "column",
+            "gap": "12px"
+          },
+          "id": "cta-copy"
+        },
+        {
+          "type": "text",
+          "parent_id": "cta-copy",
+          "config": {
+            "tag": "p",
+            "content": "<p>TRY IT NOW</p>",
+            "presetIds": ["cls-eyebrow"],
+            "presetOverrides": ["color"]
+          },
+          "style_info": {
+            "fontSize": "14px",
+            "fontWeight": "600",
+            "letterSpacing": "2px",
+            "color": "#7fb4bc"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "cta-copy",
+          "config": {
+            "tag": "h2",
+            "content": "<p>Ready to level up your payment process?</p>",
+            "presetIds": ["cls-on-dark-title"],
+            "presetOverrides": ["fontSize"]
+          },
+          "style_info": {
+            "fontWeight": "500",
+            "color": "#ffffff",
+            "lineHeight": "1.3",
+            "fontSize": "28px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "cta-copy",
+          "config": {
+            "tag": "p",
+            "content": "<p>Simple invoicing, powerful integrations and cash-flow tools for small businesses.</p>",
+            "presetIds": ["cls-on-dark-text"]
+          },
+          "style_info": {
+            "fontSize": "14px",
+            "fontWeight": "400",
+            "color": "#9fc3c9",
+            "lineHeight": "1.5"
+          }
+        },
+        {
+          "type": "flex",
+          "parent_id": "cta-card",
+          "config": {},
+          "style_info": {
+            "flexDirection": "row",
+            "gap": "12px",
+            "width": "auto",
+            "responsive": {
+              "mobile": {
+                "width": "100%"
+              }
+            }
+          },
+          "id": "cta-actions"
+        },
+        {
+          "type": "button",
+          "parent_id": "cta-actions",
+          "config": {
+            "label": "Get started now",
+            "action": "redirect",
+            "redirectUrl": "https://finpay.example.com/signup",
+            "presetIds": ["cls-cta-btn"]
+          },
+          "style_info": {
+            "backgroundColor": "brand:Teal",
+            "color": "#ffffff",
+            "padding": "12px 20px",
+            "borderRadius": "10px",
+            "fontSize": "14px",
+            "fontWeight": "500",
+            "borderWidth": "1px",
+            "borderColor": "brand:Teal",
+            "borderStyle": "solid"
+          }
+        },
+        {
+          "type": "button",
+          "parent_id": "cta-actions",
+          "config": {
+            "label": "Learn more",
+            "action": "redirect",
+            "redirectUrl": "https://finpay.example.com/product",
+            "presetIds": ["cls-cta-btn"],
+            "presetOverrides": ["backgroundColor", "borderColor"]
+          },
+          "style_info": {
+            "color": "#ffffff",
+            "padding": "12px 20px",
+            "borderRadius": "10px",
+            "fontSize": "14px",
+            "fontWeight": "500",
+            "borderWidth": "1px",
+            "borderStyle": "solid",
+            "backgroundColor": "transparent",
+            "borderColor": "#2e6b78"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Thank you",
+      "items": [
+        {
+          "id": "thanks",
+          "type": "flex",
+          "parent_id": null,
+          "config": {
+            "title": "Thanks"
+          },
+          "style_info": {
+            "flexDirection": "column",
+            "alignItems": "center",
+            "gap": "12px",
+            "padding": "120px 20px"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "thanks",
+          "config": {
+            "tag": "h1",
+            "content": "<p>You're on the list.</p>"
+          },
+          "style_info": {
+            "fontSize": "34px",
+            "fontWeight": "500",
+            "color": "#111827",
+            "textAlign": "center"
+          }
+        },
+        {
+          "type": "text",
+          "parent_id": "thanks",
+          "config": {
+            "tag": "p",
+            "content": "<p>We'll email you when your account is ready.</p>"
+          },
+          "style_info": {
+            "fontSize": "16px",
+            "color": "brand:Muted Gray",
+            "textAlign": "center"
+          }
+        },
+        {
+          "type": "button",
+          "parent_id": "thanks",
+          "config": {
+            "label": "Back to Finpay",
+            "action": "redirect",
+            "redirectUrl": "https://finpay.example.com"
+          },
+          "style_info": {
+            "width": "220px",
+            "alignSelf": "center",
+            "backgroundColor": "brand:Teal",
+            "color": "#ffffff",
+            "borderRadius": "10px",
+            "padding": "12px 20px"
+          }
+        }
+      ]
+    }
+  ]
+}
