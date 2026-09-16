@@ -96,7 +96,7 @@
         },
         "font_family_url": {
           "type": "string",
-          "description": "URL of the stylesheet or font file backing `font_family`."
+          "description": "URL of the stylesheet or font file backing `font_family`: a workspace font from branding, or a Google Fonts CSS2 stylesheet (`https://fonts.googleapis.com/css2?family=…`)."
         },
         "font_weight": {
           "type": "string",
@@ -2273,11 +2273,11 @@
         },
         "fontFamily": {
           "type": "string",
-          "description": "Font family name. Workspace fonts need `fontUrl` too."
+          "description": "Font family name. Needs `fontUrl` unless it is a system font."
         },
         "fontUrl": {
           "type": "string",
-          "description": "URL of the font stylesheet or file backing `fontFamily`."
+          "description": "URL of the font stylesheet or file backing `fontFamily`: a workspace font from branding, or a Google Fonts CSS2 stylesheet (`https://fonts.googleapis.com/css2?family=…`)."
         },
         "color": {
           "type": "string",

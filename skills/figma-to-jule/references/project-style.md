@@ -96,8 +96,8 @@ families:
   (raw CSS appended to the card).
 - Background: `background_type` `color` | `image`, `background_color` (`#ffffff`),
   `background_image`, `background_object_fit`, `background_repeat`, `background_position`.
-- Typography defaults used by items that set none: `font_family` + `font_family_url` (workspace
-  font), `font_weight`, `title_font_size` (30px) / `title_text_align` / `title_color`,
+- Typography defaults used by items that set none: `font_family` + `font_family_url` (the workspace
+  font, or any font stylesheet URL — a Google Fonts CSS2 URL works), `font_weight`, `title_font_size` (30px) / `title_text_align` / `title_color`,
   `desc_font_size` (16px) / `desc_text_align` / `desc_color` (`#111827`), `primary_color`
   (`#7c3aed`; buttons, focus states, selected option cards, teaser background).
 - Button and input defaults: `button_radius`, `button_padding`, `button_font_size`,

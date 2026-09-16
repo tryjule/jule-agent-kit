@@ -42,7 +42,12 @@ Check these before every save. Each one is [HARD].
    button, or a `submitOnSelect` input). Never set `style_config.hide_next`.
 8. **Nothing is an `html-block` that an item can be.** Headings, copy, images, links, fields,
    buttons, sections and pages are items. A block is for an embed, a table or custom vector art.
-9. **Copy is the user's, not yours to embellish.** Do not add claims, numbers, dates, prices,
+9. **Anything clickable is a `button` item.** Never a Box with a text (and an arrow icon) inside
+   it: a Box sizes to its content, so in a row it shrinks until the label wraps or spills out of
+   it — the dark stub where a button should be — and a visitor cannot click it. `config.label`,
+   `config.action` (`redirect` + `redirectUrl`, `next`, `submit`), `startIcon` / `endIcon` for the
+   arrow. Validate and every save warn when a Box is shaped like one.
+10. **Copy is the user's, not yours to embellish.** Do not add claims, numbers, dates, prices,
    guarantees or deadlines the brief does not contain.
 
 ## Before you draft
@@ -51,6 +56,11 @@ Check these before every save. Each one is [HARD].
    (`fontFamily` + `fontUrl`), a branding logo, the legal texts (privacy URL, SMS disclaimer) and
    the style classes (`element_presets`): when a class exists for the element you are placing,
    bind it (`config.presetIds` + its `style` in `style_info`) instead of hand-rolling the style.
+   When the workspace carries none of it — no brand colors, no font, no usable logo — do not stop
+   to ask for a hex. Take the palette and the font from what you already have (the design, the
+   logo, the site the brief names, the product's own words), say in one line what you chose and
+   why, and build with it; the user changes it in Branding afterwards. Ask only when there is
+   nothing to take them from.
 2. Read `jule://workspaces/{id}/integrations`: Iterable connected and active? Which lists,
    channels and message types exist? Are coupons enabled, is a provider connected? Never add a
    channels group, Iterable list ids or a coupon item the workspace cannot honour.
@@ -228,14 +238,26 @@ Check these before every save. Each one is [HARD].
   check it in the mobile preview.
 - **[HARD] Message match.** The headline echoes the ad, email or link that sent the visitor. If
   the user gave you the source copy, reuse its words.
+- **[CONVENTION] One section at a time.** Beyond about three sections, build the page in parts and
+  look at each one before it goes in: `validate_project_document` with `render: true` hands back a
+  page that renders that part through the widget — open it at the three widths, look, send its
+  `measure_script` output back as `measurements`, fix what it lists, then append the part with
+  `save_project_document` `append`. A section already in the project is re-checked with
+  `preview_project` and `section` set to its `htmlId`; the whole page gets one review at the end.
+  A page written in one pass and never looked at is how a navbar ends up as a stack of Boxes and a
+  button as a dark stub.
 - **[CONVENTION] Sections as Boxes.** One `flex` item per section with `config.htmlId` (`hero`,
   `features`, `pricing`) so header links scroll; `display: "grid"` for columns with
   `responsive.mobile.gridTemplateColumns: "1fr"`; `display: "stack"` only for overlaps (badges,
   captions over images).
-- **[CONVENTION] Hosted chrome.** `display_mode: "whole_page"`, header/footer linked to branding or
-  written in the `preference_center_header_*` fields, SEO fields (`seo_page_title`,
-  `seo_meta_description` at 150–160 characters, `seo_og_image_url`, `seo_favicon_url`). The custom
-  domain is configured in the dashboard.
+- **[CONVENTION] Hosted chrome.** `display_mode: "whole_page"`, SEO fields (`seo_page_title`,
+  `seo_meta_description` at 150–160 characters, `seo_og_image_url`, `seo_favicon_url`). The site
+  navbar and the site footer are chrome, not sections: link them to the workspace
+  (`preference_center_header_linked` / `preference_center_footer_linked: true`) or write them in
+  `preference_center_header_html` / `_css` / `_js` and the footer fields. Rebuilding a navbar out
+  of Boxes and text items is the usual mistake — it then scrolls away with the page, has to be
+  repeated on every page you add and stops following branding. The custom domain is configured in
+  the dashboard.
 - **[CONVENTION] Images.** `logo` items take hosted URLs: a branding logo, an entry from
   `list_assets` (`url` key or `public_url`), or a file you upload with `upload_branding_asset`
   (`source.url` for a public URL, `source.base64` for a small file, `source.upload_link: true` for
