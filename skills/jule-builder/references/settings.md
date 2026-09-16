@@ -255,13 +255,26 @@ iterable_field, survey_field_name, enabled, actions?, group? }`), `track_event_c
 - Timing: `send_on_complete` (default true) or after the page named in `send_on_question`.
 - Preference center: `preference_center_enabled` loads the visitor's subscriptions and writes them
   back; `channels` (`{ id, name, channelType? }`) and `message_types`
-  (`{ id, name, subscriptionPolicy? }`) mirror the live Iterable data for rendering;
-  `use_token_validation` requires a signed token in the URL to identify the visitor
-  (`token_secret` is write-only and configured in the dashboard); `one_click_unsubscribe_behavior`
-  (`campaign_channel` | `global_email` | `specific_channels` + `channel_ids`);
-  `sms_double_opt_in_message_type_ids` + `sms_double_opt_in_brand_name`.
-- The visitor is identified by `email` in the URL (`?email=`, `?hash=`) or `?userId=`, or by
-  `window.JULE_USER_DATA` on the host page.
+  (`{ id, name, subscriptionPolicy? }`) mirror the live Iterable data for rendering. **What a
+  toggle shows on arrival** follows the message type's `subscriptionPolicy`: `OptIn` and
+  `DoubleOptIn` types start unchecked unless the visitor is explicitly subscribed; every other
+  policy (`OptOut`, or none) starts checked unless the visitor is explicitly unsubscribed, which is
+  Iterable's own default. Copy `subscriptionPolicy` from the integrations resource so the page
+  shows the real state, and never set `defaultValue` on a channel toggle.
+- Visitor identity on a hosted page: `?email=` or `?userId=` in the URL, or `window.JULE_USER_DATA`
+  on the host page. With `use_token_validation` the URL must also carry `?hash=`, an HMAC of that
+  email or userId signed with the workspace's Iterable HMAC signing secret (Settings → Integrations
+  → Iterable; an Iterable template can compute it), or the page refuses to load or save the
+  preferences. That secret is what the "HMAC signing secret is missing" warning is about;
+  `token_secret` is write-only and configured in the dashboard.
+  `one_click_unsubscribe_behavior` (`campaign_channel` | `global_email` | `specific_channels` +
+  `channel_ids`) overrides the workspace one-click setting for this page only.
+- SMS double opt-in: `sms_double_opt_in_message_type_ids` names the SMS message types that need the
+  visitor's own confirmation. When a submission carries a phone number and an email or userId,
+  Jule asks Iterable to start its SMS double opt-in for those types instead of subscribing them
+  outright (once per phone number per project per day); `sms_double_opt_in_brand_name` is the
+  brand named in the confirmation text. With only double-opt-in types configured, the ordinary
+  subscribe step is skipped.
 
 Per-page Iterable writes: `page_iterable_actions[pageId]` (`enabled`, `actions` of
 `update_profile` / `track_event`, `eventName`) and `page_iterable_fields[pageId]`

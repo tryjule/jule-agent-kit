@@ -106,8 +106,9 @@ Check these before every save. Each one is [HARD].
   higher conversion than static pop-ups. Test before claiming it. If you build one, make the
   prizes materially different from each other.
 - **[HARD] A way forward on every page.** Each page except the last ends with exactly one forward
-  button: `next` while the form continues, `submit` on the page where it ends. Submit once per
-  visit — a `submit_and_next` followed by more questions loses their answers. The thank-you page
+  button: `next` while the form continues, `submit` on the page where it ends (the editor calls it
+  Submit & Next Page when a thank-you page follows, Submit & Close on the last page). Submit once
+  per visit — a submit followed by more questions loses their answers. The thank-you page
   holds text (or a `success_message` / `coupon` item) and a `close` or `redirect` button, no
   forward action.
 - **[HARD] Always give a way out.** Popup and bubble modes render the close button; keep
@@ -256,8 +257,20 @@ Check these before every save. Each one is [HARD].
   (`preference_center_header_linked` / `preference_center_footer_linked: true`) or write them in
   `preference_center_header_html` / `_css` / `_js` and the footer fields. Rebuilding a navbar out
   of Boxes and text items is the usual mistake — it then scrolls away with the page, has to be
-  repeated on every page you add and stops following branding. The custom domain is configured in
-  the dashboard.
+  repeated on every page you add and stops following branding. Written chrome copies the template
+  under "Header and footer HTML" in `jule://docs/project-style`: breakpoints at 820 and 480px, a
+  menu toggle in `_js`, no fixed widths — the rendered review measures the header and footer at
+  390px and validate warns when the CSS has no breakpoint or the header has no toggle. The custom
+  domain is configured in the dashboard.
+- **[HARD] Controls are button items.** A link drawn with a background or border, a short centred
+  label on a rounded background, a Box holding a label and an arrow image: each is a `button`
+  (`config.label`, `config.action`, `config.endIcon` from the icon library). Text items cannot be
+  clicked, counted or moved between pages; validate warns on each of those shapes.
+- **[CONVENTION] Repeated components match.** Sibling cards (features, steps, team, pricing)
+  share one structure and one set of sizes — icon size, heading and body font sizes, padding,
+  widths. Build the first card, copy it, change only the words and the picture; bind them to one
+  style class (`config.presetIds`) when the workspace has one. A different background on the
+  active card is a highlight; a different icon size is a mistake, and validate says which.
 - **[CONVENTION] Images.** `logo` items take hosted URLs: a branding logo, an entry from
   `list_assets` (`url` key or `public_url`), or a file you upload with `upload_branding_asset`
   (`source.url` for a public URL, `source.base64` for a small file, `source.upload_link: true` for

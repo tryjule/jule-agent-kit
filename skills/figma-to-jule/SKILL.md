@@ -37,7 +37,9 @@ Also read jule://docs/figma-mapping (or whoami with doc "figma-mapping") before 
 - The design decides the look. jule://docs/best-practices still decides what the design does not show: the trigger and its timing, how many fields to ask for, the consent box and privacy link, and the copy — and no testimonial, rating or customer count in the design is real unless the user says it is; ask before carrying placeholder proof into a live page.
 - One frame at a time. Map the first section, save it, review that section on its own (step 6 below), fix what comes back, then map the next frame onto the same project. A design converted in one pass is a design nobody looked at.
 - The site chrome is not a section: the top navigation bar and the footer frame go in preference_center_header_html / _footer_html (or linked to branding), never rebuilt as Boxes.
-- Clickable frames are button items. A frame with a label and an arrow becomes one button (config.label, config.action, config.endIcon), not a Box holding a text and an icon — a Box shrinks to its content and the label collapses.
+- Clickable frames are button items. A frame with a label and an arrow becomes one button (config.label, config.action, config.endIcon), not a Box holding a text and an icon or an arrow image, and not a text item drawn as a pill — a Box shrinks to its content and the label collapses, a text cannot be clicked.
+- Repeated components stay identical. When the design repeats a card (features, steps, team members), map the first one, then copy its Boxes and sizes for the others and change only the words and pictures; one icon at 32px among 24px siblings is a mistake validate reports.
+- The header and footer frames become the responsive template under "Header and footer HTML" in jule://docs/project-style with the design's colors, logo and links: the phone menu is not in the design, write it anyway.
 - Choose the project type from the brief (pop-up, preference center or landing page), then follow the workflow.
 <!-- /sync:FIGMA -->
 

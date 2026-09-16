@@ -168,7 +168,9 @@ popup is `template: "2-column"`, `right_column_bg_type: "image"`, `right_column_
   follow the workspace branding header/footer: Jule rewrites the project's HTML/CSS/JS from
   branding on save and whenever branding changes (and can push it to the published snapshot).
   Header links to page sections: write `<a href="#pricing">` and give the target Box
-  `config.htmlId: "pricing"`.
+  `config.htmlId: "pricing"`. The navbar and the footer are never Boxes and text items: validate
+  warns when the first section holds a logo and menu links or the last one holds the site links
+  and legal line.
 - Preference center defaults: `card_width: "100%"`, `card_padding: "0px"`; `position` is unused.
 - Notification toast after submit: `notification_enabled`, `notification_success_text`,
   `notification_error_text`, `notification_bg_color` (`#10b981`), `notification_error_bg_color`
@@ -179,6 +181,261 @@ popup is `template: "2-column"`, `right_column_bg_type: "image"`, `right_column_
   `notification_custom_css`. Preference centers show it on the last page's submit.
 - Translations: `style_config.i18n[locale]` may override `preference_center_header_html`,
   `preference_center_footer_html`, the `seo_*` strings and the built-in button labels.
+
+### Header and footer HTML must fit every screen
+
+Written chrome is reviewed at 1280, 820 and 390px like everything else (`preview_project` with
+`review: true` measures the header and footer: sideways overflow, a header that stacks its links on
+the phone). The design usually shows the desktop bar only; the phone menu is still yours to write.
+Rules, all of them HARD:
+
+- Fluid, never fixed: containers take `max-width` + `width: 100%`, never `width: 1200px`; images
+  take a fixed `height` with `width: auto; max-width: 100%`; `box-sizing: border-box` on everything.
+- Two breakpoints: `@media (max-width: 820px)` (tablet: wrap, shrink padding) and
+  `@media (max-width: 480px)` (phone). Links at 16px or more, tap targets 44px tall.
+- A menu toggle on the phone: a `<button type="button" aria-expanded="false">` that toggles an
+  `is-open` class from `_js` (inline `onclick` is stripped by the sanitizer). The open menu is a
+  full-width panel under the bar that pushes the page down — never a column beside the logo, never
+  a fixed overlay that hides the bar.
+- Prefix your classes (`jl-nav__…`): the CSS is not scoped. Colors are hex values from the workspace
+  branding (`brand:` references do not resolve inside raw CSS).
+- The `_js` runs once after the HTML is in the DOM, with `document` scoped to the widget: query
+  through `document`, never `window.document`. The editor canvas and every preview skip it, so the
+  closed bar has to look right with no script at all — hide the menu with CSS and let the script
+  only toggle a class. The rendered review therefore measures the closed bar; the open panel is
+  yours to check on the published page.
+- Copy the template below and change words, colors and links. Validate warns when header or footer
+  CSS has no breakpoint, the header has no toggle, or a width above 390px is fixed.
+
+`preference_center_header_html`:
+
+```html
+<header class="jl-nav">
+  <a class="jl-nav__brand" href="/"
+    ><img src="LOGO_URL" alt="Brand" height="32"
+  /></a>
+  <button
+    class="jl-nav__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="jl-nav-menu"
+    aria-label="Menu"
+  >
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="jl-nav-menu" class="jl-nav__menu">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a class="jl-nav__cta" href="#signup">Get started</a>
+  </nav>
+</header>
+```
+
+`preference_center_header_css`:
+
+```css
+.jl-nav,
+.jl-nav * {
+  box-sizing: border-box;
+}
+.jl-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  font-family: inherit;
+  color: #111827;
+  background: #fff;
+}
+.jl-nav__brand img {
+  display: block;
+  height: 32px;
+  width: auto;
+  max-width: 160px;
+}
+.jl-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.jl-nav__menu a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 44px;
+  white-space: nowrap;
+}
+.jl-nav__cta {
+  padding: 0 20px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+}
+.jl-nav__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 11px 10px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.jl-nav__toggle span {
+  display: block;
+  height: 2px;
+  background: currentColor;
+}
+@media (max-width: 820px) {
+  .jl-nav {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+  .jl-nav__toggle {
+    display: flex;
+    margin-left: auto;
+  }
+  .jl-nav__menu {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    padding: 8px 0 16px;
+  }
+  .jl-nav__menu a {
+    line-height: 48px;
+    white-space: normal;
+  }
+  .jl-nav__cta {
+    margin-top: 8px;
+    text-align: center;
+  }
+  .jl-nav.is-open .jl-nav__menu {
+    display: flex;
+  }
+}
+```
+
+`preference_center_header_js`:
+
+```js
+(function () {
+  var n = document.querySelector('.jl-nav'),
+    b = n && n.querySelector('.jl-nav__toggle');
+  if (!b) return;
+  function set(o) {
+    n.classList.toggle('is-open', o);
+    b.setAttribute('aria-expanded', String(o));
+  }
+  b.addEventListener('click', function () {
+    set(!n.classList.contains('is-open'));
+  });
+  n.querySelectorAll('.jl-nav__menu a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      set(false);
+    });
+  });
+})();
+```
+
+`preference_center_footer_html`:
+
+```html
+<footer class="jl-foot">
+  <div class="jl-foot__grid">
+    <div class="jl-foot__col">
+      <img src="LOGO_URL" alt="Brand" height="28" />
+      <p>One line about the company.</p>
+    </div>
+    <nav class="jl-foot__col" aria-label="Company">
+      <h4>Company</h4>
+      <a href="/about">About</a><a href="/blog">Blog</a
+      ><a href="/contact">Contact</a>
+    </nav>
+    <nav class="jl-foot__col" aria-label="Legal">
+      <h4>Legal</h4>
+      <a href="PRIVACY_URL">Privacy policy</a><a href="TERMS_URL">Terms</a>
+    </nav>
+  </div>
+  <p class="jl-foot__legal">© 2026 Brand. All rights reserved.</p>
+</footer>
+```
+
+`preference_center_footer_css`:
+
+```css
+.jl-foot,
+.jl-foot * {
+  box-sizing: border-box;
+}
+.jl-foot {
+  width: 100%;
+  padding: 40px 24px 24px;
+  font-family: inherit;
+  color: #fff;
+  background: #111827;
+}
+.jl-foot__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.jl-foot__col img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 140px;
+  margin-bottom: 12px;
+}
+.jl-foot__col h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.jl-foot__col a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 40px;
+}
+.jl-foot__col p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+.jl-foot__legal {
+  max-width: 1200px;
+  margin: 32px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 14px;
+  opacity: 0.7;
+}
+@media (max-width: 480px) {
+  .jl-foot {
+    padding: 32px 16px 16px;
+  }
+  .jl-foot__grid {
+    gap: 24px;
+  }
+}
+```
+
+The footer needs no JS. The same rules hold for the `css` of an `html-block` item: fluid widths,
+images at `max-width: 100%`, a `@media` rule for anything laid out in columns.
 
 ## SEO (`seo_*`)
 
