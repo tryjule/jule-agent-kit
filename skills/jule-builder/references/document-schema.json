@@ -2655,7 +2655,7 @@
         },
         "content": {
           "type": "string",
-          "description": "The text to show. Supports `{{fieldName}}` and `{{score}}` placeholders."
+          "description": "The text as HTML, as the editor's toolbar writes it: `<p>` per paragraph, `<br>` for a soft break, `<strong>` / `<em>` / `<u>` runs, `<a href target>` inside the copy, `<span style=\"color: #hex\">` for a word in another color (hex or CSS color only; `brand:` does not resolve here). Alignment, size, family and weight of the whole item live in style_info. Supports `{{fieldName}}` and `{{score}}` placeholders."
         },
         "errorContent": {
           "type": "string",
@@ -2869,7 +2869,7 @@
             "redirect",
             "close"
           ],
-          "description": "What clicking does: move `next` / `previous`, `submit` the answers, `submit_and_next`, `submit_and_page` (needs `targetPageId`), `submit_and_redirect` / `redirect` (need `redirectUrl`), `skip` the page, or `close` the widget."
+          "description": "What clicking does, as the editor names it: `next` Next Page (or jump to `targetPageId`), `previous` Previous Page, `submit` Submit & Next Page / Submit & Close (records the answers, then advances when a page follows, closes on the last page; plain Submit in a preference center), `submit_and_redirect` Submit & Redirect and `redirect` Redirect to URL (both need `redirectUrl`), `close` Close. `submit_and_next`, `submit_and_page` (needs `targetPageId`) and `skip` are legacy: still run for existing items, no longer offered — do not write them."
         },
         "targetPageId": {
           "type": "string",

@@ -83,14 +83,31 @@ Every item type also honours `error_style_info` only when it is a `success_messa
 **Purpose.** A heading, paragraph, inline span or link. Editor: Headline (`tag: "h1"`) and
 Paragraph (`tag: "p"`); the properties panel calls it Text.
 
-**Config.** `content` (HTML string; rich text from the editor is `<p>…</p>` / `<strong>`; the
-widget sanitizes it and keeps `p h1–h6 span div a` as the outer tag; placeholders as above), `tag` (`h1|h2|h3|p|span|a`;
+**Config.** `content` (HTML string, see Rich text below; placeholders as above), `tag` (`h1|h2|h3|p|span|a`;
 anything else renders as `p`; `span` and `a` render inline and lose `width`/`display`), `href` +
 `target` (only for `tag: "a"`; `_blank` adds `rel="noopener noreferrer"`), `startIcon` / `endIcon`
 (an `ItemIcon` from the icon library) + `iconGap` (px, default 8), `isSmsDisclaimer` +
 `linkedPhoneInputId` (marks the SMS consent text that belongs to a `tel` input; inside a Grid Box
 the two render in one grid cell), `errorContent` (only meaningful on `success_message`), `i18n`
 (`content`, `errorContent`).
+
+**Rich text.** `content` is the HTML the editor's text toolbar writes, and the same marks are yours
+to write: one `<p>…</p>` per paragraph (`<br>` for a soft break inside one), **Bold** →
+`<strong>`, *Italic* → `<em>`, Underline → `<u>`, Add Link → `<a href="https://…">` inside the
+copy (`target="_blank"` when it should open a new tab; the whole item becomes a link with
+`tag: "a"` + `href` instead), Text Color → `<span style="color: #hex">` around the words that
+change color (a gradient run is `<span style="background-image: linear-gradient(…);
+-webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent">`), and
+the two insert buttons → `{{fieldName}}` for an answer and an Iterable profile field name in the
+same braces. Lists (`<ul>`, `<ol>`, `<li>`) and `<code>` / `<pre>` survive too. Rules: colors inside
+`content` are hex or any CSS color, never `brand:` references (those resolve only in `style_info`
+and `style_config`), so copy the hex from `jule://workspaces/{id}/branding`; font size, family,
+weight of the whole item and its alignment live in `style_info` (`fontSize`, `fontFamily`,
+`fontWeight`, `textAlign`) — a `text-align` written inside `content` is removed and inline
+`font-size` fights the responsive overrides; the widget sanitizes everything else away (images,
+iframes, scripts, event handlers, `data-*`), turns `&nbsp;` into a space and, for `span` / `a` tags,
+collapses line breaks. Emphasis is one `<strong>` phrase or one colored word inside the sentence,
+never a second text item glued on for it.
 
 **Style.** Typography and box fields. `width` is applied as `max-width`. Default sizes come from
 the project style (`title_font_size` 30px/700 for h1, `desc_font_size` 16px for p) when the item
@@ -102,9 +119,9 @@ sets none.
   "parent_id": null,
   "config": {
     "tag": "h1",
-    "content": "<p>Get 10% off your first order</p>",
+    "content": "<p>Get <strong>10% off</strong> your <span style=\"color: #1b7a82\">first order</span></p>",
     "i18n": {
-      "de": { "content": "<p>10 % Rabatt auf die erste Bestellung</p>" }
+      "de": { "content": "<p><strong>10 % Rabatt</strong> auf die <span style=\"color: #1b7a82\">erste Bestellung</span></p>" }
     }
   },
   "style_info": {
@@ -130,16 +147,24 @@ it locked — send the branding text or any placeholder and only style the item.
 sets `action: "submit"`.
 
 **Config.** `label` (required; empty renders "Button"), `action` (required; default when missing
-is `next`): `next` (or jump to `targetPageId` when set), `previous`, `submit` (records the answers
-and ends the flow), `submit_and_next`, `submit_and_page` (+ `targetPageId`),
-`submit_and_redirect` / `redirect` (+ `redirectUrl`, http(s) only), `skip`, `close`. `startIcon` /
-`endIcon` + `iconGap`. `i18n` (`label`).
+is `next`). The editor offers six, named as in its dropdown: `next` **Next Page** (or jump to
+`targetPageId` when set), `previous` **Previous Page**, `submit` — shown as **Submit & Next Page**
+on any page but the last (records the answers, then advances), **Submit & Close** on the last page
+(records the answers and closes) and plain **Submit** in a preference center (saves the
+preferences), `submit_and_redirect` **Submit & Redirect** (+ `redirectUrl`, http(s) only), `close`
+**Close** (closes without submitting), `redirect` **Redirect to URL** (+ `redirectUrl`; leaves
+without submitting). A preference center offers only `submit` and `submit_and_redirect`.
+`submit_and_next`, `submit_and_page` (+ `targetPageId`) and `skip` are **legacy**: the widget still
+runs them for existing items and the editor labels them "(legacy)", but never write them — `submit`
+already advances when a page follows, a logic rule routes a submit to a specific page, and a page
+nobody needs is deleted rather than skipped; validate warns on each. `startIcon` / `endIcon` +
+`iconGap`. `i18n` (`label`).
 
 **Behaviour.** A page logic rule that matches wins over the button's own destination; the button's
 terminal action (redirect, target page, close) wins over the page's `logic_fallback`. `close` and
 `redirect` skip required-field validation (the visitor is leaving); every other action validates the
 current page first and runs the email deliverability check. A Submit button whose page has a rule
-routing to a terminal page still submits (`submit_and_page`). A page with no forward action
+routing to a terminal page still submits, then lands on that page. A page with no forward action
 (`next`, `skip`, `submit*`) and no `submitOnSelect` input is a **terminal page**: reaching it after a
 submit completes the widget.
 
@@ -150,7 +175,7 @@ background, white text). `alignSelf` positions it; `width` fixes it.
 {
   "type": "button",
   "parent_id": null,
-  "config": { "label": "Subscribe", "action": "submit_and_next" },
+  "config": { "label": "Subscribe", "action": "submit" },
   "style_info": {
     "backgroundColor": "brand:Primary",
     "color": "#ffffff",
@@ -169,8 +194,9 @@ background, white text). `alignSelf` positions it; `width` fixes it.
 `submit_and_page`. Navigation is these `button` items and nothing else: **every page except the
 last needs its own forward button**. Real projects use `next` between pages, one `submit` (or
 `submit_and_redirect`) on the page where the form ends, and `close` / `redirect` on a thank-you
-page. The widget accepts one submit per visit, so a `submit_and_next` followed by pages that
-collect answers loses those answers — use it only when the pages after it collect nothing. Never
+page. The widget accepts one submit per visit, so a `submit` on a page followed by pages that
+collect answers loses those answers — put it on the last page that asks anything and let only a
+thank-you page follow. Never
 set `style_config.hide_next` / `hide_previous`: they hide every `next` / `previous` button in the
 document (there is no separate built-in bar). `validate_project_document` warns about a page with
 no way forward and about `hide_next`.
@@ -291,8 +317,8 @@ collapse control for it (`title` and `collapsed` are editor-only). In practice a
 the Iterable fields: `iterableChannelsGroup: true` on the top-level element with
 `channelConfig: { selectedChannels: [{ id, name }], selectedMessageTypes: [{ id, name, channelId }],
 helperCheckbox: "none" | "subscribe_all" | "unsubscribe_all" | "both", channelStyleInfo?,
-messageTypeStyleInfo? }`; `iterableChannelId` on one child group per channel;
-`iterableHelperGroup: true` on the group holding the helper checkboxes.
+messageTypeStyleInfo? }` (the two style infos: Channel / Type styles below); `iterableChannelId` on
+one child group per channel; `iterableHelperGroup: true` on the group holding the helper checkboxes.
 
 **Generated structure the editor produces** (build the same shape by hand):
 
@@ -308,9 +334,25 @@ group  { iterableChannelsGroup: true, channelConfig: {…} }
     └── input { inputType: "checkbox", placeholder: "Unsubscribe from all", checkboxBehavior: "unselect_all" }
 ```
 
-Channel toggles default to `fontWeight: "700"`, `margin: "10px 0 0 0"`; message types to
-`margin: "0 0 0 14px"`. Ids and names must match the live Iterable data in
-`jule://workspaces/{id}/integrations` (`channels[]`, `message_types[]`).
+Ids and names must match the live Iterable data in `jule://workspaces/{id}/integrations`
+(`channels[]`, `message_types[]`).
+
+**Channel / Type styles** (editor: Style → Channel / Type Styles, tabs All · Channels · Types). The
+generated toggles are ordinary `checkbox` inputs and the widget reads each one's own `style_info`,
+nothing else. The editor keeps the panel's values in `channelConfig.channelStyleInfo` (Channels
+tab) and `channelConfig.messageTypeStyleInfo` (Types tab) and copies them onto every generated
+toggle whenever it reconciles the group; the All tab writes the group's own `style_info` and both
+scoped infos. So write the same keys in both places: the scoped infos so the editor keeps them,
+and each toggle's `style_info` so the widget draws them. The panel's fields and the keys behind
+them: Style → `checkboxVariant` (`box` default | `switch`); Position → `checkboxPosition` (`left`
+default | `right`); Size → `width` **and** `height` (default `16px`); Border Width → `borderWidth`
+(`1px`); Border Radius → `borderRadius` (`4px`); Accent Color → `borderColor` (the box border and
+the checked fill; one solid color, default the project primary); Check Color → `checkColor`
+(`#ffffff`); Label Text: Font Size → `fontSize` (`16px`), Weight → `fontWeight` (channels `700`,
+message types `400`), Text Color → `color` (`#1f2937`), Font Family → `fontFamily` + `fontUrl`;
+Layout: Align → `alignSelf`, Padding → `padding`, Margin → `margin` (channels `10px 0 0 0`,
+message types `0 0 0 14px`). Style classes (`config.presetIds`) bind to the toggles like to any
+input.
 
 ```json
 {
@@ -325,7 +367,20 @@ Channel toggles default to `fontWeight: "700"`, `margin: "10px 0 0 0"`; message 
       "selectedChannels": [{ "id": 131795, "name": "Marketing Channel" }],
       "selectedMessageTypes": [
         { "id": 170399, "name": "Marketing Message", "channelId": 131795 }
-      ]
+      ],
+      "channelStyleInfo": {
+        "checkboxVariant": "switch",
+        "borderColor": "brand:Primary",
+        "fontWeight": "700",
+        "margin": "10px 0 0 0"
+      },
+      "messageTypeStyleInfo": {
+        "width": "16px",
+        "height": "16px",
+        "borderRadius": "4px",
+        "color": "#4b5563",
+        "margin": "0 0 0 14px"
+      }
     }
   },
   "style_info": {}
@@ -400,7 +455,10 @@ the block's id, `<style>` tags inside `html` are extracted and scoped too), `jav
 an IIFE after the block renders; `<script>` tags inside `html` are executed the same way), `i18n`
 (`html`).
 
-**Style.** Outer box styles only (`margin`, `padding`, `backgroundColor`, `width`, …).
+**Style.** Outer box styles only (`margin`, `padding`, `backgroundColor`, `width`, …). The block
+fits every screen: fluid widths (`max-width` + `width: 100%`, never a fixed width above 390px),
+images at `max-width: 100%`, a `@media` rule for anything laid out in columns — the rendered
+review measures the card's sideways scroll at 390px and validate warns on a fixed width.
 
 ```json
 {

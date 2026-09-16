@@ -1,6 +1,6 @@
 {
   "name": "jule",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Build pop-ups, sign-up forms, quizzes, preference centers and landing pages as Jule projects through the Jule MCP server.",
   "contextFileName": "GEMINI.md",
   "mcpServers": {

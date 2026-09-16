@@ -120,7 +120,19 @@
                   "name": "Marketing Message",
                   "channelId": 131795
                 }
-              ]
+              ],
+              "channelStyleInfo": {
+                "checkboxVariant": "box",
+                "borderColor": "#7c3aed",
+                "fontWeight": "700",
+                "margin": "10px 0 0 0"
+              },
+              "messageTypeStyleInfo": {
+                "width": "16px",
+                "height": "16px",
+                "borderRadius": "4px",
+                "margin": "0 0 0 14px"
+              }
             },
             "iterableChannelsGroup": true,
             "i18n": {
