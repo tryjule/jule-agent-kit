@@ -238,6 +238,10 @@ Check these before every save. Each one is [HARD].
   check it in the mobile preview.
 - **[HARD] Message match.** The headline echoes the ad, email or link that sent the visitor. If
   the user gave you the source copy, reuse its words.
+- **[CONVENTION] One section at a time.** Beyond about three sections, save and review them one
+  by one — `preview_project` with `section` set to the Box's `htmlId` renders and measures that
+  section alone. Look at it, fix what comes back, then add the next. A page written in one pass
+  and never looked at is how a navbar ends up as a stack of Boxes and a button as a dark stub.
 - **[CONVENTION] Sections as Boxes.** One `flex` item per section with `config.htmlId` (`hero`,
   `features`, `pricing`) so header links scroll; `display: "grid"` for columns with
   `responsive.mobile.gridTemplateColumns: "1fr"`; `display: "stack"` only for overlaps (badges,
