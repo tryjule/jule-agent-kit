@@ -42,7 +42,12 @@ Check these before every save. Each one is [HARD].
    button, or a `submitOnSelect` input). Never set `style_config.hide_next`.
 8. **Nothing is an `html-block` that an item can be.** Headings, copy, images, links, fields,
    buttons, sections and pages are items. A block is for an embed, a table or custom vector art.
-9. **Copy is the user's, not yours to embellish.** Do not add claims, numbers, dates, prices,
+9. **Anything clickable is a `button` item.** Never a Box with a text (and an arrow icon) inside
+   it: a Box sizes to its content, so in a row it shrinks until the label wraps or spills out of
+   it — the dark stub where a button should be — and a visitor cannot click it. `config.label`,
+   `config.action` (`redirect` + `redirectUrl`, `next`, `submit`), `startIcon` / `endIcon` for the
+   arrow. Validate and every save warn when a Box is shaped like one.
+10. **Copy is the user's, not yours to embellish.** Do not add claims, numbers, dates, prices,
    guarantees or deadlines the brief does not contain.
 
 ## Before you draft
