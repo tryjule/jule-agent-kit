@@ -43,6 +43,8 @@ const COPIES = {
   'skills/figma-to-jule/references/layout.md': 'resources/layout.md',
   'skills/figma-to-jule/references/best-practices.md': 'resources/best-practices.md',
   'skills/jule-analytics/references/best-practices.md': 'resources/best-practices.md',
+  'skills/jule-builder/references/product-docs.md': 'resources/product-docs.md',
+  'skills/jule-analytics/references/product-docs.md': 'resources/product-docs.md',
 };
 for (const [dest, src] of Object.entries(COPIES)) out.set(dest, read(join(MCP, src)));
 

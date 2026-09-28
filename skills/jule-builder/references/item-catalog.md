@@ -158,7 +158,11 @@ without submitting). A preference center offers only `submit` and `submit_and_re
 runs them for existing items and the editor labels them "(legacy)", but never write them — `submit`
 already advances when a page follows, a logic rule routes a submit to a specific page, and a page
 nobody needs is deleted rather than skipped; validate warns on each. `startIcon` / `endIcon` +
-`iconGap`. `i18n` (`label`).
+`iconGap`. `i18n` (`label`). `syncToIterable: true` on a `next` button (**Sync data to Iterable**)
+sends the answers collected so far to Iterable and runs the project's Iterable actions when the
+visitor moves on, without submitting. It needs an email field on that page or an earlier one:
+publishing refuses `syncToIterable` on a button before the email field (Iterable has no one to
+update there).
 
 **Behaviour.** A page logic rule that matches wins over the button's own destination; the button's
 terminal action (redirect, target page, close) wins over the page's `logic_fallback`. `close` and
@@ -166,7 +170,9 @@ terminal action (redirect, target page, close) wins over the page's `logic_fallb
 current page first and runs the email deliverability check. A Submit button whose page has a rule
 routing to a terminal page still submits, then lands on that page. A page with no forward action
 (`next`, `skip`, `submit*`) and no `submitOnSelect` input is a **terminal page**: reaching it after a
-submit completes the widget.
+submit completes the widget. A visit records its answers once, on the first submit: never put a
+Submit on a page before the one that collects the last answers — use `next` there, and keep a
+single Submit at the end.
 
 **Style.** Inherits `button_*` project defaults (padding 10px, font 14px/500, radius 6px, primary
 background, white text). `alignSelf` positions it; `width` fixes it.
