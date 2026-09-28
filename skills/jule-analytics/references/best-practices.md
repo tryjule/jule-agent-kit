@@ -108,7 +108,10 @@ Check these before every save. Each one is [HARD].
 - **[HARD] A way forward on every page.** Each page except the last ends with exactly one forward
   button: `next` while the form continues, `submit` on the page where it ends (the editor calls it
   Submit & Next Page when a thank-you page follows, Submit & Close on the last page). Submit once
-  per visit — a submit followed by more questions loses their answers. The thank-you page
+  per visit — a submit followed by more questions loses their answers, and publishing refuses a
+  `submit` placed before the email field while later pages still collect answers — use `next`
+  there. `syncToIterable: true` on a `next` button sends the answers so far to Iterable, and only
+  after the email field (publishing refuses it earlier). The thank-you page
   holds text (or a `success_message` / `coupon` item) and a `close` or `redirect` button, no
   forward action.
 - **[HARD] Always give a way out.** Popup and bubble modes render the close button; keep

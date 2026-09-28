@@ -31,7 +31,9 @@ and continue with what you have.
 
 Metric meanings are in `references/metrics.md` (the tool's `definitions`, kept identical by
 `scripts/sync-references.mjs`). Structural and copy checks come from
-`references/best-practices.md`.
+`references/best-practices.md`. How the dashboard counts events and what each report means for the
+user is in the public docs (`https://docs.jule.ai/analytics/overview.md`,
+`https://docs.jule.ai/analytics/events.md`); `references/product-docs.md` says how to read them.
 
 ## The analysis
 

@@ -2879,6 +2879,10 @@
           "type": "string",
           "description": "URL opened by `redirect` / `submit_and_redirect`."
         },
+        "syncToIterable": {
+          "type": "boolean",
+          "description": "`next` only (\"Sync data to Iterable\"): when the visitor moves on, send the answers collected so far to Iterable and run the project's Iterable actions, without submitting the form. Only on or after the page with the email field: publishing refuses it earlier, where Iterable has no one to update. The form still records answers once, on its final Submit."
+        },
         "startIcon": {
           "$ref": "#/definitions/ItemIcon",
           "description": "Icon before the label."
