@@ -24,15 +24,18 @@ the widget payload is built. So: attach a trigger with `trigger_id` (tools: `lis
 or leave `trigger_id` null and write the fields directly. `trigger_id` must belong to the
 project's workspace.
 
-Trigger types (`trigger_type`): `immediate` (the widget's default when nothing is set), `delay`
-(after `trigger_delay` seconds), `scroll` (at `trigger_scroll_depth` percent), `exit_intent`
-(mouse leaves the viewport; desktop only — the editor locks the device to desktop), `manual`
-(opened by `Jule.show()` in the host page or when `trigger_manual_condition` — a CSS selector or
-JS expression — is met; the editor excludes time-on-page and scroll-depth conditions for it),
+Trigger types (`trigger_type`): `immediate` (the widget's default when nothing is set) and
+`delay` (both open as soon as the targeting conditions pass; add a `time_on_page` condition to
+wait, because the widget ignores `trigger_delay`), `scroll` (at `trigger_scroll_depth` percent),
+`exit_intent` (mouse leaves the viewport, or a tab or app switch on a phone; the editor locks the
+device to desktop), `manual` (opened by `Jule.show()` in the host page or by
+`trigger_manual_condition`, JavaScript run on the page that either returns true or calls
+`Jule.show()` itself; the editor excludes time-on-page and scroll-depth conditions for it),
 `engagement` (editor label "Conditional Behavior": show when the targeting conditions pass,
 including the behavioural ones). The workspace trigger form offers Conditional Behavior, Exit
 Intent and Manual (JavaScript API); `delay` and `scroll` are stored variants of Conditional
-Behavior. `trigger_desktop_enabled` / `trigger_mobile_enabled` (default true) gate by device.
+Behavior. `trigger_desktop_enabled` / `trigger_mobile_enabled` are stored but ignored by the
+widget; gate by device with a `device_type` targeting condition.
 
 Inline popups (`sign_up_config.display_mode: "inline"`) ignore delay/scroll/exit triggers and
 evaluate only the static targeting conditions; in bubble/teaser mode without a `trigger_type`
@@ -214,7 +217,7 @@ chosen, RTL, what happens when a translation is missing, and the completeness wa
 The base strings stay in the plain fields; translations go into the `i18n` maps of items
 (`config.i18n[locale][field]`, `style_info.i18n[locale]`), `style_config.i18n[locale]` (header/footer
 HTML, SEO strings, button labels) and `sign_up_config.i18n[locale]` (`bubble_text`,
-`success_message`). The widget picks the visitor's locale from the enabled list and falls back to
+`teaser_after_signup_text`, `success_message`). The widget picks the visitor's locale from the enabled list and falls back to
 the base string per field, so partial translations are safe. Coupon nested texts (screens, wheel
 labels) are translated too. The editor's language list has 31 curated codes (`en`, `es`, `fr`, `de`,
 `it`, `pt`, `pt-BR`, `nl`, `sv`, `no`, `da`, `fi`, `pl`, `cs`, `ro`, `el`, `tr`, `ru`, `uk`,
@@ -272,9 +275,36 @@ iterable_field, survey_field_name, enabled, actions?, group? }`), `track_event_c
 - SMS double opt-in: `sms_double_opt_in_message_type_ids` names the SMS message types that need the
   visitor's own confirmation. When a submission carries a phone number and an email or userId,
   Jule asks Iterable to start its SMS double opt-in for those types instead of subscribing them
-  outright (once per phone number per project per day); `sms_double_opt_in_brand_name` is the
+  outright (once per phone number per workspace per day); `sms_double_opt_in_brand_name` is the
   brand named in the confirmation text. With only double-opt-in types configured, the ordinary
   subscribe step is skipped.
+
+### SMS confirmation (`sms_confirmation_mode`, `sms_reveal_window_seconds`)
+
+`sms_confirmation_mode` decides what happens after a visitor enters a phone number:
+
+- `none` (default): the offer is shown right after the form is sent; the number is not checked.
+- `double_opt_in` ("Reply by text"): Iterable texts the visitor "Reply Y" for the message types in
+  `sms_double_opt_in_message_type_ids`, and the form's coupon code is issued only once they reply.
+  A visitor already subscribed to one of those types gets the code at once.
+- `otp` ("Enter a code"): Jule texts the visitor a one-time code, the pop-up asks for it, and the
+  offer (or the "you're subscribed" state) appears as soon as the right code is typed; the visitor
+  is then subscribed to the message types in `sms_double_opt_in_message_type_ids`. Enter a code
+  needs Phone verification set up in the workspace settings (Settings → Integrations → Iterable);
+  publishing is refused without it. The code-screen texts are `style_config.sms_code_*`.
+
+With `double_opt_in` the pop-up shows a waiting screen ("Check your texts") in place of the form's
+own ending until the reply arrives, then carries on with that ending (the coupon page shows the
+code). Its texts are `style_config.sms_waiting_*` and the others listed in the project-style guide.
+Once confirmed, the teaser's code state (`sign_up_config.teaser_after_signup_*`) keeps the code in
+a corner of every page for up to a day, also for visitors who closed the pop-up or the tab.
+
+`sms_reveal_window_seconds` (30–300, default 120) is how long the page waits for the reply before
+telling the visitor the code will follow by text or email. Publishing is refused while a
+confirmation mode is on without a double opt-in message type, or without an email field (or a
+`user_id` field) to identify the visitor; an optional phone field left empty gets the offer
+without confirmation. When the workspace does not have SMS confirmation yet, the form behaves as
+`none` whatever the mode says.
 
 Per-page Iterable writes: `page_iterable_actions[pageId]` (`enabled`, `actions` of
 `update_profile` / `track_event`, `eventName`) and `page_iterable_fields[pageId]`

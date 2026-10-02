@@ -64,9 +64,10 @@ Project level:
 
 - `style_config.i18n[locale]` — `preference_center_header_html`, `preference_center_footer_html`,
   `seo_page_title`, `seo_meta_description`, `notification_success_text`,
-  `notification_error_text`. CSS, JS and URLs are shared across languages.
-- `settings_config.sign_up_config.i18n[locale]` — `bubble_text` (the teaser text) and the legacy
-  `success_message`.
+  `notification_error_text`, the `sms_code_*` texts and the Reply by text texts (`sms_waiting_*`,
+  `sms_edit_number_label`, `sms_after_wait_text`, `sms_no_code_text`, `sms_subscribed_text`). CSS, JS and URLs are shared across languages.
+- `settings_config.sign_up_config.i18n[locale]` — `bubble_text` (the teaser text),
+  `teaser_after_signup_text` (the teaser's code state) and the legacy `success_message`.
 - `style_info.i18n[locale]` — per-language style overrides on an item (a smaller `fontSize` for a
   long German label, a different `fontFamily` for Arabic); merged over the base styles.
 
