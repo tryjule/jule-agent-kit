@@ -122,14 +122,16 @@ Check these before every save. Each one is [HARD].
 
 **When it shows**
 
-- **[CONVENTION] Wait 10–50 seconds** (`trigger_type: "delay"`, `trigger_delay: 10`). Firing in
-  the first few seconds raises bounce sharply. A rough rule: half the average time on the page.
+- **[CONVENTION] Wait 10–50 seconds** (`trigger_type: "engagement"` with a `time_on_page`
+  `greater_than` `10` targeting condition; the widget ignores `trigger_delay`). Firing in the
+  first few seconds raises bounce sharply. A rough rule: half the average time on the page.
 - **[CONVENTION] Second-visit beats first-second.** Jule triggers on `immediate`, `delay`,
   `scroll` (try `trigger_scroll_depth: 50`), `exit_intent` or `manual`; there is no
   second-pageview trigger, so a delay or a scroll depth is how you wait for intent.
-- **[CONVENTION] Exit intent is a recovery net, not an acquisition trigger,** and it is desktop
-  only — cursor-leave does not exist on a touch screen. Pair it with `trigger_mobile_enabled: false`
-  and give phones a delay or scroll trigger instead.
+- **[CONVENTION] Exit intent is a recovery net, not an acquisition trigger,** and it is meant
+  for desktop: a phone has no cursor to leave the page, so there it only fires on a tab or app
+  switch. Pair it with a `device_type` `equals` `desktop` targeting condition (the widget ignores
+  `trigger_mobile_enabled`) and give phones a time-on-page or scroll trigger instead.
 - **[CONVENTION] Frequency.** `until_completed` is right for lead capture; `cooldown` for
   recurring promotions. Never show the same offer twice in a day.
 - **[HARD] Keep it off the pages that earn money.** Use targeting conditions to exclude cart and

@@ -70,6 +70,13 @@ families:
   `bubble_size` (60px default); a rectangle at `center-left` / `center-right` is rotated so the
   text reads vertically (`teaser_mirror_text` flips it).
 - `teaser_anchored` (default true): the popup opens beside the teaser instead of at `position`.
+- Code state ("After sign-up, with their code"): `teaser_after_signup_enabled` shows the visitor's
+  coupon code on the teaser after sign-up (plain coupon pop-ups once the code exists, SMS
+  confirmation modes once confirmed); unset means on when an SMS confirmation mode is on.
+  `teaser_after_signup_text` (translatable) takes the smart tags `{{coupon_code}}`, `{{discount}}`,
+  `{{expires_in}}`; `teaser_after_signup_tap` `copy` (default; a second tap opens the coupon page)
+  or `open`; `teaser_after_signup_ttl` `dismiss` (default) or `24h` — it never lasts past 24 hours.
+  It uses the teaser's position and colours; a circle teaser shows the code as a pill.
 - `teaser_show_close_button`, `teaser_mirror_text` (teaser text mirrors the first heading).
 - Appearance: `bubble_text` (translatable via `sign_up_config.i18n`), `bubble_text_color`,
   `bubble_text_font_size`, `bubble_text_font_weight` (300–700; editor Light…Bold),
@@ -179,6 +186,15 @@ popup is `template: "2-column"`, `right_column_bg_type: "image"`, `right_column_
   `notification_border_radius`, `notification_shadow` (`none` `sm` `md` `lg`),
   `notification_animation` (`fade` `slide` `bounce`) + `notification_animation_direction`,
   `notification_custom_css`. Preference centers show it on the last page's submit.
+- Enter a code screen (only when `sms_confirmation_mode` is `otp`): `sms_code_title`,
+  `sms_code_help` (`{{phone}}` = the masked number), `sms_code_resend_label` (`{{seconds}}`),
+  `sms_code_wrong_text` (`{{tries}}`), `sms_code_expired_text`, `sms_code_too_many_text`. Empty
+  uses the built-in wording; set only what the brief asks to change.
+- Reply by text screens (only when `sms_confirmation_mode` is `double_opt_in`): `sms_waiting_title`,
+  `sms_waiting_text`, `sms_waiting_footnote`, `sms_edit_number_label` (also on the code screen),
+  `sms_after_wait_text` (after the reveal window), `sms_no_code_text` (confirmed, no code left),
+  `sms_subscribed_text` (confirmed, form without a coupon). Same rule: empty uses the built-in
+  wording.
 - Translations: `style_config.i18n[locale]` may override `preference_center_header_html`,
   `preference_center_footer_html`, the `seo_*` strings and the built-in button labels.
 

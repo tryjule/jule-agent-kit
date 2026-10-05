@@ -605,6 +605,58 @@
           "type": "string",
           "description": "Spinner size, CSS length."
         },
+        "sms_code_title": {
+          "type": "string",
+          "description": "Enter a code screen: title. Empty uses the default \"Enter your code\"."
+        },
+        "sms_code_help": {
+          "type": "string",
+          "description": "Enter a code screen: help line; `{{phone}}` is the masked number. Default \"We texted a code to {{phone}}.\"."
+        },
+        "sms_code_resend_label": {
+          "type": "string",
+          "description": "Enter a code screen: resend button while it counts down; `{{seconds}}` is the wait. Default \"Resend in {{seconds}} s\"."
+        },
+        "sms_code_wrong_text": {
+          "type": "string",
+          "description": "Enter a code screen: wrong code; `{{tries}}` is the tries left. Default \"That code didn't work. {{tries}} tries left.\"."
+        },
+        "sms_code_expired_text": {
+          "type": "string",
+          "description": "Enter a code screen: expired code. Default \"That code has expired. Send a new one.\"."
+        },
+        "sms_code_too_many_text": {
+          "type": "string",
+          "description": "Enter a code screen: too many wrong codes. Default \"Too many tries. Please start again.\"."
+        },
+        "sms_waiting_title": {
+          "type": "string",
+          "description": "Reply by text waiting screen: title. Default \"Check your texts\"."
+        },
+        "sms_waiting_text": {
+          "type": "string",
+          "description": "Reply by text waiting screen: body. Default \"We sent you a text. Reply Y to confirm and unlock your code.\"."
+        },
+        "sms_waiting_footnote": {
+          "type": "string",
+          "description": "Reply by text waiting screen: small print. Default \"Texted STOP to us before? Reply START first.\"."
+        },
+        "sms_edit_number_label": {
+          "type": "string",
+          "description": "Label of the link back to the form on the waiting and code screens. Default \"Edit number\"."
+        },
+        "sms_after_wait_text": {
+          "type": "string",
+          "description": "Waiting screen text once the reveal window has ended. Default \"Still waiting? Reply Y whenever you're ready and we'll text you your code.\"."
+        },
+        "sms_no_code_text": {
+          "type": "string",
+          "description": "Shown after confirmation when the coupon has no code left. Default \"You're confirmed, but this offer has run out.\"."
+        },
+        "sms_subscribed_text": {
+          "type": "string",
+          "description": "Shown after confirmation on a form without a coupon. Default \"You're subscribed ✓\"."
+        },
         "i18n": {
           "type": "object",
           "additionalProperties": {
@@ -655,11 +707,11 @@
             "manual",
             "engagement"
           ],
-          "description": "What opens a popup: `immediate`/`delay` (after `trigger_delay` seconds), `scroll` (at `trigger_scroll_depth` %), `exit_intent`, `manual` (`trigger_manual_condition` or the JS API), or `engagement`."
+          "description": "What opens a popup: `immediate`/`delay` (once the targeting conditions pass), `scroll` (at `trigger_scroll_depth` %), `exit_intent`, `manual` (`trigger_manual_condition` or the JS API), or `engagement`."
         },
         "trigger_delay": {
           "type": "number",
-          "description": "Seconds to wait for `delay`."
+          "description": "Ignored by the widget; wait with a `time_on_page` targeting condition."
         },
         "trigger_scroll_depth": {
           "type": "number",
@@ -667,15 +719,15 @@
         },
         "trigger_desktop_enabled": {
           "type": "boolean",
-          "description": "Trigger on desktop."
+          "description": "Ignored by the widget; use a `device_type` targeting condition."
         },
         "trigger_mobile_enabled": {
           "type": "boolean",
-          "description": "Trigger on mobile."
+          "description": "Ignored by the widget; use a `device_type` targeting condition."
         },
         "trigger_manual_condition": {
           "type": "string",
-          "description": "CSS selector or JS expression that opens a `manual` popup."
+          "description": "JavaScript for a `manual` popup: returns true to open it, or calls `Jule.show()`."
         },
         "targeting_conditions": {
           "$ref": "#/definitions/TargetingConditionsConfig",
@@ -1180,6 +1232,14 @@
           "type": "string",
           "description": "Brand name used in the SMS double opt-in text."
         },
+        "sms_confirmation_mode": {
+          "$ref": "#/definitions/SmsConfirmationMode",
+          "description": "What happens after a visitor enters a phone number: `none` shows the offer at once; `double_opt_in` holds the coupon until the visitor replies Y to Iterable's text; `otp` holds it until they type the texted code. Default `none`."
+        },
+        "sms_reveal_window_seconds": {
+          "type": "number",
+          "description": "Seconds the page waits for the SMS confirmation before showing the \"after the wait\" copy; 30–300, default 120."
+        },
         "unsubscribe_list_ids": {
           "type": "array",
           "items": {
@@ -1195,8 +1255,7 @@
           "description": "Channel ids the visitor is subscribed to on submit."
         }
       },
-      "additionalProperties": false,
-      "description": "Per-project Iterable behaviour. The workspace holds the API key; this only says which lists, events and profile fields a submission touches."
+      "additionalProperties": false
     },
     "IterableFieldMapping": {
       "type": "object",
@@ -1339,6 +1398,15 @@
       ],
       "additionalProperties": false,
       "description": "Behaviour of the one-click unsubscribe link in a preference center."
+    },
+    "SmsConfirmationMode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "double_opt_in",
+        "otp"
+      ],
+      "description": "Per-project Iterable behaviour. The workspace holds the API key; this only says which lists, events and profile fields a submission touches."
     },
     "SignUpConfig": {
       "type": "object",
@@ -1555,6 +1623,30 @@
         "teaser_mirror_text": {
           "type": "boolean",
           "description": "Teaser text mirrors the first heading of the form."
+        },
+        "teaser_after_signup_enabled": {
+          "type": "boolean",
+          "description": "Teaser's third state: after sign-up it shows the visitor's code (plain coupon pop-ups once the code exists, SMS confirmation modes once confirmed). Unset means on when an SMS confirmation mode is on."
+        },
+        "teaser_after_signup_text": {
+          "type": "string",
+          "description": "Text of the teaser's code state (translatable via i18n). Smart tags {{coupon_code}}, {{discount}}, {{expires_in}}. Default \"SMS verified · use code {{coupon_code}} for {{discount}} · tap to copy\"."
+        },
+        "teaser_after_signup_tap": {
+          "type": "string",
+          "enum": [
+            "copy",
+            "open"
+          ],
+          "description": "Tap on the code state: copy the code (a second tap opens the coupon page), or open the coupon page. Default copy."
+        },
+        "teaser_after_signup_ttl": {
+          "type": "string",
+          "enum": [
+            "dismiss",
+            "24h"
+          ],
+          "description": "How long the code state follows the visitor: until dismissed, or for 24 hours whatever they do. Both end after 24 hours. Default dismiss."
         },
         "success_behavior": {
           "type": "string",
