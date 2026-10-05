@@ -303,8 +303,10 @@ a corner of every page for up to a day, also for visitors who closed the pop-up 
 telling the visitor the code will follow by text or email. Publishing is refused while a
 confirmation mode is on without a double opt-in message type, or without an email field (or a
 `user_id` field) to identify the visitor; an optional phone field left empty gets the offer
-without confirmation. When the workspace does not have SMS confirmation yet, the form behaves as
-`none` whatever the mode says.
+without confirmation. SMS confirmation runs only for organizations in the rollout — `whoami`
+reports `features.sms_confirmation`. While it is off the form behaves as `none` whatever the mode
+says, and publishing a confirmation mode is refused; set the mode to `none` or ask the user to
+contact support to join the rollout.
 
 Per-page Iterable writes: `page_iterable_actions[pageId]` (`enabled`, `actions` of
 `update_profile` / `track_event`, `eventName`) and `page_iterable_fields[pageId]`
