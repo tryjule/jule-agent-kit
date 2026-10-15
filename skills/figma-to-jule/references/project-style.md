@@ -195,6 +195,22 @@ popup is `template: "2-column"`, `right_column_bg_type: "image"`, `right_column_
   `sms_after_wait_text` (after the reveal window), `sms_no_code_text` (confirmed, no code left),
   `sms_subscribed_text` (confirmed, form without a coupon). Same rule: empty uses the built-in
   wording.
+- Text confirmation colors and fonts: one style per screen part, none shared. Reply by text: `title`,
+  `text`, `footnote` (small print), `link` (Edit number), `after_wait`, `confirmed`. Enter a code:
+  `code_title`, `code_help`, `code_link` (resend, Edit number), `code_error` (default red). Keys:
+  `sms_title_color` `sms_title_font_family` `sms_title_font_url` `sms_title_font_weight` `sms_title_font_size`;
+  `sms_text_color` `sms_text_font_family` `sms_text_font_url` `sms_text_font_weight` `sms_text_font_size`;
+  `sms_footnote_color` `sms_footnote_font_family` `sms_footnote_font_url` `sms_footnote_font_weight` `sms_footnote_font_size`;
+  `sms_link_color` `sms_link_font_family` `sms_link_font_url` `sms_link_font_weight` `sms_link_font_size`;
+  `sms_after_wait_color` `sms_after_wait_font_family` `sms_after_wait_font_url` `sms_after_wait_font_weight` `sms_after_wait_font_size`;
+  `sms_confirmed_color` `sms_confirmed_font_family` `sms_confirmed_font_url` `sms_confirmed_font_weight` `sms_confirmed_font_size`;
+  `sms_code_title_color` `sms_code_title_font_family` `sms_code_title_font_url` `sms_code_title_font_weight` `sms_code_title_font_size`;
+  `sms_code_help_color` `sms_code_help_font_family` `sms_code_help_font_url` `sms_code_help_font_weight` `sms_code_help_font_size`;
+  `sms_code_link_color` `sms_code_link_font_family` `sms_code_link_font_url` `sms_code_link_font_weight` `sms_code_link_font_size`;
+  `sms_code_error_color` `sms_code_error_font_family` `sms_code_error_font_url` `sms_code_error_font_weight` `sms_code_error_font_size`;
+  `_font_url` only with a custom font, `_font_size` is a px number. Code boxes: `sms_code_box_color`,
+  `sms_code_box_width`, `sms_code_box_height` (px, default 40 × 48). Empty inherits the pop-up's
+  font and text color; set only what the brief asks.
 - Translations: `style_config.i18n[locale]` may override `preference_center_header_html`,
   `preference_center_footer_html`, the `seo_*` strings and the built-in button labels.
 
