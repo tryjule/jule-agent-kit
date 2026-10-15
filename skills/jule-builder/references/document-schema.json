@@ -657,6 +657,218 @@
           "type": "string",
           "description": "Shown after confirmation on a form without a coupon. Default \"You're subscribed ✓\"."
         },
+        "sms_title_color": {
+          "type": "string",
+          "description": "Reply by text waiting screen title: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_title_font_family": {
+          "type": "string",
+          "description": "Reply by text waiting screen title: font family. Empty inherits the pop-up's font."
+        },
+        "sms_title_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_title_font_family` when it is a custom font."
+        },
+        "sms_title_font_weight": {
+          "type": "string",
+          "description": "Reply by text waiting screen title: font weight (`400`–`800`)."
+        },
+        "sms_title_font_size": {
+          "type": "number",
+          "description": "Reply by text waiting screen title: font size in px."
+        },
+        "sms_text_color": {
+          "type": "string",
+          "description": "Reply by text waiting screen body text and notices: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_text_font_family": {
+          "type": "string",
+          "description": "Reply by text waiting screen body text and notices: font family. Empty inherits the pop-up's font."
+        },
+        "sms_text_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_text_font_family` when it is a custom font."
+        },
+        "sms_text_font_weight": {
+          "type": "string",
+          "description": "Reply by text waiting screen body text and notices: font weight (`400`–`800`)."
+        },
+        "sms_text_font_size": {
+          "type": "number",
+          "description": "Reply by text waiting screen body text and notices: font size in px."
+        },
+        "sms_footnote_color": {
+          "type": "string",
+          "description": "Reply by text waiting screen small print: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_footnote_font_family": {
+          "type": "string",
+          "description": "Reply by text waiting screen small print: font family. Empty inherits the pop-up's font."
+        },
+        "sms_footnote_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_footnote_font_family` when it is a custom font."
+        },
+        "sms_footnote_font_weight": {
+          "type": "string",
+          "description": "Reply by text waiting screen small print: font weight (`400`–`800`)."
+        },
+        "sms_footnote_font_size": {
+          "type": "number",
+          "description": "Reply by text waiting screen small print: font size in px."
+        },
+        "sms_link_color": {
+          "type": "string",
+          "description": "Reply by text \"Edit number\" button: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_link_font_family": {
+          "type": "string",
+          "description": "Reply by text \"Edit number\" button: font family. Empty inherits the pop-up's font."
+        },
+        "sms_link_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_link_font_family` when it is a custom font."
+        },
+        "sms_link_font_weight": {
+          "type": "string",
+          "description": "Reply by text \"Edit number\" button: font weight (`400`–`800`)."
+        },
+        "sms_link_font_size": {
+          "type": "number",
+          "description": "Reply by text \"Edit number\" button: font size in px."
+        },
+        "sms_after_wait_color": {
+          "type": "string",
+          "description": "Reply by text text shown after the reveal window: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_after_wait_font_family": {
+          "type": "string",
+          "description": "Reply by text text shown after the reveal window: font family. Empty inherits the pop-up's font."
+        },
+        "sms_after_wait_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_after_wait_font_family` when it is a custom font."
+        },
+        "sms_after_wait_font_weight": {
+          "type": "string",
+          "description": "Reply by text text shown after the reveal window: font weight (`400`–`800`)."
+        },
+        "sms_after_wait_font_size": {
+          "type": "number",
+          "description": "Reply by text text shown after the reveal window: font size in px."
+        },
+        "sms_confirmed_color": {
+          "type": "string",
+          "description": "Reply by text confirmed messages (no code left / subscribed): color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_confirmed_font_family": {
+          "type": "string",
+          "description": "Reply by text confirmed messages (no code left / subscribed): font family. Empty inherits the pop-up's font."
+        },
+        "sms_confirmed_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_confirmed_font_family` when it is a custom font."
+        },
+        "sms_confirmed_font_weight": {
+          "type": "string",
+          "description": "Reply by text confirmed messages (no code left / subscribed): font weight (`400`–`800`)."
+        },
+        "sms_confirmed_font_size": {
+          "type": "number",
+          "description": "Reply by text confirmed messages (no code left / subscribed): font size in px."
+        },
+        "sms_code_title_color": {
+          "type": "string",
+          "description": "Enter a code screen title: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_code_title_font_family": {
+          "type": "string",
+          "description": "Enter a code screen title: font family. Empty inherits the pop-up's font."
+        },
+        "sms_code_title_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_code_title_font_family` when it is a custom font."
+        },
+        "sms_code_title_font_weight": {
+          "type": "string",
+          "description": "Enter a code screen title: font weight (`400`–`800`)."
+        },
+        "sms_code_title_font_size": {
+          "type": "number",
+          "description": "Enter a code screen title: font size in px."
+        },
+        "sms_code_help_color": {
+          "type": "string",
+          "description": "Enter a code screen help text: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_code_help_font_family": {
+          "type": "string",
+          "description": "Enter a code screen help text: font family. Empty inherits the pop-up's font."
+        },
+        "sms_code_help_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_code_help_font_family` when it is a custom font."
+        },
+        "sms_code_help_font_weight": {
+          "type": "string",
+          "description": "Enter a code screen help text: font weight (`400`–`800`)."
+        },
+        "sms_code_help_font_size": {
+          "type": "number",
+          "description": "Enter a code screen help text: font size in px."
+        },
+        "sms_code_link_color": {
+          "type": "string",
+          "description": "Enter a code screen resend and \"Edit number\" buttons: color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_code_link_font_family": {
+          "type": "string",
+          "description": "Enter a code screen resend and \"Edit number\" buttons: font family. Empty inherits the pop-up's font."
+        },
+        "sms_code_link_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_code_link_font_family` when it is a custom font."
+        },
+        "sms_code_link_font_weight": {
+          "type": "string",
+          "description": "Enter a code screen resend and \"Edit number\" buttons: font weight (`400`–`800`)."
+        },
+        "sms_code_link_font_size": {
+          "type": "number",
+          "description": "Enter a code screen resend and \"Edit number\" buttons: font size in px."
+        },
+        "sms_code_error_color": {
+          "type": "string",
+          "description": "Enter a code screen error messages (default color #dc2626): color (hex or `brand:<name>`). Empty inherits the pop-up's text color."
+        },
+        "sms_code_error_font_family": {
+          "type": "string",
+          "description": "Enter a code screen error messages (default color #dc2626): font family. Empty inherits the pop-up's font."
+        },
+        "sms_code_error_font_url": {
+          "type": "string",
+          "description": "Font file URL for `sms_code_error_font_family` when it is a custom font."
+        },
+        "sms_code_error_font_weight": {
+          "type": "string",
+          "description": "Enter a code screen error messages (default color #dc2626): font weight (`400`–`800`)."
+        },
+        "sms_code_error_font_size": {
+          "type": "number",
+          "description": "Enter a code screen error messages (default color #dc2626): font size in px."
+        },
+        "sms_code_box_color": {
+          "type": "string",
+          "description": "Enter a code screen: digit box border and digit color. Empty inherits the text color."
+        },
+        "sms_code_box_width": {
+          "type": "number",
+          "description": "Enter a code screen: width of each digit box in px. Default 40; boxes shrink to fit narrow pop-ups."
+        },
+        "sms_code_box_height": {
+          "type": "number",
+          "description": "Enter a code screen: height of each digit box in px. Default 48."
+        },
         "i18n": {
           "type": "object",
           "additionalProperties": {
@@ -1238,7 +1450,9 @@
         },
         "sms_reveal_window_seconds": {
           "type": "number",
-          "description": "Seconds the page waits for the SMS confirmation before showing the \"after the wait\" copy; 30–300, default 120."
+          "description": "Seconds the page waits for the SMS confirmation before showing the \"after the wait\" copy; 30–300, default 120.",
+          "minimum": 30,
+          "maximum": 300
         },
         "unsubscribe_list_ids": {
           "type": "array",
