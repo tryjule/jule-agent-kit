@@ -297,7 +297,17 @@ With `double_opt_in` the pop-up shows a waiting screen ("Check your texts") in p
 own ending until the reply arrives, then carries on with that ending (the coupon page shows the
 code). Its texts are `style_config.sms_waiting_*` and the others listed in the project-style guide.
 Once confirmed, the teaser's code state (`sign_up_config.teaser_after_signup_*`) keeps the code in
-a corner of every page for up to a day, also for visitors who closed the pop-up or the tab.
+a corner of every page for up to a day, also for visitors who closed the pop-up or the tab. It does
+not need `teaser_enabled`. Without a coupon it is off unless turned on, and then says the visitor is
+subscribed. `teaser_after_signup_enabled` (unset = on with a coupon, off without),
+`teaser_after_signup_text` (translatable; `{{coupon_code}}`, `{{discount}}`, `{{expires_in}}` with a
+coupon, empty without one; default "You're subscribed ✓" without one; unknown tags are dropped), `teaser_after_signup_tap` `copy` (a second tap
+opens the coupon page) or `open` (the coupon page); without a coupon a tap does nothing; `teaser_after_signup_ttl` `dismiss` or
+`24h` (never past 24 hours). Its look is its own, never the pop-up teaser's:
+`teaser_after_signup_position` (corners and top/bottom centre, default bottom-right),
+`teaser_after_signup_bg_color`, `teaser_after_signup_text_color`, `teaser_after_signup_font_size`,
+`teaser_after_signup_font_weight`, `teaser_after_signup_font_family` with
+`teaser_after_signup_font_url`. Plain coupon pop-ups (no SMS mode) use the same fields (unset `teaser_after_signup_enabled` = off there).
 
 `sms_reveal_window_seconds` (30–300, default 120) is how long the page waits for the reply before
 telling the visitor the code will follow by text or email. Publishing is refused while a

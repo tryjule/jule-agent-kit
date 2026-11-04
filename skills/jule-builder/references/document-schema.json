@@ -1840,11 +1840,11 @@
         },
         "teaser_after_signup_enabled": {
           "type": "boolean",
-          "description": "Teaser's third state: after sign-up it shows the visitor's code (plain coupon pop-ups once the code exists, SMS confirmation modes once confirmed). Unset means on when an SMS confirmation mode is on."
+          "description": "Code-state pill, independent of `teaser_enabled`. Unset = on for SMS with a coupon."
         },
         "teaser_after_signup_text": {
           "type": "string",
-          "description": "Text of the teaser's code state (translatable via i18n). Smart tags {{coupon_code}}, {{discount}}, {{expires_in}}. Default \"SMS verified · use code {{coupon_code}} for {{discount}} · tap to copy\"."
+          "description": "Code-state text (translatable): {{coupon_code}}, {{discount}}, {{expires_in}}."
         },
         "teaser_after_signup_tap": {
           "type": "string",
@@ -1852,7 +1852,7 @@
             "copy",
             "open"
           ],
-          "description": "Tap on the code state: copy the code (a second tap opens the coupon page), or open the coupon page. Default copy."
+          "description": "Tap: copy the code (second tap opens the coupon page) or open it. Default copy."
         },
         "teaser_after_signup_ttl": {
           "type": "string",
@@ -1860,7 +1860,43 @@
             "dismiss",
             "24h"
           ],
-          "description": "How long the code state follows the visitor: until dismissed, or for 24 hours whatever they do. Both end after 24 hours. Default dismiss."
+          "description": "Until dismissed, or 24 h whatever they do; never past 24 h. Default dismiss."
+        },
+        "teaser_after_signup_position": {
+          "type": "string",
+          "enum": [
+            "top-left",
+            "top-center",
+            "top-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right"
+          ],
+          "description": "Code-state pill position; default bottom-right."
+        },
+        "teaser_after_signup_bg_color": {
+          "type": "string",
+          "description": "Code-state pill background; default brand colour."
+        },
+        "teaser_after_signup_text_color": {
+          "type": "string",
+          "description": "Code-state pill text colour; default #ffffff."
+        },
+        "teaser_after_signup_font_size": {
+          "type": "number",
+          "description": "Code-state pill font size (px); default 14."
+        },
+        "teaser_after_signup_font_weight": {
+          "type": "string",
+          "description": "Code-state pill font weight; default 500."
+        },
+        "teaser_after_signup_font_family": {
+          "type": "string",
+          "description": "Code-state font family."
+        },
+        "teaser_after_signup_font_url": {
+          "type": "string",
+          "description": "Code-state font file URL."
         },
         "success_behavior": {
           "type": "string",
@@ -1887,7 +1923,7 @@
               "type": "string"
             }
           },
-          "description": "Per-locale overrides of `bubble_text` and `success_message`: locale → field → value."
+          "description": "Per-locale overrides of `bubble_text`, `teaser_after_signup_text` and `success_message`: locale → field → value."
         }
       },
       "required": [

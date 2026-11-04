@@ -70,13 +70,8 @@ families:
   `bubble_size` (60px default); a rectangle at `center-left` / `center-right` is rotated so the
   text reads vertically (`teaser_mirror_text` flips it).
 - `teaser_anchored` (default true): the popup opens beside the teaser instead of at `position`.
-- Code state ("After sign-up, with their code"): `teaser_after_signup_enabled` shows the visitor's
-  coupon code on the teaser after sign-up (plain coupon pop-ups once the code exists, SMS
-  confirmation modes once confirmed); unset means on when an SMS confirmation mode is on.
-  `teaser_after_signup_text` (translatable) takes the smart tags `{{coupon_code}}`, `{{discount}}`,
-  `{{expires_in}}`; `teaser_after_signup_tap` `copy` (default; a second tap opens the coupon page)
-  or `open`; `teaser_after_signup_ttl` `dismiss` (default) or `24h` — it never lasts past 24 hours.
-  It uses the teaser's position and colours; a circle teaser shows the code as a pill.
+- Code state after sign-up (`teaser_after_signup_*`): independent of `teaser_enabled` and of every
+  pop-up teaser field; all its fields are in the settings guide (SMS confirmation).
 - `teaser_show_close_button`, `teaser_mirror_text` (teaser text mirrors the first heading).
 - Appearance: `bubble_text` (translatable via `sign_up_config.i18n`), `bubble_text_color`,
   `bubble_text_font_size`, `bubble_text_font_weight` (300–700; editor Light…Bold),
